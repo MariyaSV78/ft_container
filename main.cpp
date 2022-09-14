@@ -10,4 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+#include <string>
+#include "stack.hpp"
+
+ft::stack<int> ft_stack;
+std::stack<int> std_stack;
+
+
+
+
 
