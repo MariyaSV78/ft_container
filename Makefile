@@ -11,18 +11,17 @@ SRCS = main.cpp
 all: $(NAME)
 
 %.o: %.cpp
-        $(CXX) $(FLAGS) -c $< -o $@
+	$(CXX) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-        $(CXX) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(FLAGS) $(OBJS) -o $(NAME)
 
 clean:
-        rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-        rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
-~                               
+.PHONY: all clean fclean re                        
