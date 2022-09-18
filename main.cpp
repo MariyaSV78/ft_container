@@ -16,10 +16,15 @@
 #include <stack>
 #include <ctime>
 
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+
+
 int main()
 {
 	clock_t	ft_start, ft_end, std_start, std_end;
-	double	std_time, ft_time; 
+	clock_t	std_time, ft_time; 
 	int i;
 
 	ft::stack<int> ft_stack;
@@ -39,27 +44,27 @@ int main()
 
 
 	std::cout << "Push " << i << " elements...";
-	if (std_time/ft_time < 20)
-		std::cout << "OK" << std::endl;
+	if (ft_time < std_time*20)
+		std::cout <<  GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout << "KO" << std::endl;
+		std::cout <<  GREEN << "KO" << RESET<< std::endl;
 	
-	std::cout << "std_start" << std_start << "   " << std_end << "  " << std_time << std::endl;
-	std::cout << "ft_start" << ft_start << "   " << ft_end << "  " << ft_time << std::endl;
+	std::cout << "std_start " << std_start << "   " << std_end << "  " << std_time << std::endl;
+	std::cout << "ft_start " << ft_start << "   " << ft_end << "  " << ft_time << std::endl;
 
 	std::cout << "The size of ft_stack = " << ft_stack.size();
 	std::cout << " and std_stack = " << std_stack.size() << "  ";
 	if (ft_stack.size() == std_stack.size())
-		std::cout << "OK" << std::endl;
+		std::cout << GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout << "KO" << std::endl;
+		std::cout <<  RED << "KO" << RESET<< std::endl;
 
 	std::cout << "The top element of ft_stack = " << ft_stack.top();
 	std::cout << " and ft_stack = " << std_stack.top() << "  ";
 	if (ft_stack.top() == std_stack.top())
-		std::cout << "OK" << std::endl;
+		std::cout <<  GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout << "KO" << std::endl;
+		std::cout <<  RED << "KO" << RESET<< std::endl;
 
 
 	ft_start = clock();
@@ -77,17 +82,17 @@ int main()
 
 	std::cout << "Pop " << i << " elements...";
 	if (std_time/ft_time < 20)
-		std::cout << "OK" << std::endl;
+		std::cout <<  GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout << "KO" << std::endl;
+		std::cout <<  RED << "KO" << RESET<< std::endl;
 
 	std::cout << "The size of ft_stack = " << ft_stack.size();
 	std::cout << " and std_stack = " << std_stack.size() << "  ";
-	if (ft_stack.size() == std_stack.size())
-		std::cout << "OK" << std::endl;
+	if (ft_time < std_time * 20)
+		std::cout <<  GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout << "KO" << std::endl;
+		std::cout <<  RED << "KO" << RESET<< std::endl;
+	
+
 }
-
-
 
