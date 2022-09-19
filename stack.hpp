@@ -33,10 +33,11 @@ namespace ft
 
             typedef typename Container::value_type value_type; // The behavior is undefined if T is not the same type as Container::value_type
 
-            typedef typename Container::size_type size_type;
-            //typedef Container container_type;
+            typedef typename Container::size_type size_type; //typedef Container container_type;
 
-            explicit stack(const Container& c = Container()): _c(c) {} //constructor
+            
+        //constructor
+            explicit stack(const Container& c = Container()): _c(c) {} 
 
 
             bool empty() const { return _c.empty(); }
