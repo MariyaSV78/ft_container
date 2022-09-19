@@ -123,3 +123,5 @@ namespace ft
 
 
 #endif
+
+https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
