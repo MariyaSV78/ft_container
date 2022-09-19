@@ -17,6 +17,8 @@
 #include <stack>
 #include <ctime>
 
+typedef struct timespec Time;
+
 #define RESET "\033[0m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -24,8 +26,8 @@
 
 int main()
 {
-	clock_t	ft_start, ft_end, std_start, std_end;
-	clock_t	std_time, ft_time; 
+	Time	start, end;
+	double	std_time, ft_time; 
 	int i;
 
 
@@ -41,17 +43,19 @@ int main()
 
 // push elements
 
-	ft_start = clock();//time(&ft_start);
-	for (i = 0; i < 50; i++)
-		ft_stack.push(i);
-	ft_end = clock();//time(&ft_end);
-	ft_time = (ft_end - ft_start);
 
-	std_start = clock();//time(&std_start);
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for (i = 0; i < 50; i++)
 		std_stack.push(i);
-	std_end = clock();//std_end = time(NULL);
-	std_time = (std_end - std_start);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	std_time = (end.tv_nsec - start.tv_nsec)* 1e-3; //us
+
+
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	for (i = 0; i < 50; i++)
+		ft_stack.push(i);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	ft_time = (end.tv_nsec - start.tv_nsec) * 1e-3; //us
 
 
 	std::cout.fill('.');
@@ -61,8 +65,8 @@ int main()
 	else 
 		std::cout <<  GREEN << "KO" << RESET<< std::endl;
 	
-	std::cout << "std_start " << std_start << "   " << std_end << "  " << std_time << std::endl;
-	std::cout << "ft_start " << ft_start << "   " << ft_end << "  " << ft_time << std::endl;
+	std::cout << "std_time " << std_time << std::endl;
+	std::cout << "ft_time " << ft_time << std::endl;
 
 //size stacks
 
@@ -84,17 +88,17 @@ int main()
 
 // pop...
 
-	ft_start = clock();
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for (i = 0; i < 30; i++)
 		ft_stack.pop();
-	ft_end = clock();
-	ft_time = (ft_end - ft_start);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	ft_time = (end.tv_nsec - start.tv_nsec) * 1e-3; //us
 
-	std_start = clock();
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for (i = 0; i < 30; i++)
 		std_stack.pop();
-	std_end = clock();
-	std_time = (std_end - std_start);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	std_time = (end.tv_nsec - start.tv_nsec) * 1e-3; //us
 
 
 	std::cout << "Pop " << i << std::setw(62) << std::left << " elements...";
@@ -103,8 +107,8 @@ int main()
 	else 
 		std::cout <<  RED  << "KO" << RESET<< std::endl;
 
-	std::cout << "std_start " << std_start << "   " << std_end << "  " << std_time << std::endl;
-	std::cout << "ft_start " << ft_start << "   " << ft_end << "  " << ft_time << std::endl;
+	std::cout << "std_time " << std_time << std::endl;
+	std::cout << "ft_time " << ft_time << std::endl;
 
 	std::cout << "The size of ft_stack = " << ft_stack.size();
 	std::cout << " and std_stack = " << std::setw(26) << std::left << std_stack.size();
