@@ -58,15 +58,24 @@ namespace ft
 				_size = n;
 				_array = _allocator.allocate(_capacity);
 								
-				while (n--)
-				{
-					_array[n] = value;
-				}
+				for (size_t i = 0; i < n; i++)
+					_array[i] = value;
 			}
 
-	**		template <class InputIterator>
-	**		vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator()); //range: Constructs a container with as many elements as the range [first,last), 
-																							// with each element constructed from its corresponding element in that range, in the same order.
+			template <class InputIterator>
+				vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
+			{																							// with each element constructed from its corresponding element in that range, in the same order.
+				_allocator = allocator;
+				_capacity = last - first;
+				_size = _capacity;
+				_array = _allocator.allocare(_capacity);
+				for (size_typr i = 0; i < _capacity; i++)
+				{
+					_array[i] = *first;
+					first++;
+				}
+			} 	 
+																										
 
 			vector(const vector<T,Allocator>& x)
 			{
@@ -81,8 +90,6 @@ namespace ft
 
 			vector<T,Allocator>& operator=(const vector<T,Allocator>& x)
 			{
-				syze_type	i = 0;
-				
 				if (&x == this)
 					return(*this);
 				_allocator = x._allocator;
@@ -91,7 +98,8 @@ namespace ft
 				_capacity = x._capacity;
 				_size = x._size;
 				_array = _allocator.allocate(_capacity);
-				while(i++ < _capacity)
+				
+				for (syze_type i = 0; i < _capacity; i++)
 					_array[i] = x._array[i];
 				return (*this);
 			}
@@ -103,14 +111,45 @@ namespace ft
 			allocator_type get_allocator() const;
 			
 		// iterators:
-			iterator begin();
-			const_iterator begin() const;
-			iterator end();
-			const_iterator end() const;
-			reverse_iterator rbegin();
-			const_reverse_iterator rbegin() const;
-			reverse_iterator rend();
-			const_reverse_iterator rend() const;
+			iterator begin()
+			{
+				return (iterator(_array));
+			}
+
+			const_iterator begin() const
+			{
+				return(const_iterator(_array));
+			}
+
+			iterator end()
+			{
+				return(iterator(_array + _size));
+			}
+
+			const_iterator end() const
+			{
+				return(const_iterator(_array + _size));
+			}
+
+			reverse_iterator rbegin()
+			{
+				return(reverse_iterator(end()));
+			}
+			const_reverse_iterator rbegin() const
+			{
+				return(const_reverse_iterator(end()));
+			}
+
+			reverse_iterator rend()
+			{
+				return(reverse_iterator(begin()));
+			}
+
+			const_reverse_iterator rend() const
+			{
+				return(const_reverse_iterator(end()));
+			}
+
 		
 		// 23.2.4.2 capacity:
 			size_type size() const;
