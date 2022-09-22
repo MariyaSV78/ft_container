@@ -23,9 +23,9 @@ namespace ft
 	template <class T, class Allocator = std::allocator<T> >
 	class vector {
 		private: // attributes
+			pointer			_array;
 			size_type		_capacity; 
-			pointer			_begin;
-			pointer			_end;
+			size_type		_size;		
 			allocator_type	_allocator;
 
 		public: // types:
@@ -45,37 +45,63 @@ namespace ft
 			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
 		//constructor
-			explicit vector(const Allocator& allocator = Allocator())	//default: Constructs an empty container, with no elements.
-			{
-				_capacity = u_nullptr;
-				_begin = u_nullptr;
-				_end = u_nullptr;
-				_allocator = allocator;
-
-			}															 
+			explicit vector(const Allocator& allocator = Allocator()):	//default: Constructs an empty container, with no elements.
+				_capacity(0),
+				_size(0),
+				_array(nullptr),
+				_allocator(allocator) {}															 
 			
 			explicit vector(size_type n, const T& value = T(), const Allocator& allocator = Allocator())
-			{
-				_allocator = allocator;									//fill: Constructs a container with n elements. Each element is a copy of value.
-				_start = _allocatot.allocate(n);
-				_end = _start;
+			{															//fill: Constructs a container with n elements. Each element is a copy of value.
+				_allocator = allocator;									
+				_capacity = n;
+				_size = n;
+				_array = _allocator.allocate(_capacity);
+								
 				while (n--)
 				{
-					_allocate.construct(_end, value);
-					_end++;
+					_array[n] = value;
 				}
 			}
 
-			template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const Allocator& = Allocator()); //range: Constructs a container with as many elements as the range [first,last), 
+	**		template <class InputIterator>
+	**		vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator()); //range: Constructs a container with as many elements as the range [first,last), 
 																							// with each element constructed from its corresponding element in that range, in the same order.
 
-			vector(const vector<T,Allocator>& x); //copy: Constructs a container with a copy of each of the elements in x, in the same order.
+			vector(const vector<T,Allocator>& x)
+			{
+				*this = x;
+			}
 
-			~vector();
+			~vector()
+			{
+				_allocator.deallocate(_array, _capacity);
+			}
 
-			vector<T,Allocator>& operator=(const vecthttps://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
+
+			vector<T,Allocator>& operator=(const vector<T,Allocator>& x)
+			{
+				syze_type	i = 0;
+				
+				if (&x == this)
+					return(*this);
+				_allocator = x._allocator;
+				if (_capacity)
+					_allocator.deallocate(_array, _capacity);
+				_capacity = x._capacity;
+				_size = x._size;
+				_array = _allocator.allocate(_capacity);
+				while(i++ < _capacity)
+					_array[i] = x._array[i];
+				return (*this);
+			}
+			
+			
+			template <class InputIterator>
+				void assign(InputIterator first, InputIterator last);
+			void assign(size_type n, const T& u);
 			allocator_type get_allocator() const;
+			
 		// iterators:
 			iterator begin();
 			const_iterator begin() const;
@@ -147,4 +173,4 @@ https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
 
 https://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
 
-https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
+https://github.com/Aktai0n/ft_containers-42Heilbronn/blob/master/tester/stack_tests.cpp
