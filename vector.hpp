@@ -17,16 +17,13 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <iterator>
+#include "./util.hpp"
 
 namespace ft 
 {
 	template <class T, class Allocator = std::allocator<T> >
 	class vector {
-		private: // attributes
-			pointer			_array;
-			size_type		_capacity; 
-			size_type		_size;		
-			allocator_type	_allocator;
 
 		public: // types:
 			typedef T 													value_type;  	// The template parameter (T)
@@ -39,45 +36,59 @@ namespace ft
 			typedef std::size_t											size_type; // See 23.1
 			typedef std::ptrdiff_t										difference_type;// See 23.1
 
-			typedef std::random_access_iterator<value_type> 			iterator; // See 23.1
-			typedef std::random_access_iterator<const value_type>	 	const_iterator; // See 23.1
-			typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
-			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
+			// typedef std::random_access_iterator<value_type> 			iterator; // See 23.1
+			// typedef std::random_access_iterator<const value_type>	 	const_iterator; // See 23.1
+			
+			// typename std::vector<T, Allocator>::iterator 				iterator;
+			// typename std::vector<T, Allocator>::const_iterator 			const_iterator;
+
+
+
+			// typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
+			// typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
+
+		private: // attributes
+			pointer			_array;
+			size_type		_capacity; 
+			size_type		_size;		
+			allocator_type	_allocator;
+
 		//constructor
+		public:
 			explicit vector(const Allocator& allocator = Allocator()):	//default: Constructs an empty container, with no elements.
+				_array(nullpt),
 				_capacity(0),
 				_size(0),
-				_array(nullptr),
 				_allocator(allocator) {}															 
 			
 			explicit vector(size_type n, const T& value = T(), const Allocator& allocator = Allocator())
 			{															//fill: Constructs a container with n elements. Each element is a copy of value.
 				_allocator = allocator;									
 				_capacity = n;
-				_size = n;
 				_array = _allocator.allocate(_capacity);
+				_size = n;
 								
 				for (size_t i = 0; i < n; i++)
 					_array[i] = value;
 			}
 
-			template <class InputIterator>
-				vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
-			{																							// with each element constructed from its corresponding element in that range, in the same order.
-				_allocator = allocator;
-				_capacity = last - first;
-				_size = _capacity;
-				_array = _allocator.allocare(_capacity);
-				for (size_typr i = 0; i < _capacity; i++)
-				{
-					_array[i] = *first;
-					first++;
-				}
-			} 	 
+			// template <class InputIterator>
+			// 	vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
+			// {																							// with each element constructed from its corresponding element in that range, in the same order.
+			// 	_allocator = allocator;
+			// 	_capacity = last - first;
+			// 	_size = _capacity;
+			// 	_array = _allocator.allocare(_capacity);
+			// 	for (size_type i = 0; i < _capacity; i++)
+			// 	{
+			// 		_array[i] = *first;
+			// 		first++;
+			// 	}
+			// } 	 
 																										
 
-			vector(const vector<T,Allocator>& x)
+			vector(const vector<T,Allocator>& x): _array(nullpt), _capacity(0), _size(0)
 			{
 				*this = x;
 			}
@@ -99,7 +110,7 @@ namespace ft
 				_size = x._size;
 				_array = _allocator.allocate(_capacity);
 				
-				for (syze_type i = 0; i < _capacity; i++)
+				for (size_type i = 0; i < _capacity; i++)
 					_array[i] = x._array[i];
 				return (*this);
 			}
@@ -111,56 +122,63 @@ namespace ft
 			allocator_type get_allocator() const;
 			
 		// iterators:
-			iterator begin()
+			// iterator begin()
+			// {
+			// 	return (iterator(_array));
+			// }
+
+			// const_iterator begin() const
+			// {
+			// 	return(const_iterator(_array));
+			// }
+
+			// iterator end()
+			// {
+			// 	return(iterator(_array + _size));
+			// }
+
+			// const_iterator end() const
+			// {
+			// 	return(const_iterator(_array + _size));
+			// }
+
+			// reverse_iterator rbegin()
+			// {
+			// 	return(reverse_iterator(end()));
+			// }
+			// const_reverse_iterator rbegin() const
+			// {
+			// 	return(const_reverse_iterator(end()));
+			// }
+
+			// reverse_iterator rend()
+			// {
+			// 	return(reverse_iterator(begin()));
+			// }
+
+			// const_reverse_iterator rend() const
+			// {
+			// 	return(const_reverse_iterator(end()));
+			//}
+
+			size_type			size() const 
 			{
-				return (iterator(_array));
+				return (_size);
+			}
+			
+			size_type 			max_size() const 
+			{
+				size_type ret = _allocator.max_size();
+				return (ret);
 			}
 
-			const_iterator begin() const
-			{
-				return(const_iterator(_array));
-			}
-
-			iterator end()
-			{
-				return(iterator(_array + _size));
-			}
-
-			const_iterator end() const
-			{
-				return(const_iterator(_array + _size));
-			}
-
-			reverse_iterator rbegin()
-			{
-				return(reverse_iterator(end()));
-			}
-			const_reverse_iterator rbegin() const
-			{
-				return(const_reverse_iterator(end()));
-			}
-
-			reverse_iterator rend()
-			{
-				return(reverse_iterator(begin()));
-			}
-
-			const_reverse_iterator rend() const
-			{
-				return(const_reverse_iterator(end()));
-			}
-
-		
-		// 23.2.4.2 capacity:
-			size_type size() const;
-			size_type max_size() const;
-			void resize(size_type sz, T c = T());
 			size_type capacity() const;
 			bool empty() const;
 			void reserve(size_type n);
 			
 		// element access:
-			reference operator[](size_type n);
+			reference operator[](size_type n)
+			
 			const_reference operator[](size_type n) const;
 			const_reference at(size_type n) const;
 			reference at(size_type n);
@@ -172,12 +190,12 @@ namespace ft
 		// 23.2.4.3 modifiers:
 			void push_back(const T& x);
 			void pop_back();
-			iterator insert(iterator position, const T& x);
-			void insert(iterator position, size_type n, const T& x);
-			template <class InputIterator>
-				void insert(iterator position, InputIterator first, InputIterator last);
-			iterator erase(iterator position);
-			iterator erase(iterator first, iterator last);
+			// iterator insert(iterator position, const T& x);
+			// void insert(iterator position, size_type n, const T& x);
+			// template <class InputIterator>
+			// 	void insert(iterator position, InputIterator first, InputIterator last);
+			// iterator erase(iterator position);
+			// iterator erase(iterator first, iterator last);
 			void swap(vector<T,Allocator>&);
 			void clear();
 	};
@@ -208,8 +226,8 @@ namespace ft
 
 #endif
 
-https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
+// https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
 
-https://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
+// https://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
 
-https://github.com/Aktai0n/ft_containers-42Heilbronn/blob/master/tester/stack_tests.cpp
+// https://github.com/Aktai0n/ft_containers-42Heilbronn/blob/master/tester/stack_tests.cpp

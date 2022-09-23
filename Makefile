@@ -6,7 +6,7 @@ CXX = c++
 
 OBJS = $(SRCS:.cpp=.o)
 
-SRCS = main_2.cpp
+SRCS = main.cpp
 
 all: $(NAME)
 
