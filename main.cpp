@@ -30,10 +30,15 @@ typedef std::size_t		size_type;
 
 void	ft_print_vector(std::vector<int> std_vector, ft::vector<int> ft_vector)
 {
+	
+	
+	std::cout << "ft_vector: "; 
 	for(size_type i = 0; i < ft_vector.size(); i++)
 	{
 		std::cout <<  ft_vector[i] << ", ";
 	}
+	std::cout << std::endl;
+	std::cout << "std_vector: "; 
 	for(size_type i = 0; i < std_vector.size(); i++)
 	{
 		std::cout <<  std_vector[i] << ", ";
@@ -141,95 +146,87 @@ int main()
 	std::cout << "==========================================================================" << std::endl;
 	
 	{
-	 /* Default constructor */
+	 std::cout << "Default constructor "<< std::endl;
+
 		ft::vector<int> ft_def_vector;
 		std::vector<int> std_def_vector;
 		ft_print_vector(std_def_vector, ft_def_vector);
+		std::cout << std::endl;	
 	}
 
 	{
-	/* Default constructor pointer */
+	 std::cout << "Default constructor pointer "<< std::endl;
 		ft::vector<int> *ft_def_ptr_vector = new ft::vector<int>;
 		std::vector<int> *std_def_ptr_vector = new std::vector<int>;
 		ft_print_vector(*std_def_ptr_vector, *ft_def_ptr_vector);
-
-
-		// for(size_type i = 0; i < ft_def_ptr_vector.size(); i++)
-		// {
-		// 	std::cout <<  ft_def_ptr_vector[i] << ", ";
-		// }
-		// for(size_type i = 0; i < std_def_ptr_vector.size(); i++)
-		// {
-		// 	std::cout <<  std_def_ptr_vector[i] << ", ";
-		// }
-
 		std::cout << std::endl;			
 	}
 
-	/* Fill constructor */
     {
-        std::vector<int> std_fill_vector(0);
+ 	 std::cout << "Fill constructor "<< std::endl;
+	    std::vector<int> std_fill_vector(0);
         ft::vector<int> ft_fill_vector(0);
 	
 		ft_print_vector(std_fill_vector, ft_fill_vector);
-
-	
-		// for(size_type i = 0; i < std_fill_vector.size(); i++)
-		// {
-		// 	std::cout <<  std_fill_vector[i] << ", ";
-		// }
-		// for(size_type i = 0; i < ft_fill_vector.size(); i++)
-		// {
-		// 	std::cout <<  ft_fill_vector[i] << ", ";
-		// }
-
-		// std::cout << std::endl;	
+		std::cout << std::endl;	
 
 	}
 
-  	/* Fill constructor sized */
     {
+ 	 std::cout << "Fill constructor sized"<< std::endl;
         std::vector<int> stl_fill_vector_sized(19);
         ft::vector<int> ft_fill_vector_sized(19);
 
 		ft_print_vector(stl_fill_vector_sized, ft_fill_vector_sized);
+		std::cout << std::endl;	
 
 	}
 
-	 /* Fill constructor sized & valued */
     {
+ 	 std::cout << "Fill constructor sized & valued"<< std::endl;
         std::vector<int> std_fill_vector_size_value(19, 42);
         ft::vector<int> ft_fill_vector_size_value(19, 42);
 
 		ft_print_vector(std_fill_vector_size_value, ft_fill_vector_size_value);
+		std::cout << std::endl;	
 
 	}
 
-	 /* Copy constructor */
     {
-        std::vector<int> std_fill_vector_size_value(19, 42);
+  	 std::cout << "Copy constructor "<< std::endl;
+       std::vector<int> std_fill_vector_size_value(19, 42);
         ft::vector<int> ft_fill_vector_size_value(19, 42);
 
 		std::vector<int> std_copy_vector(std_fill_vector_size_value);
 		ft::vector<int> ft_copy_vector(ft_fill_vector_size_value);
 
 		ft_print_vector(std_copy_vector, ft_copy_vector);
-
-
+		std::cout << std::endl;	
 
 	}
 
-	/* Assign operator */
     {
-        std::vector<int> std_fill_vector_size_value(19, 42);
+   	 std::cout << "Assign operator"<< std::endl;
+       std::vector<int> std_fill_vector_size_value(19, 42);
         ft::vector<int> ft_fill_vector_size_value(19, 42);
 
 		std::vector<int> std_assign_vector = std_fill_vector_size_value;
 		ft::vector<int> ft_assign_vector = ft_fill_vector_size_value;
 		
 		ft_print_vector(std_assign_vector, ft_assign_vector);
+		std::cout << std::endl;	
 	}
 
+	{
+	 std::cout << "Iterator constructor "<< std::endl;
+
+		std::vector<int> std_def_vector(3, 5);
+
+		
+		ft::vector<int> ft_def_vector(std_def_vector.begin(), std_def_vector.end(), 0);
+		ft_print_vector(std_def_vector, ft_def_vector);
+		std::cout << std::endl;	
+	}
 
 
 

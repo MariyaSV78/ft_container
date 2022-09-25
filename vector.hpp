@@ -73,19 +73,22 @@ namespace ft
 					_array[i] = value;
 			}
 
-			// template <class InputIterator>
-			// 	vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
-			// {																							// with each element constructed from its corresponding element in that range, in the same order.
-			// 	_allocator = allocator;
-			// 	_capacity = last - first;
-			// 	_size = _capacity;
-			// 	_array = _allocator.allocare(_capacity);
-			// 	for (size_type i = 0; i < _capacity; i++)
-			// 	{
-			// 		_array[i] = *first;
-			// 		first++;
-			// 	}
-			// } 	 
+
+
+			template <class InputIterator>
+				vector(InputIterator first, InputIterator last, int i, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
+			{	if(i==0)	{																				// with each element constructed from its corresponding element in that range, in the same order.
+				_allocator = allocator;
+				_capacity = last - first;
+				// _size = _capacity;
+				_array = _allocator.allocate(_capacity);
+				for (_size=0; first != last; first++, _size++)
+				{
+					//std::cout << "(" <<(*first) << ") ";
+					_array[_size] = *first;
+				}
+			}
+			} 	 
 																										
 
 			vector(const vector<T,Allocator>& x): _array(nullpt), _capacity(0), _size(0)
@@ -161,23 +164,74 @@ namespace ft
 			// 	return(const_reverse_iterator(end()));
 			//}
 
-			size_type			size() const 
+			// capacity:
+
+
+
+size_type capacity() const;
+bool empty() const;
+void reserve(size_type n);
+			
+			size_type			size() const  // The number of elements in the container.
 			{
 				return (_size);
 			}
 			
-			size_type 			max_size() const 
+			size_type 			max_size() const  // The maximum potential number of elements the container can hold.
 			{
-				size_type ret = _allocator.max_size();
-				return (ret);
+				size_type m_s = _allocator.max_size();
+				return (m_s);
 			}
 
-			size_type capacity() const;
-			bool empty() const;
-			void reserve(size_type n);
+			void resize(size_type new_sz, value_type c = value_type())
+			{
+				pointer			tmp;
+//				size_type		i = 0
+				size_type		new_capac;
+				
+				if (new_sz <= _size)
+					_size = n;
+				else if (n <= _capacity)
+				{
+					while (_size < n)
+						_arr[_size++] = val;
+				}
+				else if (n > _capacity)
+				{
+					tmp = _arr;
+					cap = _capacity;
+					_capacity = (n <= (_capacity * 2)) ? (_capacity * 2) : n;
+					_arr = _alloc.allocate(_capacity);
+					while(++i < _size)
+						_arr[i] = tmp[i];
+					_alloc.deallocate(tmp, cap);
+					while (_size < n)
+						_arr[_size++] = val;
+				}
+			}
+
+			size_type capacity() const
+			{
+				return _capacity;
+			}			
+						
+			bool empty() const
+			{
+				if (!_size)
+					return (true);
+				return (false);
+			}
+			
+			void reserve(size_type n)
+			{
+
+			}
 			
 		// element access:
 			reference operator[](size_type n)
+			{
+				return _array[n];
+			}
 			
 			const_reference operator[](size_type n) const;
 			const_reference at(size_type n) const;
