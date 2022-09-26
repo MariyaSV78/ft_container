@@ -18,34 +18,30 @@
 #include <string>
 #include <memory>
 #include <iterator>
-#include "./util.hpp"
+#include "util.hpp"
+#include "myIterator.hpp"
 
 namespace ft 
 {
 	template <class T, class Allocator = std::allocator<T> >
 	class vector {
 
-		public: // types:
+	// types:
+		public: 
 			typedef T 													value_type;  	// The template parameter (T)
 			typedef Allocator 											allocator_type; // The template parameter (Allocator). Defaults to: allocator<value_type>
-			typedef typename Allocator::reference						reference; 		// a reference to an element stored in a vector. For the default allocator: value_type&
-			typedef typename Allocator::const_reference 				const_reference;// give a reference to a const element stored. For the default allocator: const value_type&
-			typedef typename Allocator::pointer 						pointer;		// a pointer to an element stored. Can be used to modify the value of an element. For the default allocator: value_type*
-			typedef typename Allocator::const_pointer 					const_pointer;  //a const pointer to an element stored. Can't be used to modify the value of an element.
+			typedef typename allocator_type::reference					reference; 		// a reference to an element stored in a vector. For the default allocator: value_type&
+			typedef typename allocator_type::const_reference 			const_reference;// give a reference to a const element stored. For the default allocator: const value_type&
+			typedef typename allocator_type::pointer 					pointer;		// a pointer to an element stored. Can be used to modify the value of an element. For the default allocator: value_type*
+			typedef typename allocator_type::const_pointer 				const_pointer;  //a const pointer to an element stored. Can't be used to modify the value of an element.
 				
-			typedef std::size_t											size_type; // See 23.1
-			typedef std::ptrdiff_t										difference_type;// See 23.1
-
-			// typedef std::random_access_iterator<value_type> 			iterator; // See 23.1
-			// typedef std::random_access_iterator<const value_type>	 	const_iterator; // See 23.1
-			
-			// typename std::vector<T, Allocator>::iterator 				iterator;
-			// typename std::vector<T, Allocator>::const_iterator 			const_iterator;
-
-
-
-			// typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
-			// typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
+			typedef allocator_type::size_t								size_type; // See 23.1
+			typedef allocator_type::difference_type						difference_type;// See 23.1
+			typedef ft::myIterator<pointer> 							iterator; // See 23.1
+			typedef ft::myIterator<const pointer>	 					const_iterator; // See 23.1
+		
+			typedef ft::reverse_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
+			typedef ft::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
 
 		private: // attributes
@@ -54,7 +50,7 @@ namespace ft
 			size_type		_size;		
 			allocator_type	_allocator;
 
-		//constructor
+	//constructor
 		public:
 			explicit vector(const Allocator& allocator = Allocator()):	//default: Constructs an empty container, with no elements.
 				_array(nullpt),
@@ -120,58 +116,56 @@ namespace ft
 			
 			
 			template <class InputIterator>
-				void assign(InputIterator first, InputIterator last);
+				void assign(InputIterator first, InputIterator last)
+
 			void assign(size_type n, const T& u);
-			allocator_type get_allocator() const;
+
+			allocator_type get_allocator() const
+			{
+				return this->_allocator;
+			}
 			
 		// iterators:
-			// iterator begin()
-			// {
-			// 	return (iterator(_array));
-			// }
+			iterator begin()
+			{
+				return (iterator(_array));
+			}
 
-			// const_iterator begin() const
-			// {
-			// 	return(const_iterator(_array));
-			// }
+			const_iterator begin() const
+			{
+				return(const_iterator(_array));
+			}
 
-			// iterator end()
-			// {
-			// 	return(iterator(_array + _size));
-			// }
+			iterator end()
+			{
+				return(iterator(_array + _size));
+			}
 
-			// const_iterator end() const
-			// {
-			// 	return(const_iterator(_array + _size));
-			// }
+			const_iterator end() const
+			{
+				return(const_iterator(_array + _size));
+			}
 
-			// reverse_iterator rbegin()
-			// {
-			// 	return(reverse_iterator(end()));
-			// }
-			// const_reverse_iterator rbegin() const
-			// {
-			// 	return(const_reverse_iterator(end()));
-			// }
+			reverse_iterator rbegin()
+			{
+				return(reverse_iterator(end()));
+			}
+			const_reverse_iterator rbegin() const
+			{
+				return(const_reverse_iterator(end()));
+			}
 
-			// reverse_iterator rend()
-			// {
-			// 	return(reverse_iterator(begin()));
-			// }
+			reverse_iterator rend()
+			{
+				return(reverse_iterator(begin()));
+			}
 
-			// const_reverse_iterator rend() const
-			// {
-			// 	return(const_reverse_iterator(end()));
-			//}
+			const_reverse_iterator rend() const
+			{
+				return(const_reverse_iterator(end()));
+			}
 
-			// capacity:
-
-
-
-size_type capacity() const;
-bool empty() const;
-void reserve(size_type n);
-			
+		// capacity:
 			size_type			size() const  // The number of elements in the container.
 			{
 				return (_size);
@@ -183,31 +177,34 @@ void reserve(size_type n);
 				return (m_s);
 			}
 
-			void resize(size_type new_sz, value_type c = value_type())
+			void resize(size_type n, value_type value = value_type())
 			{
-				pointer			tmp;
-//				size_type		i = 0
-				size_type		new_capac;
 				
-				if (new_sz <= _size)
-					_size = n;
-				else if (n <= _capacity)
+				if(n >max_size())
+					throw (std::length_error("vector::resize"));
+				if (n <= _size)
+				{
+					for(size_type i = _size; i > n; i--) 
+						_allocator.destroy(_array[i]);
+				}
+				else if (n > _size)
 				{
 					while (_size < n)
-						_arr[_size++] = val;
+						_array[_size++] = value;
 				}
-				else if (n > _capacity)
-				{
-					tmp = _arr;
-					cap = _capacity;
-					_capacity = (n <= (_capacity * 2)) ? (_capacity * 2) : n;
-					_arr = _alloc.allocate(_capacity);
-					while(++i < _size)
-						_arr[i] = tmp[i];
-					_alloc.deallocate(tmp, cap);
-					while (_size < n)
-						_arr[_size++] = val;
-				}
+				_size = n;
+				// else if (n > _capacity)
+				// {
+				// 	tmp = _array;
+				// 	cap = _capacity;
+				// 	_capacity = (n <= (_capacity * 2)) ? (_capacity * 2) : n;
+				// 	_arr = _alloc.allocate(_capacity);
+				// 	while(++i < _size)
+				// 		_arr[i] = tmp[i];
+				// 	_alloc.deallocate(tmp, cap);
+				// 	while (_size < n)
+				// 		_arr[_size++] = val;
+				// }
 			}
 
 			size_type capacity() const
@@ -224,6 +221,19 @@ void reserve(size_type n);
 			
 			void reserve(size_type n)
 			{
+				pointer		tmp;
+				
+				if (n > this->max_size())
+					throw (std::length_error("vector::reserve"));
+				if(n > _capacity)
+				{
+					tmp = _array;
+					_array = _allocator.allocate(n);
+					for (size_type i = 0; i < n; i++)
+						_array[i] = tmp[i];
+					_allocator.deallocate(tmp,_capacity);
+					_capacity = n;
+				}
 
 			}
 			
@@ -233,29 +243,100 @@ void reserve(size_type n);
 				return _array[n];
 			}
 			
-			const_reference operator[](size_type n) const;
-			const_reference at(size_type n) const;
-			reference at(size_type n);
-			reference front();
-			const_reference front() const;
-			reference back();
-			const_reference back() const;
+			const_reference operator[](size_type n) const
+			{
+				return _array[n];
+			}
+
+			const_reference at(size_type n) const
+			{
+				if (n < _size)
+					return (_arr[n]);
+				throw(std::out_of_range("vector"));
+			}
+
+			reference at(size_type n)
+			{
+				if (n < _size)
+					return (_arr[n]);
+				throw(std::out_of_range("vector"));
+			}
+			
+			reference front()
+			{
+				return *_array;
+			}
+
+			const_reference front() const
+			{
+				return *_array;			
+			}
+			reference back()
+			{
+				return _array[_size - 1];
+			}
+			const_reference back() const
+			{
+				return _array[_size - 1];
+			}
+
 			
 		// 23.2.4.3 modifiers:
-			void push_back(const T& x);
-			void pop_back();
+			void push_back(const value_type& value)
+			{                
+				size_type	new_capacity;
+	
+				if (_size == _capacity)
+				{
+					new_capacity = (_size() > 0) ? (_size() * 2) : 1;
+					this->reserve(new_capacity);
+				}
+				_array[_size] = value;
+				_size++;
+			}
+
+			void pop_back()
+			{
+				if(_size > 0)
+				{
+					_allocator.destroy(this->back());
+					_size--;
+				}
+			}
 			// iterator insert(iterator position, const T& x);
 			// void insert(iterator position, size_type n, const T& x);
 			// template <class InputIterator>
 			// 	void insert(iterator position, InputIterator first, InputIterator last);
 			// iterator erase(iterator position);
 			// iterator erase(iterator first, iterator last);
-			void swap(vector<T,Allocator>&);
-			void clear();
+			
+			void swap(vector& x)
+			{
+				size_type	size = x._size;
+				size_type	capac = x._capacity;
+				pointer		arr = x._array;
+				allocator_type alloc = x._allocator;
+
+				x._size = this->_size;
+				x._capacity = this->_capacity;
+				x._array = this->_array;
+				x._allocator = this->_allocator;
+				this->_size = size;
+				this->_capacity = cap;
+				this->_array = arr;
+				this->_allocator = alloc;
+			}
+			
+			void clear()
+			{
+				for(size_type i = (_size - 1); i > 0; i--)
+					_allocator.destroy(i);
+			}
+
 	};
 
 		template <class T, class Allocator>
-		bool operator==(const vector<T,Allocator>& x,
+			bool operator==(const ft::vector<T,Allocator>& x,
 		const vector<T,Allocator>& y);
 		template <class T, class Allocator>
 		bool operator< (const vector<T,Allocator>& x,
@@ -276,7 +357,6 @@ void reserve(size_type n);
 		template <class T, class Allocator>
 		void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
 }
-
 
 #endif
 

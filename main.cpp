@@ -215,6 +215,21 @@ int main()
 		
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 		std::cout << std::endl;	
+
+		// std::cout << "resize" << std::endl;
+		// std_assign_vector.resize(20, 45);
+		// ft_assign_vector.resize(20, 45);
+		
+		std::cout << "std_assign_vector" << std_assign_vector.capacity() << std::endl;
+		std::cout << "ft_assign_vector" << ft_assign_vector.capacity() << std::endl;
+
+		std::cout << "reserve" << std::endl;
+		std_assign_vector.reserve(20);
+		ft_assign_vector.reserve(20);
+
+		std::cout << "std_assign_vector" << std_assign_vector.capacity() << std::endl;
+		std::cout << "ft_assign_vector" << ft_assign_vector.capacity() << std::endl;
+
 	}
 
 	{
@@ -227,6 +242,7 @@ int main()
 		ft_print_vector(std_def_vector, ft_def_vector);
 		std::cout << std::endl;	
 	}
+
 
 
 
@@ -260,10 +276,7 @@ int main()
 	// //size stacks
 
 	// 	std::cout << "The size of ft_stack = " << ft_stack.size();
-	// 	std::cout << " and std_stack = " << std::setw(26) << std::left << std_stack.size();
-	// 	if (ft_stack.size() == std_stack.size())
-	// 		std::cout << GREEN << "OK" << RESET<< std::endl;
-	// 	else 
+	// 	std::cout << " and std_stack = " << std::sestd::cout << "length_error"<< std::endl;
 	// 		std::cout <<  RED << "KO" << RESET<< std::endl;
 
 	// //top....
