@@ -19,7 +19,7 @@
 #include <memory>
 #include <iterator>
 #include "util.hpp"
-#include "myIterator.hpp"
+//#include "myIterator.hpp"
 
 namespace ft 
 {
@@ -35,13 +35,13 @@ namespace ft
 			typedef typename allocator_type::pointer 					pointer;		// a pointer to an element stored. Can be used to modify the value of an element. For the default allocator: value_type*
 			typedef typename allocator_type::const_pointer 				const_pointer;  //a const pointer to an element stored. Can't be used to modify the value of an element.
 				
-			typedef allocator_type::size_t								size_type; // See 23.1
-			typedef allocator_type::difference_type						difference_type;// See 23.1
-			typedef ft::myIterator<pointer> 							iterator; // See 23.1
-			typedef ft::myIterator<const pointer>	 					const_iterator; // See 23.1
+			typedef typename allocator_type::size_type							size_type; // See 23.1
+			typedef typename allocator_type::difference_type						difference_type;// See 23.1
+			typedef std::iterator_traits<T> 								iterator; // See 23.1
+			typedef std::iterator_traits<const T>	 					const_iterator; // See 23.1
 		
-			typedef ft::reverse_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
-			typedef ft::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
+			typedef std::reverse_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
+			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
 
 		private: // attributes
@@ -116,7 +116,7 @@ namespace ft
 			
 			
 			template <class InputIterator>
-				void assign(InputIterator first, InputIterator last)
+				void assign(InputIterator first, InputIterator last);
 
 			void assign(size_type n, const T& u);
 
@@ -179,32 +179,36 @@ namespace ft
 
 			void resize(size_type n, value_type value = value_type())
 			{
-				
-				if(n >max_size())
-					throw (std::length_error("vector::resize"));
-				if (n <= _size)
+				pointer		tmp;
+				size_type	capac;
+				size_type	i = 0;
+
+				if (n < _size)
 				{
-					for(size_type i = _size; i > n; i--) 
-						_allocator.destroy(_array[i]);
+					while (_size > n)
+						_allocator.destroy(&_array[(_size--) - 1]);
+					_capacity = _size;
 				}
-				else if (n > _size)
+				else if (n <= _capacity)
 				{
 					while (_size < n)
 						_array[_size++] = value;
 				}
-				_size = n;
-				// else if (n > _capacity)
-				// {
-				// 	tmp = _array;
-				// 	cap = _capacity;
-				// 	_capacity = (n <= (_capacity * 2)) ? (_capacity * 2) : n;
-				// 	_arr = _alloc.allocate(_capacity);
-				// 	while(++i < _size)
-				// 		_arr[i] = tmp[i];
-				// 	_alloc.deallocate(tmp, cap);
-				// 	while (_size < n)
-				// 		_arr[_size++] = val;
-				// }
+				else if (n > _capacity)
+				{
+					tmp = _array;
+					capac = _capacity;
+					_capacity = n;
+					_array = _allocator.allocate(_capacity);
+					while(i < _size)
+					{
+						_array[i] = tmp[i];
+						i++;
+					}
+					_allocator.deallocate(tmp, capac);
+					while (_size < n)
+						_array[_size++] = value;
+				}
 			}
 
 			size_type capacity() const
@@ -223,13 +227,13 @@ namespace ft
 			{
 				pointer		tmp;
 				
-				if (n > this->max_size())
+				if (n > max_size())
 					throw (std::length_error("vector::reserve"));
 				if(n > _capacity)
 				{
 					tmp = _array;
 					_array = _allocator.allocate(n);
-					for (size_type i = 0; i < n; i++)
+					for (size_type i = 0; i < _size; i++)
 						_array[i] = tmp[i];
 					_allocator.deallocate(tmp,_capacity);
 					_capacity = n;
@@ -251,14 +255,14 @@ namespace ft
 			const_reference at(size_type n) const
 			{
 				if (n < _size)
-					return (_arr[n]);
+					return _array[n];
 				throw(std::out_of_range("vector"));
 			}
 
 			reference at(size_type n)
 			{
 				if (n < _size)
-					return (_arr[n]);
+					return (_array[n]);
 				throw(std::out_of_range("vector"));
 			}
 			
@@ -322,7 +326,7 @@ namespace ft
 				x._array = this->_array;
 				x._allocator = this->_allocator;
 				this->_size = size;
-				this->_capacity = cap;
+				this->_capacity = capac;
 				this->_array = arr;
 				this->_allocator = alloc;
 			}

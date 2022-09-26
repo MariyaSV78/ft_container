@@ -31,18 +31,21 @@ typedef std::size_t		size_type;
 void	ft_print_vector(std::vector<int> std_vector, ft::vector<int> ft_vector)
 {
 	
+	std::cout << "std_vector: "; 
+	for(size_type i = 0; i < std_vector.size(); i++)
+	{
+		std::cout <<  std_vector[i] << ", ";
+	}
+	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+
+	std::cout << std::endl;
 	
 	std::cout << "ft_vector: "; 
 	for(size_type i = 0; i < ft_vector.size(); i++)
 	{
 		std::cout <<  ft_vector[i] << ", ";
 	}
-	std::cout << std::endl;
-	std::cout << "std_vector: "; 
-	for(size_type i = 0; i < std_vector.size(); i++)
-	{
-		std::cout <<  std_vector[i] << ", ";
-	}
+	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
 
 	std::cout << std::endl;
 }
@@ -216,19 +219,45 @@ int main()
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 		std::cout << std::endl;	
 
-		// std::cout << "resize" << std::endl;
-		// std_assign_vector.resize(20, 45);
-		// ft_assign_vector.resize(20, 45);
+		std::cout << "resize(10, 45)" << std::endl;
+		std_assign_vector.resize(10, 45);
+		ft_assign_vector.resize(10, 45);
+
+		ft_print_vector(std_assign_vector, ft_assign_vector);
+
+		std::cout << "resize(30, 45)" << std::endl;
+		std_assign_vector.resize(30, 45);
+		ft_assign_vector.resize(30, 45);
+
+		ft_print_vector(std_assign_vector, ft_assign_vector);
 		
-		std::cout << "std_assign_vector" << std_assign_vector.capacity() << std::endl;
-		std::cout << "ft_assign_vector" << ft_assign_vector.capacity() << std::endl;
 
-		std::cout << "reserve" << std::endl;
-		std_assign_vector.reserve(20);
-		ft_assign_vector.reserve(20);
+		std::cout << "reserve (100)" << std::endl;
+		try
+		{
+			std_assign_vector.reserve(100);
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << e.what() << '\n';
+		}
+		try
+		{
+			ft_assign_vector.reserve(100);
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << e.what() << '\n';
+		}
+		
+		ft_print_vector(std_assign_vector, ft_assign_vector);
 
-		std::cout << "std_assign_vector" << std_assign_vector.capacity() << std::endl;
-		std::cout << "ft_assign_vector" << ft_assign_vector.capacity() << std::endl;
+		std::cout << "reserve (10)" << std::endl;
+		std_assign_vector.reserve(10);
+		ft_assign_vector.reserve(10);
+
+		ft_print_vector(std_assign_vector, ft_assign_vector);
+
 
 	}
 
