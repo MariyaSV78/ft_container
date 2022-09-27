@@ -177,8 +177,8 @@ int main()
 
     {
  	 std::cout << "Fill constructor sized"<< std::endl;
-        std::vector<int> stl_fill_vector_sized(19);
-        ft::vector<int> ft_fill_vector_sized(19);
+        std::vector<int> stl_fill_vector_sized(9);
+        ft::vector<int> ft_fill_vector_sized(9);
 
 		ft_print_vector(stl_fill_vector_sized, ft_fill_vector_sized);
 		std::cout << std::endl;	
@@ -187,8 +187,8 @@ int main()
 
     {
  	 std::cout << "Fill constructor sized & valued"<< std::endl;
-        std::vector<int> std_fill_vector_size_value(19, 42);
-        ft::vector<int> ft_fill_vector_size_value(19, 42);
+        std::vector<int> std_fill_vector_size_value(9, 42);
+        ft::vector<int> ft_fill_vector_size_value(9, 42);
 
 		ft_print_vector(std_fill_vector_size_value, ft_fill_vector_size_value);
 		std::cout << std::endl;	
@@ -197,8 +197,8 @@ int main()
 
     {
   	 std::cout << "Copy constructor "<< std::endl;
-       std::vector<int> std_fill_vector_size_value(19, 42);
-        ft::vector<int> ft_fill_vector_size_value(19, 42);
+       std::vector<int> std_fill_vector_size_value(9, 42);
+        ft::vector<int> ft_fill_vector_size_value(9, 42);
 
 		std::vector<int> std_copy_vector(std_fill_vector_size_value);
 		ft::vector<int> ft_copy_vector(ft_fill_vector_size_value);
@@ -210,8 +210,8 @@ int main()
 
     {
    	 std::cout << "Assign operator"<< std::endl;
-       std::vector<int> std_fill_vector_size_value(19, 42);
-        ft::vector<int> ft_fill_vector_size_value(19, 42);
+       std::vector<int> std_fill_vector_size_value(9, 42);
+        ft::vector<int> ft_fill_vector_size_value(9, 42);
 
 		std::vector<int> std_assign_vector = std_fill_vector_size_value;
 		ft::vector<int> ft_assign_vector = ft_fill_vector_size_value;
@@ -219,36 +219,36 @@ int main()
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 		std::cout << std::endl;	
 
-		std::cout << "resize(10, 45)" << std::endl;
-		std_assign_vector.resize(10, 45);
-		ft_assign_vector.resize(10, 45);
+		std::cout << "resize(5, 45)" << std::endl;
+		std_assign_vector.resize(5, 45);
+		ft_assign_vector.resize(5, 45);
 
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 
-		std::cout << "resize(30, 45)" << std::endl;
-		std_assign_vector.resize(30, 45);
-		ft_assign_vector.resize(30, 45);
+		std::cout << "resize(20, 45)" << std::endl;
+		std_assign_vector.resize(20, 45);
+		ft_assign_vector.resize(20, 45);
 
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 		
 
-		std::cout << "reserve (100)" << std::endl;
-		try
-		{
-			std_assign_vector.reserve(100);
-		}
-		catch(const std::exception& e)
-		{
-			std::cout << e.what() << '\n';
-		}
-		try
-		{
-			ft_assign_vector.reserve(100);
-		}
-		catch(const std::exception& e)
-		{
-			std::cout << e.what() << '\n';
-		}
+		// std::cout << "reserve (100)" << std::endl;
+		// try
+		// {
+		// 	std_assign_vector.reserve(100);
+		// }
+		// catch(const std::exception& e)
+		// {
+		// 	std::cout << e.what() << '\n';
+		// }
+		// try
+		// {
+		// 	ft_assign_vector.reserve(100);
+		// }
+		// catch(const std::exception& e)
+		// {
+		// 	std::cout << e.what() << '\n';
+		// }
 		
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 
@@ -257,7 +257,50 @@ int main()
 		ft_assign_vector.reserve(10);
 
 		ft_print_vector(std_assign_vector, ft_assign_vector);
+		
+		
+		std::cout << "push_back(10)" << std::endl;
+		std_assign_vector.push_back(10);
+		ft_assign_vector.push_back(10);
 
+		ft_print_vector(std_assign_vector, ft_assign_vector);
+
+		std::cout << "pop_back()" << std::endl;
+		std_assign_vector.pop_back();
+		ft_assign_vector.pop_back();
+
+		ft_print_vector(std_assign_vector, ft_assign_vector);	
+
+		std::cout << "assign(4, 10)" << std::endl;
+		std_assign_vector.assign(4,10);
+		ft_assign_vector.assign(5,15);
+
+		
+		
+		// std::cout << "ft_vector.swap(std_vector)" << std::endl;
+
+		// std::vector<int> std_vector(9, 42);
+        // ft::vector<int> ft_vector(9, 5);
+		
+		// ft_vector.swap(std_vector);
+		// ft_print_vector(std_vector, ft_vector);
+
+
+	}
+
+	{
+    //    std::cout << "Assign operator"<< std::endl;
+		
+	// 	int range_array[] = { 74, 569, -8822, 8515, 5 };
+	
+    //     std::vector<int>::iterator std_iterator;
+	
+    
+
+    //     std::vector<int> std_range_vector(std_iterator, std_iterator + 5);
+    //    	ft::vector<int> ft_range_vector(std_iterator, std_iterator + 5);
+
+	// 	ft_print_vector(std_range_vector, ft_range_vector);
 
 	}
 

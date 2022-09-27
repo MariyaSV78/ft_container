@@ -14,74 +14,112 @@
 # define MYITERATOR_HPP
 
 #include "iteratorTraits.hpp"
-#include "./util.hpp"	
+#include "util.hpp"	
 
 namespace ft
 {
-	//SECTION - ITERATOR
-	template <class T>
+	template <typename T>
 	class myIterator
 	{
-		//SECTION - MEMBER TYPES
-		public:
-			typedef T												iterator_type;
-			typedef typename iterator_traits<T>::difference_type  	difference_type;
-			typedef typename iterator_traits<T>::value_type  		value_type;
-			typedef typename iterator_traits<T>::pointer  			pointer;
-			typedef typename iterator_traits<T>::reference			reference;
-			typedef typename iterator_traits<T>::iterator_category  iterator_category;
-		private:
-			iterator_type	_ptr;
-		//SECTION - MEMBER FUNCTIONS
-		public:
-			myIterator() : _ptr(nullptr) {}
-			explicit myIterator(iterator_type ptr) : _ptr(ptr) {}
-			template <class Iter>
-  			myIterator (const myIterator<Iter>& it) : _ptr(it._ptr) {}
-
-			iterator_type base() const{return _ptr;}
-			reference operator*() const{return *_ptr;}
-			myIterator operator+ (difference_type n) const{return myIterator(_ptr + n);}
-			myIterator& operator++()
-			{
-				++_ptr;
+//MEMBER TYPES
+	public:
+		typedef T												iterator_type;
+		typedef typename iterator_traits<T>::difference_type  	difference_type;
+		typedef typename iterator_traits<T>::value_type  		value_type;
+		typedef typename iterator_traits<T>::pointer  			pointer;
+		typedef typename iterator_traits<T>::reference			reference; 			// Type to represent the difference between two iterators.
+		typedef typename iterator_traits<T>::iterator_category  iterator_category;  // Category of the iterator
+	private:
+		iterator_type	_ptr;
+//MEMBER FUNCTIONS
+	public:
+		myIterator() : _ptr(nullptr) {}									// Default construtor
+		
+		explicit myIterator(iterator_type ptr) : _ptr(ptr) {}		 	// Constructor from pointer
+		
+		template <class Iter>
+			myIterator (const myIterator<Iter>& it) : _ptr(it._ptr) {} // Copy constructor
+		
+		myIterator &operator=(const mtIterator & copy)					// Copy assignation
+		{
+			if (this == &copy)
 				return *this;
-			}
-			myIterator operator++(int)
-			{
-				myIterator tmp(*this);
-				++_ptr;
-				return tmp;
-			}
-			myIterator& operator+= (difference_type n)
-			{
-				_ptr += n;
-				return (*this);
-			}
-			myIterator operator- (difference_type n) const{return myIterator(_ptr - n);}
-			myiterator& operator--()
-			{
-				--_ptr;
-				return (*this);
-			}
-			myIterator operator--(int)
-			{
-				myiterator tmp(*this);
-				--_ptr;
-				return (tmp);
-			}
-			myIterator& operator-= (difference_type n)
-			{
-				_ptr -= n;
-				return (*this);
-			}
-			pointer operator->() const
-			{
-				return (&(*_ptr));
-			}
-			reference operator[] (difference_type n) const {return (_ptr[n]);}
+			_ptr = copy._ptr;
+			return *this;
+		}
+
+		virtual ~myIterator(){}
+
+		iterator_type base() const // a pointer to the element where the iterator point
+		{
+			return _ptr;
+		}
+
+		reference operator*() const // a reference to the rvalue pointed by the random access iterator
+		{
+			return *_ptr;
+		}
+		
+		myIterator operator+ (difference_type n) const
+		{
+			return myIterator(_ptr + n);
+		}
+
+		myIterator& operator++() 	// preincrement the iterator to point to the next element in memory.
+		{
+			++_ptr;
+			return *this;
+		}
+
+/*??*/	myIterator operator++(int)
+		{
+			myIterator tmp(*this);
+			++_ptr;
+			return tmp;
+		}
+
+		myIterator& operator+= (difference_type n)
+		{
+			_ptr += n;
+			return (*this);
+		}
+
+		myIterator operator- (difference_type n) const
+		{
+			return myIterator(_ptr - n);
+		}
+
+		myiterator& operator--()
+		{
+			--_ptr;
+			return (*this);
+		}
+
+		myIterator operator--(int)
+		{
+			myiterator tmp(*this);
+			--_ptr;
+			return (tmp);
+		}
+
+		myIterator& operator-= (difference_type n)
+		{
+			_ptr -= n;
+			return (*this);
+		}
+
+		pointer operator->() const
+		{
+			return (&(*_ptr));
+		}
+
+		reference operator[] (difference_type n) const 
+		{
+			return (_ptr[n]);
+		}
 	};
-	//SECTION - NON MEMBER FUNCTION OVERLOADS
+
+//NON MEMBER FUNCTION OVERLOADS
 	template <class Iterator>
 		bool operator== (const myIterator<Iterator>& lhs, const myIterator<Iterator>& rhs)
 	{
@@ -107,7 +145,7 @@ namespace ft
 	}
 
 	template <class Iterator>
-		bool operator> (const myIterator<Iterator>& lhs, const myiterator<Iterator>& rhs)
+		bool operator> (const myIterator<Iterator>& lhs, const myIterator<Iterator>& rhs)
 	{
 		return (lhs.base() > rhs.base());
 	}

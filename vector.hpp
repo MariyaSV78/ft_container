@@ -18,6 +18,7 @@
 #include <string>
 #include <memory>
 #include <iterator>
+#include <vector>
 #include "util.hpp"
 //#include "myIterator.hpp"
 
@@ -35,16 +36,16 @@ namespace ft
 			typedef typename allocator_type::pointer 					pointer;		// a pointer to an element stored. Can be used to modify the value of an element. For the default allocator: value_type*
 			typedef typename allocator_type::const_pointer 				const_pointer;  //a const pointer to an element stored. Can't be used to modify the value of an element.
 				
-			typedef typename allocator_type::size_type							size_type; // See 23.1
-			typedef typename allocator_type::difference_type						difference_type;// See 23.1
-			typedef std::iterator_traits<T> 								iterator; // See 23.1
+			typedef typename allocator_type::size_type					size_type; // See 23.1
+			typedef typename allocator_type::difference_type			difference_type;// See 23.1
+			typedef std::iterator_traits<T> 							iterator; // See 23.1
 			typedef std::iterator_traits<const T>	 					const_iterator; // See 23.1
 		
-			typedef std::reverse_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
+			typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
 			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
-
-		private: // attributes
+	// attributes
+		private: 
 			pointer			_array;
 			size_type		_capacity; 
 			size_type		_size;		
@@ -116,9 +117,42 @@ namespace ft
 			
 			
 			template <class InputIterator>
-				void assign(InputIterator first, InputIterator last);
+				void assign(InputIterator first, int i, InputIterator last)
+			{ if(i==0){
+				_size = last - first;
+				if (_size <= _capacity)
+				{
+					for (size_type i = 0; i < _size; i++)
+						_array[i] = *(first++);
+				}
+				else
+				{
+					_allocator.deallocate(_array, _capacity);
+					_capacity = _size;
+					_array = _allocator.allocate(_capacity);
+					for (size_type i = 0; i < _size; i++)
+						_array[i] = *(first++);
+				}}
+			}
 
-			void assign(size_type n, const T& u);
+
+			void assign(size_type n, const value_type& value)
+			{
+				_size = n;
+				if (_size <= _capacity)
+				{
+					for (size_type i = 0; i < _size; i++)
+						_array[i] = value;
+				}
+				else
+				{
+					_allocator.deallocate(_array, _capacity);
+					_capacity = _size;
+					_array = _allocator.allocate(_capacity);
+					for (size_type i = 0; i < _size; i++)
+						_array[i] = value;
+				}
+			}
 
 			allocator_type get_allocator() const
 			{
@@ -198,7 +232,7 @@ namespace ft
 				{
 					tmp = _array;
 					capac = _capacity;
-					_capacity = n;
+					_capacity = (n <= (_capacity * 2) ? (_capacity * 2) : n);
 					_array = _allocator.allocate(_capacity);
 					while(i < _size)
 					{
@@ -209,6 +243,13 @@ namespace ft
 					while (_size < n)
 						_array[_size++] = value;
 				}
+
+				// {
+				// 	if (_size < n)
+				// 		insert(end(), n - _size, value);
+				// 	else if (n < _size())
+				// 		erase (begin() + N, end());
+				// }
 			}
 
 			size_type capacity() const
@@ -275,6 +316,7 @@ namespace ft
 			{
 				return *_array;			
 			}
+			
 			reference back()
 			{
 				return _array[_size - 1];
@@ -292,7 +334,7 @@ namespace ft
 	
 				if (_size == _capacity)
 				{
-					new_capacity = (_size() > 0) ? (_size() * 2) : 1;
+					new_capacity = (_size > 0) ? (_size * 2) : 1;
 					this->reserve(new_capacity);
 				}
 				_array[_size] = value;
@@ -303,16 +345,20 @@ namespace ft
 			{
 				if(_size > 0)
 				{
-					_allocator.destroy(this->back());
+					_allocator.destroy(_array + _size);
 					_size--;
 				}
 			}
-			// iterator insert(iterator position, const T& x);
-			// void insert(iterator position, size_type n, const T& x);
-			// template <class InputIterator>
-			// 	void insert(iterator position, InputIterator first, InputIterator last);
-			// iterator erase(iterator position);
-			// iterator erase(iterator first, iterator last);
+			iterator insert(iterator position, const T& x)
+			{
+
+			}
+			
+			void insert(iterator position, size_type n, const T& x);
+			template <class InputIterator>
+				void insert(iterator position, InputIterator first, InputIterator last);
+			iterator erase(iterator position);
+			iterator erase(iterator first, iterator last);
 			
 			void swap(vector& x)
 			{
@@ -340,26 +386,79 @@ namespace ft
 	};
 
 		template <class T, class Allocator>
-			bool operator==(const ft::vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator==(const ft::vector<T,Allocator>& x, const ft::vector<T,Allocator>& y)
+			{
+				if (x.size() != y.size())
+					return(false);
+				else 
+					return (equal(x.begin(), x.end(), y.begin()));
+			}
+
 		template <class T, class Allocator>
-		bool operator< (const vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+			{
+				return !(x == y);
+			}
+
 		template <class T, class Allocator>
-		bool operator!=(const vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator< (const ft::vector<T,Allocator>& x, const ft::vector<T,Allocator>& y)
+			{
+				return (lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+			}
+
 		template <class T, class Allocator>
-		bool operator> (const vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator> (const vector<T,Allocator>& x,const vector<T,Allocator>& y)
+			{
+				return x < y;
+			}
+
 		template <class T, class Allocator>
-		bool operator>=(const vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+			{
+				return !(x < y);
+			}
 		template <class T, class Allocator>
-		bool operator<=(const vector<T,Allocator>& x,
-		const vector<T,Allocator>& y);
+			bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+			{
+				return !(x > y);
+			}
+
 		// specialized algorithms:
 		template <class T, class Allocator>
-		void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
+			void swap(vector<T,Allocator>& x, vector<T,Allocator>& y)
+			{
+				x.swap(y);
+			}
+		// template <class InputIterator1, class InputIterator2>
+		// 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+		// 									InputIterator2 first2, InputIterator2 last2)
+		// 	{
+		// 		while (first1 != last1)
+		// 		{
+		// 			if ((first2 == last2) || (*first1 > *first2)) 
+		// 				return (false);
+		// 			else if (*first1 < *first2)
+		// 				return (true);
+		// 			++first1;
+		// 			++first2;
+		// 		}
+		// 		return (first2 != last2);
+		// 	}
+
+		// template <class InputIterator1, class InputIterator2>
+		// 	bool equal (InputIterator1 first1, InputIterator1 last1,
+		// 				InputIterator2 first2)
+		// 	{
+		// 		while (first1 != last1)
+		// 		{
+		// 			if (*first1 != *first2)
+		// 				return (false);
+		// 			++first1;
+		// 			++first2;
+		// 		}
+		// 		return (true);
+		// 	}
+		
 }
 
 #endif
