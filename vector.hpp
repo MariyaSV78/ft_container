@@ -20,7 +20,7 @@
 #include <iterator>
 #include <vector>
 #include "util.hpp"
-//#include "myIterator.hpp"
+#include "myIterator.hpp"
 
 namespace ft 
 {
@@ -38,8 +38,8 @@ namespace ft
 				
 			typedef typename allocator_type::size_type					size_type; // See 23.1
 			typedef typename allocator_type::difference_type			difference_type;// See 23.1
-			typedef std::iterator_traits<T> 							iterator; // See 23.1
-			typedef std::iterator_traits<const T>	 					const_iterator; // See 23.1
+			typedef ft::myIterator<value_type> 							iterator; // See 23.1
+			typedef ft::myIterator<const_pointer>	 					const_iterator; // See 23.1
 		
 			typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
 			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
@@ -73,8 +73,9 @@ namespace ft
 
 
 			template <class InputIterator>
-				vector(InputIterator first, InputIterator last, int i, const Allocator& allocator= Allocator())  //range: Constructs a container with as many elements as the range [first,last),
-			{	if(i==0)	{																				// with each element constructed from its corresponding element in that range, in the same order.
+				vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator(),
+						typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)  //range: Constructs a container with as many elements as the range [first,last),
+			{																			// with each element constructed from its corresponding element in that range, in the same order.
 				_allocator = allocator;
 				_capacity = last - first;
 				// _size = _capacity;
@@ -84,7 +85,7 @@ namespace ft
 					//std::cout << "(" <<(*first) << ") ";
 					_array[_size] = *first;
 				}
-			}
+			
 			} 	 
 																										
 
@@ -117,22 +118,22 @@ namespace ft
 			
 			
 			template <class InputIterator>
-				void assign(InputIterator first, int i, InputIterator last)
-			{ if(i==0){
-				_size = last - first;
+				void assign(InputIterator first, InputIterator last, 
+							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)
+			{
+				_capacity = last - first;
 				if (_size <= _capacity)
 				{
-					for (size_type i = 0; i < _size; i++)
-						_array[i] = *(first++);
+					for (_size=0; first != last; first++, _size++)
+						_array[_size] = *first;
 				}
 				else
 				{
 					_allocator.deallocate(_array, _capacity);
-					_capacity = _size;
 					_array = _allocator.allocate(_capacity);
-					for (size_type i = 0; i < _size; i++)
-						_array[i] = *(first++);
-				}}
+					for (_size=0; first != last; first++, _size++)
+						_array[_size] = *first;
+				}
 			}
 
 

@@ -50,6 +50,27 @@ void	ft_print_vector(std::vector<int> std_vector, ft::vector<int> ft_vector)
 	std::cout << std::endl;
 }
 
+void	ft_print_vector_(ft::vector<int> std_vector, ft::vector<int> ft_vector)
+{
+	
+	std::cout << "ft_vector_1: "; 
+	for(size_type i = 0; i < std_vector.size(); i++)
+	{
+		std::cout <<  std_vector[i] << ", ";
+	}
+	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+
+	std::cout << std::endl;
+	
+	std::cout << "ft_vector_2: "; 
+	for(size_type i = 0; i < ft_vector.size(); i++)
+	{
+		std::cout <<  ft_vector[i] << ", ";
+	}
+	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
+
+	std::cout << std::endl;
+}
 
 int main()
 {
@@ -273,34 +294,42 @@ int main()
 
 		std::cout << "assign(4, 10)" << std::endl;
 		std_assign_vector.assign(4,10);
-		ft_assign_vector.assign(5,15);
+		ft_assign_vector.assign(4,10);
 
+		ft_print_vector(std_assign_vector, ft_assign_vector);	
 		
 		
-		// std::cout << "ft_vector.swap(std_vector)" << std::endl;
+		std::cout << "ft_vector.swap(std_vector)" << std::endl;
 
-		// std::vector<int> std_vector(9, 42);
-        // ft::vector<int> ft_vector(9, 5);
+		ft::vector<int> std_vector(9, 42);
+        ft::vector<int> ft_vector(9, 5);
 		
-		// ft_vector.swap(std_vector);
-		// ft_print_vector(std_vector, ft_vector);
+		ft_print_vector_(std_vector, ft_vector);
+		ft_vector.swap(std_vector);
+		ft_print_vector_(std_vector, ft_vector);
 
 
 	}
 
 	{
-    //    std::cout << "Assign operator"<< std::endl;
+       std::cout << "Assign operator"<< std::endl;
 		
-	// 	int range_array[] = { 74, 569, -8822, 8515, 5 };
-	
-    //     std::vector<int>::iterator std_iterator;
-	
-    
+		int range_array[] = { 74, 569, -8822, 8515, 5, 7, 67};
 
-    //     std::vector<int> std_range_vector(std_iterator, std_iterator + 5);
-    //    	ft::vector<int> ft_range_vector(std_iterator, std_iterator + 5);
+    	std::vector<int> std_range_vector(range_array, range_array + 4);
+       	ft::vector<int> ft_range_vector(range_array, range_array + 4);
+		ft::vector<int> vector;
 
-	// 	ft_print_vector(std_range_vector, ft_range_vector);
+		ft_print_vector(std_range_vector, ft_range_vector);
+
+
+
+		ft::vector<int>::iterator it, it_2;
+		it = ft_range_vector.begin();
+		it_2 = ft_range_vector.end();
+
+		vector.assign(it, it_2);		
+		ft_print_vector(std_range_vector, vector);
 
 	}
 
@@ -310,7 +339,7 @@ int main()
 		std::vector<int> std_def_vector(3, 5);
 
 		
-		ft::vector<int> ft_def_vector(std_def_vector.begin(), std_def_vector.end(), 0);
+		ft::vector<int> ft_def_vector(std_def_vector.begin(), std_def_vector.end());
 		ft_print_vector(std_def_vector, ft_def_vector);
 		std::cout << std::endl;	
 	}

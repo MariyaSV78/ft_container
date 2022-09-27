@@ -1,7 +1,9 @@
 #ifndef UTIL_HPP
 # define UTIL_HPP
- # include  <iostream>
+
+ # include <iostream>
  # include <string>
+ # include <stddef.h>
 
 const class
 {
@@ -54,5 +56,69 @@ template <class T>
                         typedef		const T&							reference;
                         typedef		std::random_access_iterator_tag		iterator_category;
         };
+
+
+	template <bool Cond, class T = void> //NOTE - Main template struct
+	struct enable_if
+	{
+	};
+
+	template <class T> //NOTE - Specialized template struct
+	struct enable_if<true, T> //ANCHOR - in case of true
+	{
+		typedef T type;
+	};
+
+	template <class T> //NOTE - Main template struct
+	struct is_integral
+	{
+		static const bool value = false;
+	};
+	template <> //NOTE - Specialized template struct for int type
+	struct is_integral<int>
+	{
+		static const bool value = true;
+	};
+	template <> //NOTE - Specialized template struct for bool type
+	struct is_integral<bool>
+	{
+		static const bool value = true;
+	};
+	template <> //NOTE - Specialized template struct for char type
+	struct is_integral<char>
+	{
+		static const bool value = true;
+	};
+	// template <> //NOTE - Specialized template struct ...
+	// struct is_integral<char16_t>
+	// {
+	// 	static const bool value = true;
+	// };
+	// template <> //NOTE - Specialized template struct ...
+	// struct is_integral<char32_t>
+	// {
+	// 	static const bool value = true;
+	// };
+	template <> //NOTE - Specialized template struct ...
+	struct is_integral<wchar_t>
+	{
+		static const bool value = true;
+	};
+	template <> //NOTE - Specialized template struct ...
+	struct is_integral<short>
+	{
+		static const bool value = true;
+	};
+	template <> //NOTE - Specialized template struct ...
+	struct is_integral<long>
+	{
+		static const bool value = true;
+	};
+	template <> //NOTE - Specialized template struct ...
+	struct is_integral<long long>
+	{
+		static const bool value = true;
+	};
 }
+
 #endif

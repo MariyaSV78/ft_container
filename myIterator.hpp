@@ -13,7 +13,6 @@
 #ifndef MYITERATOR_HPP
 # define MYITERATOR_HPP
 
-#include "iteratorTraits.hpp"
 #include "util.hpp"	
 
 namespace ft
@@ -33,14 +32,14 @@ namespace ft
 		iterator_type	_ptr;
 //MEMBER FUNCTIONS
 	public:
-		myIterator() : _ptr(nullptr) {}									// Default construtor
+		myIterator() : _ptr(nullpt) {}									// Default construtor
 		
 		explicit myIterator(iterator_type ptr) : _ptr(ptr) {}		 	// Constructor from pointer
 		
 		template <class Iter>
 			myIterator (const myIterator<Iter>& it) : _ptr(it._ptr) {} // Copy constructor
 		
-		myIterator &operator=(const mtIterator & copy)					// Copy assignation
+		myIterator &operator=(const myIterator & copy)					// Copy assignation
 		{
 			if (this == &copy)
 				return *this;
@@ -89,7 +88,7 @@ namespace ft
 			return myIterator(_ptr - n);
 		}
 
-		myiterator& operator--()
+		myIterator& operator--()
 		{
 			--_ptr;
 			return (*this);
@@ -97,7 +96,7 @@ namespace ft
 
 		myIterator operator--(int)
 		{
-			myiterator tmp(*this);
+			myIterator tmp(*this);
 			--_ptr;
 			return (tmp);
 		}
