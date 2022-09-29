@@ -121,19 +121,11 @@ namespace ft
 				void assign(InputIterator first, InputIterator last, 
 							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)
 			{
+				_allocator.deallocate(_array, _capacity);
 				_capacity = last - first;
-				if (_size <= _capacity)
-				{
-					for (_size=0; first != last; first++, _size++)
-						_array[_size] = *first;
-				}
-				else
-				{
-					_allocator.deallocate(_array, _capacity);
-					_array = _allocator.allocate(_capacity);
-					for (_size=0; first != last; first++, _size++)
-						_array[_size] = *first;
-				}
+				_array = _allocator.allocate(_capacity);
+				for (_size=0; first != last; first++, _size++)
+					_array[_size] = *first;
 			}
 
 
@@ -160,7 +152,7 @@ namespace ft
 				return this->_allocator;
 			}
 			
-		// iterators:
+		//iterators:
 			iterator begin()
 			{
 				return (iterator(_array));
@@ -350,14 +342,48 @@ namespace ft
 					_size--;
 				}
 			}
-			iterator insert(iterator position, const T& x)
+			iterator insert(iterator position, const value_type& value)
 			{
-
+				size_type x = (_size == 0) ? 0 : (position - begin());
+				insert(position, 1, value);
+				return begin() + x;
 			}
 			
-			void insert(iterator position, size_type n, const T& x);
+			void insert(iterator position, size_type n, const value_type& value)
+			{
+				size_type 	capac = _capacity;
+				size_type	i = 0;
+				size_type	shift = (position - begin());
+				pointer		tmp = _array;
+
+				if (n == 0)
+					return;
+				else if ((max_size() - _size) < n)
+					throw (std::length_error("vector::insert (fill)"));
+				_size = _size + M;
+				else if (_size  > _capacity )
+				{
+		!!!			_capacity = ((max_size() - capac/2) < capac) ? 0 : capac + capac/2;
+					if (_capacity < _size)
+						_capacity = _size;
+					_array = _allocator.allocate(_capacity, (void*)0);
+					for(i; i < shift; i++)
+						_array[i] = tmp[i];					
+				}
+
+				for(i = shift; i < (shift + M); i++ )
+					_array[i] = value;
+				for(i; i < _size; i++)
+					_array[i] = tmp[i - shift];
+				_allocator.deallocate(tmp, capac);
+			}
+
 			template <class InputIterator>
-				void insert(iterator position, InputIterator first, InputIterator last);
+				void insert(iterator position, InputIterator first, InputIterator last,
+							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)
+				{
+
+				}
 			iterator erase(iterator position);
 			iterator erase(iterator first, iterator last);
 			
@@ -430,35 +456,7 @@ namespace ft
 			{
 				x.swap(y);
 			}
-		// template <class InputIterator1, class InputIterator2>
-		// 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-		// 									InputIterator2 first2, InputIterator2 last2)
-		// 	{
-		// 		while (first1 != last1)
-		// 		{
-		// 			if ((first2 == last2) || (*first1 > *first2)) 
-		// 				return (false);
-		// 			else if (*first1 < *first2)
-		// 				return (true);
-		// 			++first1;
-		// 			++first2;
-		// 		}
-		// 		return (first2 != last2);
-		// 	}
 
-		// template <class InputIterator1, class InputIterator2>
-		// 	bool equal (InputIterator1 first1, InputIterator1 last1,
-		// 				InputIterator2 first2)
-		// 	{
-		// 		while (first1 != last1)
-		// 		{
-		// 			if (*first1 != *first2)
-		// 				return (false);
-		// 			++first1;
-		// 			++first2;
-		// 		}
-		// 		return (true);
-		// 	}
 		
 }
 
