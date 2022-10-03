@@ -33,6 +33,52 @@ const class
 
 }nullpt={};
 
+// template <typename T>
+// 	class print_vector(ft::vector<T>)
+// {
+	
+// 	std::cout << "std_vector: "; 
+// 	for(size_type i = 0; i < std_vector.size(); i++)
+// 	{
+// 		std::cout <<  std_vector[i] << ", ";
+// 	}
+// 	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+
+// 	std::cout << std::endl;
+	
+// 	std::cout << "ft_vector: "; 
+// 	for(size_type i = 0; i < ft_vector.size(); i++)
+// 	{
+// 		std::cout <<  ft_vector[i] << ", ";
+// 	}
+// 	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
+
+// 	std::cout << std::endl;
+// }
+
+// void	ft_print_vector_(ft::vector<int> std_vector, ft::vector<int> ft_vector)
+// {
+	
+// 	std::cout << "ft_vector_1: "; 
+// 	for(size_type i = 0; i < std_vector.size(); i++)
+// 	{
+// 		std::cout <<  std_vector[i] << ", ";
+// 	}
+// 	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+
+// 	std::cout << std::endl;
+	
+// 	std::cout << "ft_vector_2: "; 
+// 	for(size_type i = 0; i < ft_vector.size(); i++)
+// 	{
+// 		std::cout <<  ft_vector[i] << ", ";
+// 	}
+// 	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
+
+// 	std::cout << std::endl;
+// }
+
+
 namespace ft
 {
 		template <class InputIterator1, class InputIterator2>
