@@ -24,7 +24,7 @@ template <class Iter>
 		typedef typename Iter::value_type			value_type;
 		typedef typename Iter::pointer				pointer;
 		typedef typename Iter::reference			reference;
-		typedef typename Iterqqa::iterator_category	iterator_category;
+		typedef typename Iter::iterator_category	iterator_category;
 	};
 
 template <class T> 

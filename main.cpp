@@ -262,15 +262,7 @@ int main()
 		// {
 		// 	std::cout << e.what() << '\n';
 		// }
-		// try
-		// {
-		// 	ft_assign_vector.reserve(100);
-		// }
-		// catch(const std::exception& e)
-		// {
-		// 	std::cout << e.what() << '\n';
-		// }
-		
+		// tryn
 		ft_print_vector(std_assign_vector, ft_assign_vector);
 
 		std::cout << "reserve (10)" << std::endl;

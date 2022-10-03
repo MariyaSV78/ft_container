@@ -14,7 +14,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <iostream>
+#include <iostream>  
 #include <string>
 #include <memory>
 #include <iterator>
@@ -343,7 +343,8 @@ namespace ft
 					_size--;
 				}
 			}
-						iterator insert(iterator position, const value_type& value)
+			
+			iterator insert(iterator position, const value_type& value)
 			{
 				size_type x = (_size == 0) ? 0 : (position - begin());
 				insert(position, 1, value);
@@ -380,9 +381,69 @@ namespace ft
 			}
 			
 			template <class InputIterator>
-				void insert(iterator position, InputIterator first, InputIterator last);
-			iterator erase(iterator position);
-			iterator erase(iterator first, iterator last);
+				void insert(iterator position, InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt)
+				{
+					size_type 	capac = _capacity;
+					size_type	i = 0;
+					size_type	n = last - first;
+					size_type	shift = position - begin();
+					pointer		tmp = _array;
+
+					if (n == 0)
+						return;
+					else if ((max_size() - _size) < n)
+						throw (std::length_error("vector::insert (fill)"));
+					_size = _size + n;
+					if (_size > _capacity )
+					{
+						_capacity = (max_size() < capac + capac/2) ? 0 : capac + capac/2;
+						if (_capacity < _size)
+							_capacity = _size;
+						_array = _allocator.allocate(_capacity, (void*)0);
+						for(i; i < shift; i++)
+							_array[i] = tmp[i];					
+					}
+					for(i = _size - 1; i > shift + n; i--)
+						_array[i] = tmp[i - n];
+					for(i = shift; i < (shift + n); i++ )
+						_array[i] = *first++;
+					if (_array != tmp)
+						_allocator.deallocate(tmp, capac);
+				}
+			
+			iterator erase(iterator position)
+			{
+				size_type	pos = position - begin() + 1;
+
+				if (pos < _size)
+				{
+					for(size_type i = pos; i < _size - 1; i++)
+						_array[i] = _array[i + 1];
+					_array.destroy(_array[_size]);
+					_size--;	
+				}
+				else
+					std::cout << "vector::position > _size";
+				return (position);
+ 			}
+
+			iterator erase(iterator first, iterator last)
+			{
+				size_type	pos_1 = first - begin();
+				size_type	pos_2 = last - begin();
+				size_type	n = last - first;
+
+				if (pos_2 >= _size)
+					_size = pos_1;
+				else
+					_size -= n;
+				for (size_type i = pos_1; i < _size; i++)
+					_array[i] = _array[i + pos_2];
+				_array.destroy(last, last + n);
+				return (last);
+			}
+
 			
 			void swap(vector& x)
 			{

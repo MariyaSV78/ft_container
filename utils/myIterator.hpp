@@ -75,7 +75,7 @@ namespace ft
 		}
 
 		myIterator operator--(int)
-		{return myIterator --ptr;}
+		{return myIterator(--_ptr);}
  
 	// Random access iterator requirements
 		reference operator[](difference_type n) const 
