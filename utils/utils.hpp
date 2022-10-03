@@ -33,50 +33,41 @@ const class
 
 }nullpt={};
 
-// template <typename T>
-// 	class print_vector(ft::vector<T>)
-// {
-	
-// 	std::cout << "std_vector: "; 
-// 	for(size_type i = 0; i < std_vector.size(); i++)
-// 	{
-// 		std::cout <<  std_vector[i] << ", ";
-// 	}
-// 	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+template <typename T>
+	class print_vector
+{
+	private:
+		ft::vector<T>	_ft_vector;
+		std::vector<T>	_std_vector;
+	public:
+		print_vector(): _ft_vector(ft_vector), _std_vector(std_vector){}
+		print_vector(ft::vector<T> ft_vector, std::vector<T> std_vector): _ft_vector(ft_vector), _std_vector(std_vector){}
+		~print_vector(){}
 
-// 	std::cout << std::endl;
-	
-// 	std::cout << "ft_vector: "; 
-// 	for(size_type i = 0; i < ft_vector.size(); i++)
-// 	{
-// 		std::cout <<  ft_vector[i] << ", ";
-// 	}
-// 	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
+		void ft_print(_ft_vector)
+		{
+			std::cout << "ft_vector: "; 
+			for(size_type i = 0; i < _ft_vector.size(); i++)
+			{
+				std::cout <<  _ft_vector[i] << ", ";
+			}
+			std::cout << "capacity = " << _ft_vector.capacity() << ", size = "<< _ft_vector.size() << std::endl;
 
-// 	std::cout << std::endl;
-// }
+			std::cout << std::endl;
+		}
 
-// void	ft_print_vector_(ft::vector<int> std_vector, ft::vector<int> ft_vector)
-// {
-	
-// 	std::cout << "ft_vector_1: "; 
-// 	for(size_type i = 0; i < std_vector.size(); i++)
-// 	{
-// 		std::cout <<  std_vector[i] << ", ";
-// 	}
-// 	std::cout << "capacity = " << std_vector.capacity() << ", size = "<< std_vector.size() << std::endl;
+		void std_print(_std_vector)
+		{
+			std::cout << "std_vector: "; 
+			for(size_type i = 0; i < _std_vector.size(); i++)
+			{
+				std::cout <<  _std_vector[i] << ", ";
+			}
+			std::cout << "capacity = " << _std_vector.capacity() << ", size = "<< _std_vector.size() << std::endl;
 
-// 	std::cout << std::endl;
-	
-// 	std::cout << "ft_vector_2: "; 
-// 	for(size_type i = 0; i < ft_vector.size(); i++)
-// 	{
-// 		std::cout <<  ft_vector[i] << ", ";
-// 	}
-// 	std::cout << "capacity = " << ft_vector.capacity() << ", size = "<< ft_vector.size() << std::endl;
-
-// 	std::cout << std::endl;
-// }
+			std::cout << std::endl;
+		}
+};
 
 
 namespace ft
