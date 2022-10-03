@@ -19,8 +19,9 @@
 #include <memory>
 #include <iterator>
 #include <vector>
-#include "util.hpp"
-#include "myIterator.hpp"
+#include "utils/utils.hpp"
+#include "utils/myIterator.hpp"
+#include "utils/enable_if.hpp"
 
 namespace ft 
 {
@@ -152,7 +153,7 @@ namespace ft
 				return this->_allocator;
 			}
 			
-		//iterators:
+		// iterators:
 			iterator begin()
 			{
 				return (iterator(_array));
@@ -342,7 +343,7 @@ namespace ft
 					_size--;
 				}
 			}
-			iterator insert(iterator position, const value_type& value)
+						iterator insert(iterator position, const value_type& value)
 			{
 				size_type x = (_size == 0) ? 0 : (position - begin());
 				insert(position, 1, value);
@@ -360,30 +361,26 @@ namespace ft
 					return;
 				else if ((max_size() - _size) < n)
 					throw (std::length_error("vector::insert (fill)"));
-				_size = _size + M;
-				else if (_size  > _capacity )
+				_size = _size + n;
+				if (_size > _capacity )
 				{
-		!!!			_capacity = ((max_size() - capac/2) < capac) ? 0 : capac + capac/2;
+					_capacity = (max_size() < capac + capac/2) ? 0 : capac + capac/2;
 					if (_capacity < _size)
 						_capacity = _size;
 					_array = _allocator.allocate(_capacity, (void*)0);
 					for(i; i < shift; i++)
 						_array[i] = tmp[i];					
 				}
-
-				for(i = shift; i < (shift + M); i++ )
+				for(i = _size - 1; i > shift + n; i--)
+					_array[i] = tmp[i - n];
+				for(i = shift; i < (shift + n); i++ )
 					_array[i] = value;
-				for(i; i < _size; i++)
-					_array[i] = tmp[i - shift];
-				_allocator.deallocate(tmp, capac);
+				if (_array != tmp)
+					_allocator.deallocate(tmp, capac);
 			}
-
+			
 			template <class InputIterator>
-				void insert(iterator position, InputIterator first, InputIterator last,
-							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)
-				{
-
-				}
+				void insert(iterator position, InputIterator first, InputIterator last);
 			iterator erase(iterator position);
 			iterator erase(iterator first, iterator last);
 			

@@ -307,6 +307,17 @@ int main()
 		ft_print_vector_(std_vector, ft_vector);
 		ft_vector.swap(std_vector);
 		ft_print_vector_(std_vector, ft_vector);
+	}
+		
+	{
+		std::cout << "insert(position, value)" << std::endl;
+		std::vector<int> std_vector(9, 42);
+        ft::vector<int> ft_vector(9, 42);
+		
+		ft_print_vector(std_vector, ft_vector);
+		std_vector.insert(std_vector.begin()+5, 3, 0);
+//		ft_vector.insert(ft_vector.begin(), 0);
+		ft_print_vector(std_vector, ft_vector);
 
 
 	}
@@ -319,17 +330,19 @@ int main()
     	std::vector<int> std_range_vector(range_array, range_array + 4);
        	ft::vector<int> ft_range_vector(range_array, range_array + 4);
 		ft::vector<int> vector;
+		ft::vector<int> vector2(std_range_vector.begin(), std_range_vector.end());
 
 		ft_print_vector(std_range_vector, ft_range_vector);
+		ft_print_vector(std_range_vector, vector2);
 
 
 
-		ft::vector<int>::iterator it, it_2;
-		it = ft_range_vector.begin();
-		it_2 = ft_range_vector.end();
+		// ft::myIterator<int> it, it_2;
+		// it = ft_range_vector.begin();
+		// it_2 = ft_range_vector.end();
 
-		vector.assign(it, it_2);		
-		ft_print_vector(std_range_vector, vector);
+		// vector.assign(std_range_vector.begin(), std_range_vector.end());		
+		// ft_print_vector(std_range_vector, vector);
 
 	}
 
