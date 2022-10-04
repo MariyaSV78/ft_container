@@ -18,7 +18,6 @@
 #include <string>
 #include <memory>
 #include <iterator>
-#include <vector>
 #include "utils/utils.hpp"
 #include "utils/myIterator.hpp"
 #include "utils/enable_if.hpp"
@@ -515,7 +514,8 @@ namespace ft
 				x.swap(y);
 			}
 
-		
+		template< class T >
+struct is_integral;
 }
 
 #endif

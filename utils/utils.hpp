@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_HPP
-# define UTIL_HPP
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
  # include <iostream>
  # include <string>
  # include <stddef.h>
+ # include "../vector.hpp"
 
 const class
 {
@@ -40,14 +41,14 @@ template <typename T>
 		ft::vector<T>	_ft_vector;
 		std::vector<T>	_std_vector;
 	public:
-		print_vector(): _ft_vector(ft_vector), _std_vector(std_vector){}
+		print_vector(){}
 		print_vector(ft::vector<T> ft_vector, std::vector<T> std_vector): _ft_vector(ft_vector), _std_vector(std_vector){}
 		~print_vector(){}
 
-		void ft_print(_ft_vector)
+		void ft_print(ft::vector<T> _ft_vector)
 		{
 			std::cout << "ft_vector: "; 
-			for(size_type i = 0; i < _ft_vector.size(); i++)
+			for(size_t i = 0; i < _ft_vector.size(); i++)
 			{
 				std::cout <<  _ft_vector[i] << ", ";
 			}
@@ -56,10 +57,10 @@ template <typename T>
 			std::cout << std::endl;
 		}
 
-		void std_print(_std_vector)
+		void std_print(std::vector<T> _std_vector)
 		{
 			std::cout << "std_vector: "; 
-			for(size_type i = 0; i < _std_vector.size(); i++)
+			for(size_t i = 0; i < _std_vector.size(); i++)
 			{
 				std::cout <<  _std_vector[i] << ", ";
 			}

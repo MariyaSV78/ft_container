@@ -11,3 +11,10 @@
 /* ************************************************************************** */
 
 
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "vector.hpp"
+#include <vector>
+#include <ctime>
+#include "tester.hpp"

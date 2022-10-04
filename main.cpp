@@ -18,7 +18,9 @@
 #include <stack>
 #include <vector>
 #include <ctime>
+#include "tester.hpp"
 
+test_stack();
 
 
 typedef struct 			timespec Time;
