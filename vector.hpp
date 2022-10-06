@@ -88,7 +88,6 @@ namespace ft
 			
 			} 	 
 																										
-
 			vector(const vector<T,Allocator>& x): _array(nullpt), _capacity(0), _size(0)
 			{
 				*this = x;
@@ -98,7 +97,6 @@ namespace ft
 			{
 				_allocator.deallocate(_array, _capacity);
 			}
-
 
 			vector<T,Allocator>& operator=(const vector<T,Allocator>& x)
 			{

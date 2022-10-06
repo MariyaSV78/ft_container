@@ -15,6 +15,7 @@
 
  # include <iostream>
  # include <string>
+ # include <vector>
  # include <stddef.h>
  # include "../vector.hpp"
 
@@ -33,43 +34,6 @@ const class
 	
 
 }nullpt={};
-
-template <typename T>
-	class print_vector
-{
-	private:
-		ft::vector<T>	_ft_vector;
-		std::vector<T>	_std_vector;
-	public:
-		print_vector(){}
-		print_vector(ft::vector<T> ft_vector, std::vector<T> std_vector): _ft_vector(ft_vector), _std_vector(std_vector){}
-		~print_vector(){}
-
-		void ft_print(ft::vector<T> _ft_vector)
-		{
-			std::cout << "ft_vector: "; 
-			for(size_t i = 0; i < _ft_vector.size(); i++)
-			{
-				std::cout <<  _ft_vector[i] << ", ";
-			}
-			std::cout << "capacity = " << _ft_vector.capacity() << ", size = "<< _ft_vector.size() << std::endl;
-
-			std::cout << std::endl;
-		}
-
-		void std_print(std::vector<T> _std_vector)
-		{
-			std::cout << "std_vector: "; 
-			for(size_t i = 0; i < _std_vector.size(); i++)
-			{
-				std::cout <<  _std_vector[i] << ", ";
-			}
-			std::cout << "capacity = " << _std_vector.capacity() << ", size = "<< _std_vector.size() << std::endl;
-
-			std::cout << std::endl;
-		}
-};
-
 
 namespace ft
 {
@@ -102,6 +66,32 @@ namespace ft
 				}
 				return (true);
 			}
+
+/*
+    ** Base class for standard binary function objects.
+    ** (Doc = http://www.cplusplus.com/reference/functional/binary_function/?kw=binary_function)
+    ** (the operator "()", permet to use a class with the same syntax
+    ** as a function call).
+    */
+		template <class Arg1, class Arg2, class Result>
+			struct binary_function
+			{
+				/* The first argument type */
+				typedef Arg1 first_argument_type;
+
+				/* The second arguement type */
+				typedef Arg2 second_argument_type;
+
+				/* The result type */
+				typedef Result result_type;
+			};
+		
+		
+		template <class T>
+			struct less : binary_function<T, T, bool>
+			{
+				bool operator()(const T& x, const T& y) const { return (x < y); }
+			};
 
 }
 #endif

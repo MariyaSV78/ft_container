@@ -31,46 +31,55 @@ namespace ft
 	{
 		static const bool value = false;
 	};
+	
 	template <> //NOTE - Specialized template struct for int type
 	struct is_integral<int>
 	{
 		static const bool value = true;
 	};
+	
 	template <> //NOTE - Specialized template struct for bool type
 	struct is_integral<bool>
 	{
 		static const bool value = true;
 	};
+	
 	template <> //NOTE - Specialized template struct for char type
 	struct is_integral<char>
 	{
 		static const bool value = true;
 	};
+	
 	// template <> //NOTE - Specialized template struct ...
 	// struct is_integral<char16_t>
 	// {
 	// 	static const bool value = true;
 	// };
+	
 	// template <> //NOTE - Specialized template struct ...
 	// struct is_integral<char32_t>
 	// {
 	// 	static const bool value = true;
 	// };
+	
 	template <> //NOTE - Specialized template struct ...
 	struct is_integral<wchar_t>
 	{
 		static const bool value = true;
 	};
+	
 	template <> //NOTE - Specialized template struct ...
 	struct is_integral<short>
 	{
 		static const bool value = true;
 	};
+	
 	template <> //NOTE - Specialized template struct ...
 	struct is_integral<long>
 	{
 		static const bool value = true;
 	};
+	
 	template <> //NOTE - Specialized template struct ...
 	struct is_integral<long long>
 	{

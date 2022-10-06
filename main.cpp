@@ -20,9 +20,13 @@
 #include <ctime>
 #include "tester.hpp"
 
-test_stack();
+int 	main()
+{
+	test_stack();
+	test_vector();
+}
 
-
+/*
 typedef struct 			timespec Time;
 typedef std::size_t		size_type;
 
@@ -432,3 +436,4 @@ int main()
 
 }
 
+*/

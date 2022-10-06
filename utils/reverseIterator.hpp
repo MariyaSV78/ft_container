@@ -14,18 +14,19 @@
 # define reveresIterator_HPP
 
 #include "iteratorTraits.hpp"
+#include "myIterator.hpp"
 #include "utils.hpp"
 
 namespace ft
 {
 	//SECTION - REVERSE ITERATOR
 	template <class Iterator>
-	class reveres_iterator: public 
-		std::iterator<typename iterator_traits<_Iterator>::iterator_category,
-		      typename iterator_traits<_Iterator>::value_type,
-		      typename iterator_traits<_Iterator>::difference_type,
-		      typename iterator_traits<_Iterator>::pointer,
-              typename iterator_traits<_Iterator>::reference>
+	class reveres_iterator: 
+		public myIterator<typename iterator_traits<Iterator>::iterator_category,
+		      typename iterator_traits<Iterator>::value_type,
+		      typename iterator_traits<Iterator>::difference_type,
+		      typename iterator_traits<Iterator>::pointer,
+              typename iterator_traits<Iterator>::reference>
 	{
 		//SECTION - MEMBER TYPES
 		public:
@@ -35,7 +36,8 @@ namespace ft
 			typedef typename iterator_traits<Iterator>::reference			reference;
 			typedef typename iterator_traits<Iterator>::iterator_category  iterator_category;
 		protected:
-			iterator_type	_current;
+			iterator_type							_current;
+			typedef iterator_traits<Iterator>		_traits_type;
 			
 		//SECTION - MEMBER FUNCTIONS
 		public:
@@ -43,8 +45,10 @@ namespace ft
 			
 			explicit reveres_iterator(iterator_type x) : _current(x) {}
 			
+			reverse_iterator (conts reverse_iterator& x): _current (x._carrent){}
+			
 			template <class Iter>
-  			reveres_iterator (const reveres_iterator<Iter>& it) : _current(it._current) {}
+  			reveres_iterator (const reveres_iterator<Iter>& it) : _current(it._current) {} // _current(x.base())
 			  
 			iterator_type base() const{return _current;}
 			reference operator*() const

@@ -37,26 +37,26 @@ namespace ft
 		
 		explicit myIterator(iterator_type ptr) : _ptr(ptr) {}		 	// Constructor from pointer
 		
-		 // Allow iterator to const_iterator conversion ?
+	// Allow iterator to const_iterator conversion ?
 		template <class Iter>
-			myIterator (const myIterator<Iter>& it) : _ptr(it.base()) {} // Copy constructor
+			myIterator (const myIterator<Iter>& it) : _ptr(it._ptr) {} // Copy constructor _ptr(it.base()
 		
-		myIterator &operator=(const myIterator & copy)					// Copy assignation
-		{
-			if (this == &copy)
-				return *this;
-			_ptr = copy._ptr;
-			return *this;
-		}
+		// myIterator &operator=(const myIterator & copy)					// Copy assignation
+		// {
+		// 	if (this == &copy)
+		// 		return *this;
+		// 	_ptr = copy._ptr;
+		// 	return *this;
+		// }
 
-		virtual ~myIterator(){}
+		// virtual ~myIterator(){}
 
-      // Forward iterator requirements
+    // Forward iterator requirements
 		reference operator*() const // a reference to the rvalue pointed by the random access iterator
 		{ return *_ptr;}
 
-		pointer operator->() const
-		{ return _ptr;}
+		pointer operator->() const //return _ptr;
+		{return &(*_ptr);}
 		
 		myIterator& operator++() 	// preincrement the iterator to point to the next element in memory.
 		{	 
@@ -65,7 +65,10 @@ namespace ft
 		}
 
 		myIterator operator++(int)
-		{ return myIterator(_ptr++);}
+		{ 	
+			myIterator tmp(*this);
+			++_ptr;
+			return (tmp);} //return myIterator(_ptr++);
 
       // Bidirectional iterator requirements
 		myIterator& operator--()
@@ -75,7 +78,10 @@ namespace ft
 		}
 
 		myIterator operator--(int)
-		{return myIterator(--_ptr);}
+		{
+			myIterator	tmp(*this);
+			--_ptr;
+			return ;} //return myIterator(--_ptr);
  
 	// Random access iterator requirements
 		reference operator[](difference_type n) const 

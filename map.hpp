@@ -15,51 +15,101 @@
 # include <iostream>
 # include <string>
 # include <iterator>
+# include "utils/mapIterator.hpp"
+# include "utils/reverseIterator.hpp"
+# include "utils/pair.hpp"
+# include "utils/AVLTree.hpp"
 
-namespace std 
+namespace ft 
 {
-	template <class Key, class T, class Compare Key = less<Key>, class Allocator alloc = allocator<pair<const Key, T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key, T> > >
 	class map {
+	
 		public:
 		// types:
 			
-			typedef Key 										key_type;
-			typedef T 											mapped_type;
-			typedef pair<const Key, T> 							value_type;
-			typedef Compare 									key_compare;
-			typedef Allocator 									allocator_type;
-			typedef typename Allocator::reference 				reference;
-			typedef typename Allocator::const_reference 		const_reference;
-			typedef implementation defined 						iterator;				 
-			typedef implementation defined 						const_iterator;
-			typedef implementation defined 						size_type;
-			typedef implementation defined 						difference_type;
-			typedef typename Allocator::pointer 				pointer;
-			typedef typename Allocator::const_pointer 			const_pointer;
-			typedef std::reverse_iterator<iterator>				reverse_iterator;
-			typedef std::reverse_iterator<const_iterator> 		const_reverse_iterator;
-	
-	class value_compare: public binary_function<value_type,value_type,bool> 
-	{
-		friend class map;
-		protected:
-			Compare _comp;
-			value_compare(Compare c) : _comp(c) {}
+			typedef Key 														key_type;
+			typedef T 															mapped_type;
+			typedef pair<const key_type, mapped_type>							value_type;
+			typedef Compare 													key_compare;
+			typedef Alloc	 													allocator_type;
+			typedef typename allocator_type::reference 							reference;
+			typedef typename allocator_type::const_reference 					const_reference;
+			typedef typename allocator_type::pointer 							pointer;
+			typedef typename allocator_type::const_pointer 						const_pointer;
+			typedef ft::Binary_tree<value_type, key_compare>::iterator 			iterator;				 
+			typedef ft::Binary_tree<value_type, key_compare>::const_iterator 	const_iterator;
+			typedef std::reverse_iterator<iterator>								reverse_iterator;
+			typedef std::reverse_iterator<const_iterator> 						const_reverse_iterator;
+			typedef	typename allocator_type::difference_type 					difference_type;
+			typedef	typename allocator_type::size_type 							size_type;
+
+		private:
+			allocator_type                           _alloc;
+			Compare                                  _comp;
+			Binary_search_tree<value_type, Compare>  _tree;
+
+
 		public:
-			bool operator()(const value_type& x, const value_type& y) const 
-			{ return comp(x.first, y.first);}
-	};
+		class value_compare: public ft::binary_function<value_type,value_type,bool> 
+		{
+			friend class map;
+			protected:
+				Compare _comp;
+				value_compare(Compare c) : _comp(c) {}
+			public:
+				bool operator()(const value_type& x, const value_type& y) const 
+				{ return comp(x.first, y.first);}
+		};
 	//construct/copy/destroy:
-		explicit map(const Compare& comp = Compare(), const Allocator& = Allocator());
+		explicit map(const key_compare& compar = key_compare(), const Allocator& = Allocator()):
+			_alloc(alloc),
+			_compar(compar),
+			_tree();{}
 		
 		template <class InputIterator>
-			map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& = Allocator());
-			map(const map<Key,T,Compare,Allocator>& x);
-			~map();
+			map(InputIterator first, InputIterator last, 
+					const key_compare& compar = key_compare(), 
+					const allocator_type& alloc = allocator_type(),
+					ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt):
+			_alloc(alloc),
+			_compar(compar),
+			_tree();
+			{
+				while (first != last)
+				{
+					_tree.insert(*first);
+					first++;
+				}
+			}
+
+		map(const map<Key,T,Compare,Allocator>& x):
+			_alloc(x._alloc),
+			_compar(.x_compar);
+			_tree()
+		{
+			*this = x;
+		}
 		
-		map<Key,T,Compare,Allocator>& operator=(const map<Key,T,Compare,Allocator>& x);
+		map<Key,T,Compare,Allocator>& operator=(const map<Key,T,Compare,Allocator>& x)
+		{
+			if (this == &x)
+				return *this;
+			_tree.clear();
+			if (x.size())
+				insert (x.begin(), x.end());
+			_alloc = x._alloc;
+			_compar = x._compar;
+			return *this;
+		}
+
+		~map();
+
 	// iterators:
-		iterator begin();
+		iterator begin()
+		{
+			return (iterator)
+		}
 		const_iterator begin() const;
 		iterator end();
 		const_iterator end() const;

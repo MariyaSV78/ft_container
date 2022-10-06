@@ -6,7 +6,7 @@ CXX = c++
 
 OBJS = $(SRCS:.cpp=.o)
 
-SRCS = main.cpp
+SRCS = main.cpp test_stack.cpp test_vector.cpp
 
 all: $(NAME)
 
