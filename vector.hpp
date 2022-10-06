@@ -312,6 +312,7 @@ namespace ft
 			{
 				return _array[_size - 1];
 			}
+			
 			const_reference back() const
 			{
 				return _array[_size - 1];
