@@ -65,7 +65,7 @@ void	test_stack()
 	if (ft_time < std_time*20)
 		std::cout <<  GREEN << "OK" << RESET<< std::endl;
 	else 
-		std::cout <<  GREEN << "KO" << RESET<< std::endl;
+		std::cout <<  RED << "KO" << RESET<< std::endl;
 	
 	std::cout << "std_time " << std_time << std::endl;
 	std::cout << "ft_time " << ft_time << std::endl;

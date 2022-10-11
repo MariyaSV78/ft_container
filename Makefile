@@ -1,8 +1,9 @@
 NAME = ft_containers
 
-FLAGS = -Wall -Werror -Wextra -std=c++98
+FLAGS = -g -Wall -Werror -Wextra --std=c++98
 
-CXX = c++
+#CXX = c++
+CXX = clang++
 
 OBJS = $(SRCS:.cpp=.o)
 
