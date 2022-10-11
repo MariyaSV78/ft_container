@@ -22,32 +22,37 @@ void	print_vector(const T& vector)
 template<typename T1, typename T2>
 void	is_identic(const T1& std_vector, const T2& ft_vector)
 {
-
+	int i = 0;
+	
 	if (std_vector.size() == ft_vector.size())
 		std::cout << std::setw(42) <<  GREEN << "OK" << RESET;
 	else
 	{
 		std::cout << std::setw(42) <<  RED << "KO" << RESET;
-		std::cout << " " << std_vector.size() << " " << ft_vector.size();
+		i = 1;
 	}
 	if (std_vector.capacity() == ft_vector.capacity())
 		std::cout << std::setw(12) <<  GREEN << "OK" << RESET;
 	else
 	{
 		std::cout << std::setw(12) <<  RED << "KO" << RESET;
-		std::cout << " " << std_vector.capacity() << " " << ft_vector.capacity();
+		i = 2;
 	}
-	if (std_vector.size() == ft_vector.size())
+	for(size_t i = 0; i < std_vector.size(); i++)
+		if (std_vector[i] != ft_vector[i])
+		{
+			std::cout << std::setw(14) <<  RED << "KO" << RESET;
+			i = 3;
+			break;
+		}
+	std::cout << std::setw(14) <<  GREEN << "OK" << RESET;
+	if (i > 0)
 	{
-		for(size_t i = 0; i < std_vector.size(); i++)
-			if (std_vector[i] != ft_vector[i])
-			{
-				std::cout << std::setw(14) <<  RED << "KO" << RESET;
-				print_vector(std_vector);
-				print_vector(ft_vector);
-				break;
-			}
-		std::cout << std::setw(14) <<  GREEN << "OK" << RESET;
+		std::cout << std::endl;
+		std::cout << " std.size = " << std_vector.size() << ", std.size = " << ft_vector.size() << std::endl;
+		std::cout << " std.capacity = " << std_vector.capacity() << ", ft.capacity = " << ft_vector.capacity() << std::endl;
+		print_vector(std_vector);
+		print_vector(ft_vector);
 	}
 }
 

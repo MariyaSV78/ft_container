@@ -21,12 +21,7 @@ namespace ft
 {
 	//SECTION - REVERSE ITERATOR
 	template <class Iterator>
-	class reveres_iterator: 
-		public myIterator<typename iterator_traits<Iterator>::iterator_category,
-		      typename iterator_traits<Iterator>::value_type,
-		      typename iterator_traits<Iterator>::difference_type,
-		      typename iterator_traits<Iterator>::pointer,
-              typename iterator_traits<Iterator>::reference>
+	class reveres_iterator
 	{
 		//SECTION - MEMBER TYPES
 		public:
@@ -45,7 +40,7 @@ namespace ft
 			
 			explicit reveres_iterator(iterator_type x) : _current(x) {}
 			
-			reverse_iterator (conts reverse_iterator& x): _current (x._carrent){}
+			reveres_iterator (const reveres_iterator& x): _current (x._carrent){}
 			
 			template <class Iter>
   			reveres_iterator (const reveres_iterator<Iter>& it) : _current(it._current) {} // _current(x.base())

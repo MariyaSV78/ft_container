@@ -255,107 +255,113 @@ std::cout.fill(' ');
 		// print_vector(std_vector);	
 
 
-// 		std::cout << "assign(4, 10)" << std::endl;
-// 		ft_vector.assign(4,10);
-// 		print_ft_vector(ft_vector);	
-		
-// 		std::cout << "ft_vector.swap(vector)" << std::endl;
+	std::cout << "assign(4, 10)" << std::endl;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			ft_vector.assign(4, 10);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			std_vector.assign(4, 10);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
-// 		ft::vector<int> vector(4, 24);
-  		
-// 		print_ft_vector(vector);
-// 		ft_vector.swap(vector);
-// 		print_ft_vector(ft_vector);
-// 		print_ft_vector(vector);
+			is_identic(std_vector, ft_vector); 
+			is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; 
+			std::cout << std::endl;
+
+		print_vector(ft_vector);	
+		print_vector(std_vector);
+
+	std::cout << "insert(position, value)" << std::endl;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			ft_vector.insert(ft_vector.begin()+2, 42);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			std_vector.insert(std_vector.begin()+2, 42);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+			is_identic(std_vector, ft_vector); 
+			is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; 
+			std::cout << std::endl;
+
+		print_vector(ft_vector);	
+		print_vector(std_vector);
+
+	std::cout << "insert(position, n, value)" << std::endl;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			ft_vector.insert(ft_vector.begin()+2, 7, 42);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			std_vector.insert(std_vector.begin()+2, 7, 42);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+			is_identic(std_vector, ft_vector); 
+			is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; 
+			std::cout << std::endl;
+
+		print_vector(std_vector);	
+		print_vector(ft_vector);		
+
+		// std::cout << "insert(position, first, last)" << std::endl;
+		// 	clock_gettime(CLOCK_MONOTONIC, &start);
+		// 	ft_vector.insert(ft_vector.begin()+2, ft_assign_vector.begin(), ft_assign_vector.end());
+		// 	clock_gettime(CLOCK_MONOTONIC, &end);
+		// 	ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		// 	clock_gettime(CLOCK_MONOTONIC, &start);
+		// 	std_vector.insert(std_vector.begin()+2, std_assign_vector.begin(), std_assign_vector.end());
+		// 	clock_gettime(CLOCK_MONOTONIC, &end);
+		// 	ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		// 	is_identic(std_vector, ft_vector); 
+		// 	is_time(std_time, ft_time); 
+		// 	std::cout << std::endl;
+
+		// print_vector(std_vector);	
+		// print_vector(ft_vector);	
+
+ 		// std::cout << "erase(position)" << std::endl;
+		// 	clock_gettime(CLOCK_MONOTONIC, &start);
+		// 	ft_vector.erase(ft_vector.begin()+1);
+		// 	clock_gettime(CLOCK_MONOTONIC, &end);
+		// 	ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		// 	clock_gettime(CLOCK_MONOTONIC, &start);
+		// 	std_vector.erase(std_vector.begin()+1);
+		// 	clock_gettime(CLOCK_MONOTONIC, &end);
+		// 	ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		// 	is_identic(std_vector, ft_vector); 
+		// 	is_time(std_time, ft_time); 
+		// 	std::cout << std::endl;	
+
+		// print_vector(ft_vector);
+		// print_vector(std_vector);
 	
-// 		std::cout << "insert(position, value)" << std::endl;
-// 		ft_vector.insert(ft_vector.begin(), 0);
-// 		print_ft_vector(ft_vector);
+ 		std::cout << "clear" << std::endl;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			ft_vector.clear();
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			std_vector.clear();
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
-// 		std::cout << "clear" << std::endl;
-// 		ft_vector.clear();
-// 		print_ft_vector(ft_vector);
+			is_identic(std_vector, ft_vector); 
+			is_time(std_time, ft_time); 
+			std::cout << std::endl;	
 
-//         clock_gettime(CLOCK_MONOTONIC, &end);
-//         ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3; //us
-// std:
-// 		clock_gettime(CLOCK_MONOTONIC, &start);
-//         std::vector<int> std_vector;
+		print_vector(ft_vector);
+		print_vector(std_vector);
 
-// 		std::cout << "resize(5, 42)" << std::endl;
-// 		std_vector.resize(5, 42);
-// 		print_std_vector(std_vector);
-
-// 		std::cout << "reserve (10)" << std::endl;
-// 		std_vector.reserve(10);
-// 		print_std_vector(std_vector);
- 			
-// 		std::cout << "push_back(10)" << std::endl;
-// 		std_vector.push_back(10);
-
-// 		std::cout << "pop_back()" << std::endl;
-// 		std_vector.pop_back();
-// 		print_std_vector(std_vector);
-
-// 		std::cout << "assign(4, 10)" << std::endl;
-// 		std_vector.assign(4,10);
-// 		print_std_vector(std_vector);
-		
-// 		std::cout << "ft_vector.swap(vector)" << std::endl;
-
-// 		std::vector<int> svector(4, 24);
-  		
-// 		print_std_vector(svector);
-// 		std_vector.swap(svector);
-// 		print_std_vector(std_vector);
-// 		print_std_vector(svector);
-	
-// 		std::cout << "insert(position, n, value)" << std::endl;
-// 		std_vector.insert(std_vector.begin(), 3, 0);
-// 		print_std_vector(std_vector);
-
-// 		std::cout << "clear" << std::endl;
-// 		std_vector.clear();
-// 		print_std_vector(std_vector);
-
-//         clock_gettime(CLOCK_MONOTONIC, &end);
-//         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3; //us
-
-//         std::cout.fill('.');
-// 	    std::cout << "The time for ft_vector > std_vector in " << ft_time/std_time <<  std::setw(61) << std::left <<  " elements";
-//         if (ft_time < std_time*20)
-//             std::cout <<  GREEN << "OK" << RESET<< std::endl;
-//         else 
-//             std::cout <<  GREEN << "KO" << RESET<< std::endl;
-        
-//         std::cout << "std_time " << std_time << std::endl;
-//         std::cout << "ft_time " << ft_time << std::endl;
-// 	}
-
-// 	{
-//        std::cout << "Assign operator"<< std::endl;
+//      std::cout << "Assign operator"<< std::endl;
 		
 // 		int range_array[] = { 74, 569, -8822, 8515, 5, 7, 67};
 
 //     	std::vector<int> std_range_vector(range_array, range_array + 4);
-//        	ft::vector<int> ft_range_vector(range_array, range_array + 4);
-// 		ft::vector<int> vector;
-// 		ft::vector<int> vector2(std_range_vector.begin(), std_range_vector.end());
-
-// 		print_ft_vector(ft_range_vector);
-// 		print_std_vector(std_range_vector);
-
-
-
-// 		ft::myIterator<int> it, it_2;
-// 		it = ft_range_vector.begin();
-// 		it_2 = ft_range_vector.end();
-
-// 		vector.assign(std_range_vector.begin(), std_range_vector.end());		
-// 		ft_print_vector(std_range_vector, vector);
-
-
-
-
+//      ft::vector<int> ft_range_vector(range_array, range_array + 4);
 }
 

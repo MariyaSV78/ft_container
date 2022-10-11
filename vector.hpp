@@ -20,7 +20,7 @@
 #include <iterator>
 #include "utils/utils.hpp"
 #include "utils/myIterator.hpp"
-//#include "utils/random_access_iterator.hpp"
+#include "utils/reverseIterator.hpp"
 #include "utils/enable_if.hpp"
 
 namespace ft 
@@ -44,8 +44,8 @@ namespace ft
 			// typedef ft::random_access_iterator<value_type> 							iterator; // See 23.1
 			// typedef ft::random_access_iterator<const_pointer>	 					const_iterator; // See 23.1
 		
-			typedef std::reverse_iterator<iterator> 					reverse_iterator;  // can read or modify any element in a reversed vector.
-			typedef std::reverse_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
+			typedef ft::reveres_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
+			typedef ft::reveres_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
 	// attributes
 		private: 
@@ -366,14 +366,14 @@ namespace ft
 				_size = _size + n;
 				if (_size > _capacity )
 				{
-					_capacity = (max_size() < capac + capac/2) ? 0 : capac + capac/2;
+					_capacity = (_size < 2 * capac) ? _size : capac + capac/2;
 					if (_capacity < _size)
 						_capacity = _size;
 					_array = _allocator.allocate(_capacity, (void*)0);
 					for(; i < shift; i++)
 						_array[i] = tmp[i];					
 				}
-				for(i = _size - 1; i > shift + n; i--)
+				for(i = _size - 1; i > shift + n -1; i--)
 					_array[i] = tmp[i - n];
 				for(i = shift; i < (shift + n); i++ )
 					_array[i] = value;
@@ -381,38 +381,37 @@ namespace ft
 					_allocator.deallocate(tmp, capac);
 			}
 			
-			// template <class InputIterator>
-			// 	void insert(iterator position, InputIterator first, InputIterator last, int j
-			// 	/*typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt*/)
-			// 	{
-			// 		(void*)&j;
-			// 		size_type 	capac = _capacity;
-			// 		size_type	i = 0;
-			// 		size_type	n = last - first;
-			// 		size_type	shift = position - begin();
-			// 		pointer		tmp = _array;
+			template <class InputIterator>
+				void insert(iterator position, InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt)
+				{
+					size_type 	capac = _capacity;
+					size_type	i;
+					size_type	n = last - first;
+					size_type	shift = position - begin();
+					pointer		tmp = _array;
 
-			// 		if (n == 0)
-			// 			return;
-			// 		else if ((max_size() - _size) < n)
-			// 			throw (std::length_error("vector::insert (fill)"));
-			// 		_size = _size + n;
-			// 		if (_size > _capacity )
-			// 		{
-			// 			_capacity = (max_size() < capac + capac/2) ? 0 : capac + capac/2;
-			// 			if (_capacity < _size)
-			// 				_capacity = _size;
-			// 			_array = _allocator.allocate(_capacity, (void*)0);
-			// 			for(i; i < shift; i++)
-			// 				_array[i] = tmp[i];					
-			// 		}
-			// 		for(i = _size - 1; i > shift + n; i--)
-			// 			_array[i] = tmp[i - n];
-			// 		for(i = shift; i < (shift + n); i++ )
-			// 			_array[i] = *first++;
-			// 		if (_array != tmp)
-			// 			_allocator.deallocate(tmp, capac);
-			// 	}
+					if (n == 0)
+						return;
+					else if ((max_size() - _size) < n)
+						throw (std::length_error("vector::insert (fill)"));
+					_size = _size + n;
+					if (_size > _capacity )
+					{
+						_capacity = (_size < 2 * capac) ? _size : capac + capac/2;
+						if (_capacity < _size)
+							_capacity = _size;
+						_array = _allocator.allocate(_capacity, (void*)0);
+						for(i = 0; i < shift; i++)
+							_array[i] = tmp[i];					
+					}
+					for(i = _size - 1; i > shift + n - 1; i--)
+						_array[i] = tmp[i - n];
+					for(i = shift; i < (shift + n); i++ )
+						_array[i] = *first++;
+					if (_array != tmp)
+						_allocator.deallocate(tmp, capac);
+				}
 			
 			iterator erase(iterator position)
 			{
@@ -422,7 +421,7 @@ namespace ft
 				{
 					for(size_type i = pos; i < _size - 1; i++)
 						_array[i] = _array[i + 1];
-					_array.destroy(_array[_size]);
+					_array.destroy(_array[_size - 1]);
 					_size--;	
 				}
 				else
@@ -467,7 +466,8 @@ namespace ft
 			void clear()
 			{
 				for(size_type i = (_size - 1); i > 0; i--)
-					_allocator.destroy(_array+i); // _allocator.destroy(i);
+					_allocator.destroy(_array+i);
+				_size = 0;
 			}
 
 	};
