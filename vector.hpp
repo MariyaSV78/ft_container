@@ -354,7 +354,7 @@ namespace ft
 			
 			void insert(iterator position, size_type n, const value_type& value)
 			{
-				size_type 	capac = _capacity;
+				size_type 	old_size = _size;
 				size_type	i = 0;
 				size_type	shift = (position - begin());
 				pointer		tmp = _array;
@@ -363,12 +363,10 @@ namespace ft
 					return;
 				else if ((max_size() - _size) < n)
 					throw (std::length_error("vector::insert (fill)"));
-				_size = _size + n;
+				_size = old_size + n;
 				if (_size > _capacity )
 				{
-					_capacity = (_size < 2 * capac) ? _size : capac + capac/2;
-					if (_capacity < _size)
-						_capacity = _size;
+					_capacity = (_size  < 2 * old_size) ? 2 * old_size : _size;
 					_array = _allocator.allocate(_capacity, (void*)0);
 					for(; i < shift; i++)
 						_array[i] = tmp[i];					
@@ -378,14 +376,14 @@ namespace ft
 				for(i = shift; i < (shift + n); i++ )
 					_array[i] = value;
 				if (_array != tmp)
-					_allocator.deallocate(tmp, capac);
+					_allocator.deallocate(tmp, _capacity);
 			}
 			
 			template <class InputIterator>
 				void insert(iterator position, InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt)
 				{
-					size_type 	capac = _capacity;
+					size_type 	old_size = _size;
 					size_type	i;
 					size_type	n = last - first;
 					size_type	shift = position - begin();
@@ -395,12 +393,10 @@ namespace ft
 						return;
 					else if ((max_size() - _size) < n)
 						throw (std::length_error("vector::insert (fill)"));
-					_size = _size + n;
+					_size = old_size + n;
 					if (_size > _capacity )
 					{
-						_capacity = (_size < 2 * capac) ? _size : capac + capac/2;
-						if (_capacity < _size)
-							_capacity = _size;
+						_capacity = (_size  < 2 * old_size) ? 2 * old_size : _size;
 						_array = _allocator.allocate(_capacity, (void*)0);
 						for(i = 0; i < shift; i++)
 							_array[i] = tmp[i];					
@@ -410,18 +406,18 @@ namespace ft
 					for(i = shift; i < (shift + n); i++ )
 						_array[i] = *first++;
 					if (_array != tmp)
-						_allocator.deallocate(tmp, capac);
+						_allocator.deallocate(tmp, _capacity);
 				}
 			
 			iterator erase(iterator position)
 			{
-				size_type	pos = position - begin() + 1;
+				size_type	pos = position - begin();
 
 				if (pos < _size)
 				{
 					for(size_type i = pos; i < _size - 1; i++)
 						_array[i] = _array[i + 1];
-					_array.destroy(_array[_size - 1]);
+					_allocator.destroy(_array +(_size - 1));
 					_size--;	
 				}
 				else
@@ -435,14 +431,19 @@ namespace ft
 				size_type	pos_2 = last - begin();
 				size_type	n = last - first;
 
-				if (pos_2 >= _size)
+				if (pos_2 >= _size){
+					for (size_type i = pos_1; i < _size; i++)
+						_allocator.destroy(_array + i);
 					_size = pos_1;
-				else
+				}
+				else{
+					for (size_type i = pos_2; i <  _size; i++)
+						_array[i - n] = _array[i];
+					for (size_type i = _size - n; i < _size; i++)
+						_allocator.destroy(_array + i);
 					_size -= n;
-				for (size_type i = pos_1; i < _size; i++)
-					_array[i] = _array[i + pos_2];
-				_array.destroy(last, last + n);
-				return (last);
+				}
+				return first;
 			}
 
 			

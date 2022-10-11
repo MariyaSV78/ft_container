@@ -1,7 +1,6 @@
 #ifndef TESTER_HPP
 # define TESTER_HPP
 
-#include "tester.hpp"
 
 #define RESET "\033[0m"
 #define RED "\033[31m"
@@ -38,21 +37,26 @@ void	is_identic(const T1& std_vector, const T2& ft_vector)
 		std::cout << std::setw(12) <<  RED << "KO" << RESET;
 		i = 2;
 	}
-	for(size_t i = 0; i < std_vector.size(); i++)
-		if (std_vector[i] != ft_vector[i])
-		{
-			std::cout << std::setw(14) <<  RED << "KO" << RESET;
-			i = 3;
-			break;
-		}
-	std::cout << std::setw(14) <<  GREEN << "OK" << RESET;
+	if (std_vector.size() == ft_vector.size())
+	{
+		for(size_t i = 0; i < std_vector.size(); i++)
+			if (std_vector[i] != ft_vector[i])
+			{
+				std::cout << std::setw(14) <<  RED << "KO" << RESET;
+				i = 3;
+				break;
+			}
+	}
+	if(i != 3){
+		std::cout << std::setw(14) <<  GREEN << "OK" << RESET;
+	}
 	if (i > 0)
 	{
 		std::cout << std::endl;
 		std::cout << " std.size = " << std_vector.size() << ", std.size = " << ft_vector.size() << std::endl;
 		std::cout << " std.capacity = " << std_vector.capacity() << ", ft.capacity = " << ft_vector.capacity() << std::endl;
-		print_vector(std_vector);
 		print_vector(ft_vector);
+		print_vector(std_vector);
 	}
 }
 
