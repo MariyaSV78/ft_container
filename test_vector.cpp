@@ -185,7 +185,9 @@ std::cout.fill(' ');
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		is_identic(std_vector, ft_vector);
-		is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; //std::cout << " " << std_vector.capacity() << " " << ft_vector.capacity();
+		is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ;
+		//
+		std::cout << " " << std_vector.capacity() << " " << ft_vector.capacity();
         std::cout << std::endl;	
 
 
@@ -203,8 +205,10 @@ std::cout.fill(' ');
 		is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ;
         std::cout << std::endl;	
 
-		// print_vector(ft_vector);	
-		// print_vector(std_vector);	
+		//
+		print_vector(ft_vector);	
+		//
+		print_vector(std_vector);	
 
 
 	//	print_vector(ft_vector);

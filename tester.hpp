@@ -8,7 +8,7 @@
 #define GREEN "\033[32m"
 
 template<typename T>
-void	print_vector(T vector)
+void	print_vector(const T& vector)
 {
 	std::cout << "vector: "; 
 	for(size_t i = 0; i < vector.size(); i++)
