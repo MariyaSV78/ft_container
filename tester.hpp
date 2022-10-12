@@ -9,25 +9,35 @@
 template<typename T>
 void	print_vector(const T& vector)
 {
-	std::cout << "vector: "; 
 	for(size_t i = 0; i < vector.size(); i++)
 	{
 		std::cout <<  vector[i] << ", ";
 	}
-	std::cout << "capacity = " << vector.capacity() << ", size = "<< vector.size() << std::endl;
+	std::cout << "capacity = " << vector.capacity() << ", size = "<< vector.size() << std::endl; 
+}
+
+template<typename T>
+void	print_stack(const T& stack)
+{
+	for(size_t i = 0; i < stack.size(); i++)
+	{
+		std::cout <<  stack[i] << ", ";
+	}
+	std::cout << " size = "<< stack.size() << std::endl;
+
 }
 
 
 template<typename T1, typename T2>
-void	is_identic(const T1& std_vector, const T2& ft_vector)
+void	vector_is_identic(const T1& std_vector, const T2& ft_vector)
 {
 	int i = 0;
 	
 	if (std_vector.size() == ft_vector.size())
-		std::cout << std::setw(42) <<  GREEN << "OK" << RESET;
+		std::cout <<  GREEN << "OK" << RESET;
 	else
 	{
-		std::cout << std::setw(42) <<  RED << "KO" << RESET;
+		std::cout <<  RED << "KO" << RESET;
 		i = 1;
 	}
 	if (std_vector.capacity() == ft_vector.capacity())
@@ -47,18 +57,19 @@ void	is_identic(const T1& std_vector, const T2& ft_vector)
 				break;
 			}
 	}
-	if(i != 3){
+	if(i != 3)
 		std::cout << std::setw(14) <<  GREEN << "OK" << RESET;
-	}
 	if (i > 0)
 	{
 		std::cout << std::endl;
 		std::cout << " std.size = " << std_vector.size() << ", std.size = " << ft_vector.size() << std::endl;
 		std::cout << " std.capacity = " << std_vector.capacity() << ", ft.capacity = " << ft_vector.capacity() << std::endl;
-		print_vector(ft_vector);
 		print_vector(std_vector);
+		print_vector(ft_vector);
+		
 	}
 }
+
 
 void	is_time(double std_time, double ft_time);
 

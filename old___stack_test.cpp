@@ -31,10 +31,6 @@ int main()
 	double	std_time, ft_time; 
 	int i;
 
-
-
-
-
 	ft::stack<int> ft_stack;
 	std::stack<int> std_stack;
 

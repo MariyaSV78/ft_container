@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef reveresIterator_HPP
-# define reveresIterator_HPP
+#ifndef REVERSEITERATOR_HPP
+# define REVERSEITERATOR_HPP
 
 #include "iteratorTraits.hpp"
 #include "myIterator.hpp"
