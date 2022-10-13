@@ -471,6 +471,8 @@ namespace ft
 				_size = 0;
 			}
 
+
+
 	};
 
 		template <class T, class Allocator>
