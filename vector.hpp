@@ -14,10 +14,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <iostream>  
-#include <string>
-#include <memory>
-#include <iterator>
+
 #include "utils/utils.hpp"
 #include "utils/myIterator.hpp"
 #include "utils/reverseIterator.hpp"
@@ -57,7 +54,7 @@ namespace ft
 	//constructor
 		public:
 			explicit vector(const Allocator& allocator = Allocator()):	//default: Constructs an empty container, with no elements.
-				_array(nullpt),
+				_array(my_nullptr),
 				_capacity(0),
 				_size(0),
 				_allocator(allocator) {}															 
@@ -77,7 +74,7 @@ namespace ft
 
 			template <class InputIterator>
 				vector(InputIterator first, InputIterator last, const Allocator& allocator= Allocator(),
-						typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)  //range: Constructs a container with as many elements as the range [first,last),
+						typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = my_nullptr)  //range: Constructs a container with as many elements as the range [first,last),
 			{																			// with each element constructed from its corresponding element in that range, in the same order.
 				_allocator = allocator;
 				_capacity = last - first;
@@ -91,7 +88,7 @@ namespace ft
 			
 			} 	 
 																										
-			vector(const vector<T,Allocator>& x): _array(nullpt), _capacity(0), _size(0)
+			vector(const vector<T,Allocator>& x): _array(my_nullptr), _capacity(0), _size(0)
 			{
 				*this = x;
 			}
@@ -120,7 +117,7 @@ namespace ft
 			
 			template <class InputIterator>
 				void assign(InputIterator first, InputIterator last, 
-							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = nullpt)
+							typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = my_nullptr)
 			{
 				_allocator.deallocate(_array, _capacity);
 				_capacity = last - first;
@@ -381,7 +378,7 @@ namespace ft
 			
 			template <class InputIterator>
 				void insert(iterator position, InputIterator first, InputIterator last,
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = my_nullptr)
 				{
 					size_type 	old_size = _size;
 					size_type	i;
@@ -470,9 +467,6 @@ namespace ft
 					_allocator.destroy(_array+i);
 				_size = 0;
 			}
-
-
-
 	};
 
 		template <class T, class Allocator>
@@ -521,13 +515,8 @@ namespace ft
 			}
 
 		template< class T >
-struct is_integral;
+			struct is_integral;
 }
 
 #endif
 
-// https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
-
-// https://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
-
-// https://github.com/Aktai0n/ft_containers-42Heilbronn/blob/master/tester/stack_tests.cpp

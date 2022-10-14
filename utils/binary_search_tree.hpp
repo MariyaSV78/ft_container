@@ -13,45 +13,15 @@
 #ifndef BINARY_SEARCH_TREE_HPP
 # define BINARY_SEARCH_TREE_HPP
 
+# include <iterator>
 # include "utils.hpp"
+# include "pair.hpp"
 # include "binary_search_tree_iter.hpp"
-
-// ranges::less function object type.
-//   template <class T> struct less : binary_function <T,T,bool> {
-  // bool operator() (const T& x, const T& y) const {return x<y;}
-	//};
-// struct less
-//   {
-//     template<typename _Tp, typename _Up>
-//       requires totally_ordered_with<_Tp, _Up>
-//       constexpr bool
-//       operator()(_Tp&& __t, _Up&& __u) const
-//       noexcept(noexcept(std::declval<_Tp>() < std::declval<_Up>()))
-//       {
-// 	if constexpr (__detail::__less_builtin_ptr_cmp<_Tp, _Up>)
-// 	  {
-// #ifdef __cpp_lib_is_constant_evaluated
-// 	    if (std::is_constant_evaluated())
-// 	      return __t < __u;
-// #endif
-// 	    auto __x = reinterpret_cast<__UINTPTR_TYPE__>(
-// 	      static_cast<const volatile void*>(std::forward<_Tp>(__t)));
-// 	    auto __y = reinterpret_cast<__UINTPTR_TYPE__>(
-// 	      static_cast<const volatile void*>(std::forward<_Up>(__u)));
-// 	    return __x < __y;
-// 	  }
-// 	else
-// 	  return std::forward<_Tp>(__t) < std::forward<_Up>(__u);
-//       }
-
-//     using is_transparent = __is_transparent;
-//   };
-
 
 namespace ft
 {
 	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>,
-				class _Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
+				class Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
 	class Binary_search_tree
 	{
 		public :

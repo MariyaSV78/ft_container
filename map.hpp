@@ -15,10 +15,12 @@
 # include <iostream>
 # include <string>
 # include <iterator>
-# include "utils/mapIterator.hpp"
 # include "utils/reverseIterator.hpp"
+# include "utils/binary_search_tree.hpp"
+# include "utils/binary_search_tree_iter.hpp"
 # include "utils/pair.hpp"
 # include "utils/utils.hpp"
+# include "utils/enable_if.hpp"
 
 namespace ft 
 {
@@ -52,10 +54,10 @@ namespace ft
 			typedef typename allocator_type::const_reference 					const_reference;
 			typedef typename allocator_type::pointer 							pointer;
 			typedef typename allocator_type::const_pointer 						const_pointer;
-	!		typedef ft::Binary_search_tree<value_type, key_compare>::iterator 			iterator;				 
-	!		typedef ft::Binary_search_tree<value_type, key_compare>::const_iterator 	const_iterator;
-			typedef ft::reveres_iterator<iterator>								reverse_iterator;
-			typedef ft::reveres_iterator<const_iterator> 						const_reverse_iterator;
+			typedef typename ft::Binary_search_tree<value_type, key_compare>::iterator 			iterator;				 
+			typedef typename ft::Binary_search_tree<value_type, key_compare>::const_iterator 	const_iterator;
+			typedef typename ft::reveres_iterator<iterator>								reverse_iterator;
+			typedef typename ft::reveres_iterator<const_iterator> 						const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type 	difference_type;
 			typedef size_t 														size_type;
 	// !		typedef	typename allocator_type::difference_type 					difference_type;
@@ -66,7 +68,7 @@ namespace ft
 			key_compare                                 	 _compare;
 			Binary_search_tree<value_type, key_compare> 	 _bst;
 
-
+	public:
 	//construct/copy/destroy:
 
 	//Construct an empty map container object.
@@ -80,25 +82,25 @@ namespace ft
 			map(InputIterator first, InputIterator last, 
 					const key_compare& compare = key_compare(), 
 					const allocator_type& alloc = allocator_type(),
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt):
-			_alloc(alloc),
-			_compare(compare),
-			_bst();
-			{
-				while (first != last) //this->insert(first,last) ?
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = my_nullptr):
+				_alloc(alloc),
+				_compare(compare),
+				_bst()
 				{
-					_bst.insert(*first); 
-					first++;
+					while (first != last) //this->insert(first,last) ?
+					{
+						_bst.insert(*first); 
+						first++;
+					}
 				}
-			}
 
 		map(const map& x):
 			_alloc(x._alloc),
-			_compare(.x_compare);
+			_compare(x._compare),
 			_bst()
-		{
-			insert(x.begin(), x.end()); // *this = x;
-		}
+			{
+				insert(x.begin(), x.end()); // *this = x;
+			}
 		
 		map& operator=(const map& x)
 		{
@@ -122,6 +124,12 @@ namespace ft
 
 		~map()
 		{ this->clear();}
+
+		allocator_type get_allocator() const
+		{
+			return _alloc;
+		}
+
 
 	// iterators:
 		iterator begin()
@@ -182,9 +190,9 @@ namespace ft
 
 		template <class InputIterator>
 			void 	insert(InputIterator first, InputIterator last,
-			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullpt)
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = my_nullptr)
 		{
-				bool is_valid;
+				//bool is_valid;
 				// if (!(is_valid = ft::is_input_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::value))
 				// 	throw (ft::InvalidIteratorException<typename ft::is_input_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::type>());
 				difference_type n = ft::distance(first, last);
@@ -209,7 +217,8 @@ namespace ft
 				erase((*(first++)).first);
 		}
 
-		void swap(map& x)m 
+		void swap(map& x)
+		{ _bst.swap(x._bst); }
 
 		void clear()
 		{ erase(begin(), end());}
@@ -271,7 +280,7 @@ namespace ft
 			return (begin);
 		}
 
-		const_iterator upper_bound(const key_type& x) const
+		const_iterator upper_bound(const key_type& key) const
 		{return const_iterator(upper_bound(key));}
 		
 		ft::pair<iterator,iterator> equal_range(const key_type& key) // return interval like of pair: first iterator pointing to the lower bound of "key" and the second - to the upper.
@@ -282,13 +291,14 @@ namespace ft
 
 
 
-		template<class _Key, class _T, class _Compare, class _Allocator> 
-			friend bool operator==(const map<_Key, _T, _Compare, _Alloc>& x,
-									const map<_Key, _T, _Compare, _Alloc>& y);
+		// //template<class Key, class T, class Compare, class Alloc> 
+		// 	friend bool operator==(const map<Key, T, Compare, Alloc>& x,
+		// 							const map<Key, T, Compare, Alloc>& y);
 
-		template<class _Key, class _T, class _Compare, class _Allocotar>
-			friend bool operator<(const map<_Key, _T, _Compare, _Alloc> & x,
-								  const map<_Key, _T, _Compare, _Alloc>& y);
+		// //template<class Key, class T, class Compare, class Alloc>
+		// 	friend bool operator<(const map<Key, T, Compare, Alloc> & x,
+		// 						  const map<Key, T, Compare, Alloc>& y);
+
 	};
 		
 		template <class Key, class T, class Compare, class Allocator>

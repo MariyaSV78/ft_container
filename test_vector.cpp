@@ -11,17 +11,9 @@
 /* ************************************************************************** */
 
 
-//#include <iostream>
-//#include <string>
-#include <iomanip>
 #include "vector.hpp"
-#include <vector>
-#include <ctime>
-
 #include "tester.hpp"
-
-typedef struct 			timespec Time;
-typedef std::size_t		size_type;
+#include <ctime>
 
 
 #define RESET "\033[0m"
@@ -64,7 +56,7 @@ std::cout.fill(' ');
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		vector_is_identic(std_def_vector, ft_def_vector);
-		is_time(std_time, ft_time);
+		is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; 
 		std::cout << std::endl;
 		std::cout << std::endl;
 	
@@ -387,6 +379,10 @@ std::cout.fill(' ');
 			std::cout << std::endl;	
 			std::cout << std::endl;	
 
+
+		delete (ft_def_ptr_vector);
+		delete (std_def_ptr_vector);
+		
 //      std::cout << "Assign operator"<< std::endl;
 		
 // 		int range_array[] = { 74, 569, -8822, 8515, 5, 7, 67};

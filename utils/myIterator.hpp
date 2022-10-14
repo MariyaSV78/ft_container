@@ -13,6 +13,7 @@
 #ifndef MYITERATOR_HPP
 # define MYITERATOR_HPP
 
+# include <iterator>
 # include "utils.hpp"	
 # include "iteratorTraits.hpp"
 
@@ -34,7 +35,7 @@ namespace ft
 		pointer	_ptr; /* Element pointed by the iterator. */
 //MEMBER FUNCTIONS
 	public:
-		myIterator() : _ptr(nullpt) {}					// Default construtor
+		myIterator() : _ptr(my_nullptr) {}					// Default construtor
 		
 		myIterator(pointer ptr) : _ptr(ptr) {}		 	// Constructor from pointer
 		

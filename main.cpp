@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include "stack.hpp"
-#include "vector.hpp"
-#include <stack>
-#include <vector>
-#include <ctime>
 #include "tester.hpp"
 
 int 	main()
 {
 	test_vector();
 	test_stack();
+	test_map();
 	
 }
 

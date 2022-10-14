@@ -36,7 +36,7 @@ namespace ft
 			
 		//SECTION - MEMBER FUNCTIONS
 		public:
-			reveres_iterator() : _current(nullpt) {}
+			reveres_iterator() : _current(my_nullptr) {}
 			
 			explicit reveres_iterator(iterator_type x) : _current(x) {}
 			

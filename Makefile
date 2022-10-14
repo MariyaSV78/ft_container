@@ -7,7 +7,7 @@ CXX = clang++
 
 OBJS =  $(SRCS:.cpp=.o)
 
-SRCS = main.cpp test_stack.cpp test_vector.cpp
+SRCS = main.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
 
 all: $(NAME)
 

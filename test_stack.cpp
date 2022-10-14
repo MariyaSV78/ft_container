@@ -11,19 +11,8 @@
 /* ************************************************************************** */
 
 
-#include <iostream>
-#include <string>
-#include <iomanip>
 #include "stack.hpp"
-#include <stack>
-#include <ctime>
 #include "tester.hpp"
-
-
-
-typedef struct 			timespec Time;
-typedef std::size_t		size_type;
-
 
 #define RESET "\033[0m"
 #define RED "\033[31m"

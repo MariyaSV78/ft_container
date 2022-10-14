@@ -7,3 +7,6 @@ https://github.com/rchallie/ft_containers/blob/master/containers/vector.hpp
 https://github.com/Conanyedo/Ft_Containers/blob/master/vector.hpp
 
 
+// https://www.softwaretestinghelp.com/binary-search-tree-in-cpp/
+
+// https://www.programiz.com/dsa/binary-search-tree

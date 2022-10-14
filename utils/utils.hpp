@@ -21,7 +21,7 @@
 
  
 
-const class
+const class nullptr_t
 {
  
 	public:
@@ -35,7 +35,7 @@ const class
         void operator&() const;
 	
 
-}nullpt={};
+}my_nullptr = {};
 
 namespace ft
 {
@@ -157,8 +157,28 @@ namespace ft
         };
 
 
+//A base class for standard binary function objects. https://cplusplus.com/reference/functional/binary_function/?kw=binary_function
 
-		
+		template <class Arg1, class Arg2, class Result>
+			struct binary_function
+			{
+				/* The first argument type */
+				typedef Arg1 first_argument_type;
+
+				/* The second arguement type */
+				typedef Arg2 second_argument_type;
+
+				/* The result type */
+				typedef Result result_type;
+			};
+
+ // Binary function object class whose call returns whether the its first argument compares less than the second (as returned by operator <).   
+
+		template <class T>
+			struct less : binary_function<T, T, bool>
+			{
+				bool operator() (const T& x, const T& y) const { return (x < y); }
+			};
 		
 		
 		template <class InputIterator1, class InputIterator2>
@@ -191,31 +211,109 @@ namespace ft
 				return (true);
 			}
 
-// /*
-//     ** Base class for standard binary function objects.
-//     ** (Doc = http://www.cplusplus.com/reference/functional/binary_function/?kw=binary_function)
-//     ** (the operator "()", permet to use a class with the same syntax
-//     ** as a function call).
-//     */
-// 		template <class Arg1, class Arg2, class Result>
-// 			struct binary_function
-// 			{
-// 				/* The first argument type */
-// 				typedef Arg1 first_argument_type;
+template <typename T>
+    struct BST_Node
+    {
+		typedef T   value_type;
 
-// 				/* The second arguement type */
-// 				typedef Arg2 second_argument_type;
+		value_type 	value;
+		BST_Node* 	parent;
+		BST_Node* 	left;
+		BST_Node* 	right;
 
-// 				/* The result type */
-// 				typedef Result result_type;
-// 			};
-		
-		
-// 		template <class T>
-// 			struct less : binary_function<T, T, bool>
-// 			{
-// 				bool operator()(const T& x, const T& y) const { return (x < y); }
-// 			};
+		BST_Node ()
+		:
+			value(),
+			parent(my_nullptr),
+			left(my_nullptr),
+			right(my_nullptr)
+		{}
+
+		BST_Node (BST_Node* parent = my_nullptr,
+				BST_Node* left = my_nullptr, BST_Node* right = my_nullptr)
+		:
+			value(),
+			parent(parent),
+			left(left),
+			right(right)
+		{}
+            
+      
+ // value defined 
+		BST_Node (const value_type& value, BST_Node* parent = my_nullptr,
+				BST_Node* left = my_nullptr, BST_Node* right = my_nullptr)
+		:
+			value(value),
+			parent(parent),
+			left(left),
+			right(right)
+		{}
+
+		BST_Node (const BST_Node& copy_node)
+		:
+			value(copy_node.value),
+			parent(copy_node.parent),
+			left(copy_node.left),
+			right(copy_node.right)
+		{}
+
+		BST_Node &operator=(const BST_Node& nd)
+		{
+			if (nd == *this)
+				return (*this);
+			
+			value = nd.value;
+			parent = nd.parent;
+			left = nd.left;
+			right = nd.right;
+			
+			return (*this);
+		}
+
+		virtual ~BST_Node() {}
+
+		bool operator==(const BST_Node& nd)
+		{
+			if (value == nd.value)
+				return (true);
+			return (false);
+		}
+    };
+
+ // List Node : 
+    template <class Data_T>
+    	struct Doubly_Linked_Node 
+    {
+		Doubly_Linked_Node  *prev;
+		Doubly_Linked_Node  *next;
+		Data_T              data;
+
+	
+// Create a node with next and prev = nullptr
+		Doubly_Linked_Node()
+		:
+			prev(my_nullptr),
+			next(my_nullptr)
+		{}
+
+// Create a node with next and prev = nullptr and data is itialized to "value".
+		Doubly_Linked_Node(const Data_T& value)
+		:
+			prev(my_nullptr),
+			next(my_nullptr),
+			data(value)
+		{}
+
+// Create a node with next = "next" and prev = "prev" data is itialized to "value".
+
+		Doubly_Linked_Node(const Data_T& value,
+			Doubly_Linked_Node *prev, Doubly_Linked_Node *next)
+		:
+			prev(prev),
+			next(next),
+			data(value)
+		{}
+    };
 
 }
 #endif
