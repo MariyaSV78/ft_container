@@ -291,13 +291,13 @@ namespace ft
 
 
 
-		// //template<class Key, class T, class Compare, class Alloc> 
-		// 	friend bool operator==(const map<Key, T, Compare, Alloc>& x,
-		// 							const map<Key, T, Compare, Alloc>& y);
+		//template<class Key, class T, class Compare, class Alloc> 
+			friend bool operator==(const map<Key, T, Compare, Alloc>& x,
+									const map<Key, T, Compare, Alloc>& y);
 
-		// //template<class Key, class T, class Compare, class Alloc>
-		// 	friend bool operator<(const map<Key, T, Compare, Alloc> & x,
-		// 						  const map<Key, T, Compare, Alloc>& y);
+		//template<class Key, class T, class Compare, class Alloc>
+			friend bool operator<(const map<Key, T, Compare, Alloc> & x,
+								  const map<Key, T, Compare, Alloc>& y);
 
 	};
 		

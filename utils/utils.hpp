@@ -21,7 +21,7 @@
 
  
 
-const class nullptr_t
+const class my_nullptr_t
 {
  
 	public:

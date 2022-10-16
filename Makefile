@@ -5,13 +5,16 @@ FLAGS = -g -Wall -Werror -Wextra --std=c++98
 #CXX = c++
 CXX = clang++
 
-OBJS =  $(SRCS:.cpp=.o)
-
 SRCS = main.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
+
+OBJS_FOLDER = objs/
+OBJ =  $(SRCS:.cpp=.o)
+OBJS = $(addprefix $(OBJS_FOLDER), $(OBJ))
+
 
 all: $(NAME)
 
-%.o: %.cpp
+$(OBJS_FOLDER)%.o: %.cpp
 	$(CXX) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)

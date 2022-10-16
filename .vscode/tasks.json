@@ -4,13 +4,14 @@
 		{
 			"type": "cppbuild",
 			"label": "C/C++: cpp build active file",
-			"command": "/usr/bin/cpp",
+			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"${file}",
+				"--std=c++98",
+				"main.cpp","test_stack.cpp","test_vector.cpp","test_map.cpp",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"ft_containers"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

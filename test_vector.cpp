@@ -205,9 +205,9 @@ std::cout.fill(' ');
         std::cout << std::endl;
 		std::cout << std::endl;	
 		
-		//print_vector(std_vector);
-		//print_vector(ft_vector);	
-			
+		// print_vector(std_vector);
+		// print_vector(ft_vector);	
+
 	std::cout << "push_back(10)" << std::setw(29);
 
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -225,9 +225,7 @@ std::cout.fill(' ');
 		std::cout << std::endl;	
 		std::cout << std::endl;
 		// print_vector(std_vector);
-		// print_vector(ft_vector);	
-		
-
+		// print_vector(ft_vector);
 
  		std::cout << "pop_back()" << std::setw(32);
 			clock_gettime(CLOCK_MONOTONIC, &start);
@@ -364,7 +362,26 @@ std::cout.fill(' ');
 			std::cout << std::endl;	
 			std::cout << std::endl;
 
- 		std::cout << "clear" << std::setw(37);
+		std::cout << "swap" << std::setw(38);
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			ft_vector.swap(ft_iter_vector);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+			clock_gettime(CLOCK_MONOTONIC, &start);
+			std_vector.swap(std_iter_vector);
+			clock_gettime(CLOCK_MONOTONIC, &end);
+			ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+			vector_is_identic(std_vector, ft_vector); 
+			is_time(std_time, ft_time);
+
+			std::cout << std::endl;	
+			std::cout << std::endl;
+			
+			// print_vector(std_vector);
+			// print_vector(ft_vector);	
+ 		
+		 std::cout << "clear" << std::setw(37);
 			clock_gettime(CLOCK_MONOTONIC, &start);
 			ft_vector.clear();
 			clock_gettime(CLOCK_MONOTONIC, &end);
@@ -382,7 +399,7 @@ std::cout.fill(' ');
 
 		delete (ft_def_ptr_vector);
 		delete (std_def_ptr_vector);
-		
+
 //      std::cout << "Assign operator"<< std::endl;
 		
 // 		int range_array[] = { 74, 569, -8822, 8515, 5, 7, 67};
