@@ -8,7 +8,7 @@ namespace ft
 	template <typename T, class Compare >
 	class BST_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
-		public:
+		private:
 			T *			_node;
 			T *			_last_node;
 			Compare     _comp;

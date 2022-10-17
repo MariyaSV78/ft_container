@@ -25,133 +25,168 @@ namespace ft
 	{
 		//SECTION - MEMBER TYPES
 		public:
-			typedef Iterator												iterator_type;
-			typedef typename iterator_traits<Iterator>::difference_type  	difference_type;
-			typedef typename iterator_traits<Iterator>::pointer  			pointer;
-			typedef typename iterator_traits<Iterator>::reference			reference;
-			typedef typename iterator_traits<Iterator>::iterator_category  iterator_category;
+			typedef Iterator													iterator_type;
+			typedef typename ft::iterator_traits<Iterator>::difference_type  	difference_type;
+			typedef typename ft::iterator_traits<Iterator>::pointer  			pointer;
+			typedef typename ft::iterator_traits<Iterator>::reference			reference;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category  	iterator_category;
+            typedef typename ft::iterator_traits<Iterator>::value_type      	value_type;
 		protected:
-			iterator_type							_current;
-			typedef iterator_traits<Iterator>		_traits_type;
+			iterator_type							_elem;
 			
 		//SECTION - MEMBER FUNCTIONS
 		public:
-			reveres_iterator() : _current(my_nullptr) {}
+			reveres_iterator() : _elem() {}
 			
-			explicit reveres_iterator(iterator_type x) : _current(x) {}
+			explicit reveres_iterator(iterator_type x) : _elem(x) {}
 			
-			reveres_iterator (const reveres_iterator& x): _current (x._carrent){}
+			// reveres_iterator (const reveres_iterator& x): _elem (x._elem){}
 			
 			template <class Iter>
-  			reveres_iterator (const reveres_iterator<Iter>& it) : _current(it._current) {} // _current(x.base())
+  				reveres_iterator (const reveres_iterator<Iter>& x) : _elem(x.base()) {} // _elem(x.base())
 			  
-			iterator_type base() const{return _current;}
+			virtual ~reveres_iterator(){}
+			
+			iterator_type base() const{return _elem;}
+
 			reference operator*() const
 			{
-				Iterator tmp = _current;
-				return *--tmp;
+				iterator_type tmp = _elem;
+				return *(--tmp);
 			}
 
 	/*!*/	pointer operator->() const
 			{
-				return (&(*(--base())));
+				return  &(operator*());  //(&(*(--base())));
 			}
 			
 			reveres_iterator& operator++()
 			{
-				--_current;
-				return (*this);
+				--_elem;
+				return *this;
 			}
 			reveres_iterator operator++(int)
 			{
 				reveres_iterator tmp=*this;
-				--_current;
+				++(*this);
 				return tmp;
 			}
 
 			reveres_iterator& operator--()
 			{
-				++_current;
+				++_elem;
 				return *this;
 			}
 			reveres_iterator operator--(int)
 			{
 				reveres_iterator tmp=*this;
-				++_current;
+				--(*this);
 				return tmp;
 			}
 			
 			reveres_iterator operator+ (difference_type n) const
-			{return reveres_iterator(_current - n);}
+			{return reveres_iterator(_elem - n);}
 			
 			reveres_iterator& operator+= (difference_type n)
 			{
-				_current -= n;
+				_elem -= n;
 				return *this;
 			}
 
 			reveres_iterator operator- (difference_type n) const
-			{return reveres_iterator(_current + n);}
+			{return reveres_iterator(_elem + n);}
 
 			reveres_iterator& operator-= (difference_type n)
 			{
-				_current += n;
+				_elem += n;
 				return *this;
 			}
 			reference operator[] (difference_type n) const 
-			{return (*this + n);}
+			{return (this->base()[-n - 1]);}
 	};
+	
 	//SECTION - NON MEMBER FUNCTION OVERLOADS
 	template <class Iterator>
-	bool operator==(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() == rhs.base());
-	}
+	bool operator==(const reveres_iterator<Iterator>& x,
+					const reveres_iterator<Iterator>& y)
+		{return (x.base() == y.base());}
+
+	template <class Iterator_L, class Iterator_R>
+        bool operator== (const reveres_iterator<Iterator_L>& x,
+                        const reveres_iterator<Iterator_R>& y) 
+		{ return (x.base() == y.base());}
+	
+		
 	template <class Iterator>
-	bool operator!=(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() != rhs.base());
-	}
+		bool operator!=(const reveres_iterator<Iterator>& x,
+					const reveres_iterator<Iterator>& y)
+		{return (x.base() != y.base());}
+			
+	template <class Iterator_L, class Iterator_R>
+        bool operator!= (const reveres_iterator<Iterator_L>& x,
+                        const reveres_iterator<Iterator_R>& y) 
+		{ return (x.base() != y.base());}
+	
+
 	template <class Iterator>
-	bool operator<(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() > rhs.base());
-	}
+		bool operator<(const reveres_iterator<Iterator>& lhs,
+						const reveres_iterator<Iterator>& rhs)
+		{
+			return (lhs.base() > rhs.base());
+		}
+
+
 	template <class Iterator>
-	bool operator<=(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() >= rhs.base());
-	}
+		bool operator<=(const reveres_iterator<Iterator>& x,
+						const reveres_iterator<Iterator>& y)
+		{return (x.base() >= y.base());}
+	
+	template <class Iterator_L, class Iterator_R>
+		bool operator<=(const reveres_iterator<Iterator_L>& x,
+						const reveres_iterator<Iterator_R>& y)
+		{return (x.base() >= y.base());}
+	
+
 	template <class Iterator>
-	bool operator>(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() < rhs.base());
-	}
+		bool operator>(const reveres_iterator<Iterator>& x,
+						const reveres_iterator<Iterator>& y)
+		{return (x.base() < y.base());}
+	
+	template <class Iterator_L, class Iterator_R>
+		bool operator>(const reveres_iterator<Iterator_L>& x,
+						const reveres_iterator<Iterator_R>& y)
+		{return (x.base() < y.base());}
+		
+	
 	template <class Iterator>
-	bool operator>=(const reveres_iterator<Iterator>& lhs,
-					const reveres_iterator<Iterator>& rhs)
-	{
-		return (lhs.base() <= rhs.base());
-	}
+		bool operator>=(const reveres_iterator<Iterator>& x,
+						const reveres_iterator<Iterator>& y)
+		{return (x.base() <= y.base());}
+	
+	template <class Iterator_L, class Iterator_R>
+		bool operator>=(const reveres_iterator<Iterator_L>& x,
+						const reveres_iterator<Iterator_R>& y)
+		{return (x.base() <= y.base());}
+	
+	
 	template <class Iterator>
-	reveres_iterator<Iterator> operator+ (
-				typename reveres_iterator<Iterator>::difference_type n,
-				const reveres_iterator<Iterator>& it)
-	{
-		return (reveres_iterator<Iterator>(it.base() - n));
-	}
+		reveres_iterator<Iterator> operator+ (
+			typename reveres_iterator<Iterator>::difference_type n,
+			const reveres_iterator<Iterator>& r_it)
+		{return (r_it + n);}
+	
+	
 	template <class Iterator>
-	typename reveres_iterator<Iterator>::difference_type operator- (
-		const reveres_iterator<Iterator>& lhs,
-		const reveres_iterator<Iterator>& rhs)
-	{
-		return(rhs.base() - lhs.base());
-	}
+		typename reveres_iterator<Iterator>::difference_type operator- (
+			const reveres_iterator<Iterator>& x,
+			const reveres_iterator<Iterator>& y)
+		{return(x.base() - y.base());}
+
+	template <class Iterator_L, class Iterator_R>
+        bool operator-(const reveres_iterator<Iterator_L>& x,
+                        const reveres_iterator<Iterator_R>& y) 
+		{ return (x.base() - y.base()); } 
+	
 }
 
 #endif

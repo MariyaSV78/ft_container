@@ -1,5 +1,5 @@
-//#include "map.hpp"
-#include "../tmp_rchalie/containers/map.hpp"
+#include "map.hpp"
+// #include "../tmp_rchalie/containers/map.hpp"
 #include "tester.hpp"
 
 
@@ -97,7 +97,7 @@ void	test_map()
 		std::cout << std::endl;
 		std::cout << std::endl;
 
-	std::cout << "Assignement operator"  << std::setw(22);
+std::cout << "Assignement operator"  << std::setw(22);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char,int> ft_assign_map;
 		ft_assign_map = ft_copy_map;
@@ -115,6 +115,7 @@ void	test_map()
 		std::cout << std::endl;
 
 std::cout << "==========================================================================" << std::endl << std::endl;
+	
 	std::cout << "Iterators: begin, end"  << std::setw(34);
 		ft::map<char, int>::iterator begin_ft, end_ft;
 		std::map<char, int>::iterator begin_std, end_std;
@@ -138,7 +139,7 @@ std::cout << "==================================================================
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout << std::endl;
 		std::cout << std::endl;
-
+	
 	std::cout << "Iterators: rbegin, rend"  << std::setw(22);
 		ft::map<char, int>::iterator rbegin_ft, rend_ft;
 		std::map<char, int>::iterator rbegin_std, rend_std;

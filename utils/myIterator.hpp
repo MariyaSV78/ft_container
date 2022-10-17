@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MYITERATOR_HPP
-# define MYITERATOR_HPP
+#ifndef MY_ITERATOR_HPP
+# define MY_ITERATOR_HPP
 
-# include <iterator>
 # include "utils.hpp"	
 # include "iteratorTraits.hpp"
 
@@ -56,7 +55,7 @@ namespace ft
 		{ return *_ptr;}
 
 		pointer operator->() const //return _ptr; pointer operator->() const 
-		{return &(*_ptr);}						//{return &(this->operator*());}
+		{return &(this->operator*());}						//{return &(*_ptr);}
 		
 		
 		myIterator& operator++() 	// preincrement the iterator to point to the next element in memory.
@@ -65,7 +64,7 @@ namespace ft
 			return *this;
 		}
 
-		myIterator operator++(int)
+		myIterator operator++(int) // Postincrement the iterator to point to the next element in memory.
 		{ 	
 			myIterator tmp(*this);
 			operator++();
@@ -84,7 +83,7 @@ namespace ft
 			operator--();
 			return tmp;} //return myIterator(--_ptr);
  
-	// Random access iterator requirements
+	// reference to the elements at an arbitrary offset position
 		reference operator[](difference_type n) const 
 		{ return (*(operator+(n)));} // return _ptr[n];
 
@@ -107,7 +106,7 @@ namespace ft
 		{ return myIterator(_ptr - n);}
 
 		pointer base() const // a pointer to the element where the iterator point
-		{ return this->_ptr;}
+		{ return _ptr;}
 
 		operator myIterator<const T> () const
         { return (myIterator<const T>(this->_ptr)); }
@@ -116,138 +115,117 @@ namespace ft
 
 //NON MEMBER FUNCTION OVERLOADS
 
- //Check if the pointer of "lhs" is equal than "rhs" in the memory.
+ //Check if the pointer of "x" is equal than "y" in the memory.
 	template <typename T>
 	typename ft::myIterator<T>::difference_type
-	operator==(const ft::myIterator<T> lhs, const ft::myIterator<T> rhs)
-	{
-		return (lhs.base() == rhs.base());
-	}
+	operator==(const ft::myIterator<T> x, const ft::myIterator<T> y)
+	{return (x.base() == y.base());}
 
 //For iterator == const_iterator .
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator==(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() == rhs.base());
-    }
+    operator==(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() == y.base());}
+
 
 // if the pointer of "lhs" is different than "rhs" in the memory.
 	template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator!=(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() != rhs.base());
-    }
+    operator!=(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    {return (x.base() != y.base());}         
 
 // For iterator != const_iterator
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator!=(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() != rhs.base());
-    }
-	
-// if the pointer of "lhs" is lower than "rhs" in the memory.
+    operator!=(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() != y.base());}
+ 
+ 
+ // if the pointer of "x" is lower than "y" in the memory.
 	template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator<(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() < rhs.base());
-    }
+    operator<(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    {return (x.base() < y.base());}
 
 // For iterator < const_iterator.
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator<(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() < rhs.base());
-    }
+    operator<(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() < y.base());}
+  
 
-// if the pointer of "lhs" is upper than "rhs" in the memory.
+// if the pointer of "x" is upper than "y" in the memory.
     template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator>(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() > rhs.base());
-    }
-
+    operator>(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    { return (x.base() > y.base());}
+  
 // For iterator > const_iterator
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator>(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() > rhs.base());
-    }
+    operator>(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() > y.base());}
+ 
 
 // if the pointer of "lhs" is lower or equal than "rhs" in the memory.
     template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator<=(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() <= rhs.base());
-    }
+    operator<=(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    {return (x.base() <= y.base());}
 
 // For iterator <= const_iterator 
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator<=(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() <= rhs.base());
-    }
+    operator<=(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() <= y.base());}
+   
 
-// if the pointer of "lhs" is upper or equal than "rhs" in the memory.
+// if the pointer of "x" is upper or equal than "y" in the memory.
     template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator>=(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() >= rhs.base());
-    }
-
+    operator>=(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    {return (x.base() >= y.base());}
+ 
 // For iterator >= const_iterator 
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator>=(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() >= rhs.base());
-    }
+    operator>=(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() >= y.base());}
+ 
 
 //iterator pointing to n element after x pointed element
 	template<typename T>
     ft::myIterator<T> operator+(typename ft::myIterator<T>::difference_type n,
         						typename ft::myIterator<T>& x)
-	{
-		return (&(*x) + n);
-	}
+	{return (&(*x) + n);}
+	
 	
 // difference between the address of two iterators	
 	template <typename T>
     typename ft::myIterator<T>::difference_type
-    operator-(const ft::myIterator<T> lhs,
-              const ft::myIterator<T> rhs)
-    {
-        return (lhs.base() - rhs.base());
-    }
-
+    operator-(const ft::myIterator<T> x,
+              const ft::myIterator<T> y)
+    {return (x.base() - y.base());}
+   
     /* For iterator - const_iterator */
     template<typename T_L, typename T_R>
     typename ft::myIterator<T_L>::difference_type
-    operator-(const ft::myIterator<T_L> lhs,
-              const ft::myIterator<T_R> rhs)
-    {
-        return (lhs.base() - rhs.base());
-    }
+    operator-(const ft::myIterator<T_L> x,
+              const ft::myIterator<T_R> y)
+    {return (x.base() - y.base());}
+        
+    
 }
 
 #endif

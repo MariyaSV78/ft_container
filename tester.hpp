@@ -13,6 +13,7 @@
 #include <stack>
 #include <vector>
 #include <map>
+#include <iterator>
 
 typedef struct 			timespec Time;
 typedef std::size_t		size_type;

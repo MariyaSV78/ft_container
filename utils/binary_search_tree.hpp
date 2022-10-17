@@ -15,13 +15,12 @@
 
 # include <iterator>
 # include "utils.hpp"
-# include "pair.hpp"
+//# include "pair.hpp"
 # include "binary_search_tree_iter.hpp"
 
 namespace ft
 {
-	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>,
-				class Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
+	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>, class Type_Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
 	class Binary_search_tree
 	{
 		public :
@@ -34,10 +33,11 @@ namespace ft
 			typedef Node_Alloc  							node_alloc;
 			typedef ft::BST_iterator<Node, Compare> 		iterator;
 			typedef ft::BST_const_iterator<Node, Compare> 	const_iterator;
-			typedef size_t size_type;
+			typedef size_t 									size_type;
 
 // constructors
-			Binary_search_tree (const node_alloc& node_alloc_init = node_alloc()): _node_alloc(node_alloc_init)
+			Binary_search_tree (const node_alloc& node_alloc_init = node_alloc()): 
+				_node_alloc(node_alloc_init)
 			{
 				_last_node = _node_alloc.allocate(1);
 				_node_alloc.construct(_last_node, Node(_last_node, _last_node, _last_node));
@@ -53,12 +53,12 @@ namespace ft
 // Insert a new node that contain "to_insert".
 			ft::pair<iterator, bool> insertPair(value_type to_insert)
 			{
-				Node * new_node = _node_alloc.allocate(1);
-				Node * prev_node = _last_node;
-				Node * start_node = _last_node->parent;
+				Node*	new_node = _node_alloc.allocate(1);
+				Node*	prev_node = _last_node;
+				Node*	start_node = _last_node->parent;
 
 				// side == false = left; side == true = right;
-				bool side = true;
+				bool	side = true;
 
 				while (start_node != _last_node)
 				{
@@ -119,8 +119,8 @@ namespace ft
 				if (&x == this)
 					return ;
 				
-				node_pointer save = this->_last_node;
-				this->_last_node = x._last_node;
+				node_pointer save = _last_node;
+				_last_node = x._last_node;
 				x._last_node = save;
 			}
 
