@@ -314,7 +314,7 @@ std::cout << "==================================================================
 		// print_map(std_new_map);
 		// print_map(ft_new_map);
 
-	std::cout << "Swap:"  << std::setw(38);
+	std::cout << "Swap:"  << std::setw(37);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_def_map.swap(ft_new_map);
 		clock_gettime(CLOCK_MONOTONIC, &end);
@@ -332,7 +332,7 @@ std::cout << "==================================================================
 		// print_map(ft_new_map);
 
 
-	std::cout << "Clear:"  << std::setw(37);
+	std::cout << "Clear:"  << std::setw(36);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_new_map.clear();
 		ft_new_map['B'] = 66;
@@ -362,17 +362,14 @@ std::cout << "==================================================================
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		if	(std_res  && ft_res )
-			std::cout << std::setw(41) <<  GREEN << "OK" << RESET;
+			std::cout << std::setw(40) <<  GREEN << "OK" << RESET;
 		else
-			std::cout << std::setw(41) <<  RED << "KO" << RESET;
+			std::cout << std::setw(40) <<  RED << "KO" << RESET;
 
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
 				
-		// print_map(std_mycomp);
-		// print_map(ft_mycomp);
-
 	std::cout << "Key value:"  << std::setw(40);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char,int>::value_compare ft_key = ft::map<char, int>().value_comp();
@@ -386,9 +383,9 @@ std::cout << "==================================================================
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		if	(std_res1  && ft_res1)
-			std::cout << std::setw(43) <<  GREEN << "OK" << RESET;
+			std::cout << std::setw(42) <<  GREEN << "OK" << RESET;
 		else
-			std::cout << std::setw(43) <<  RED << "KO" << RESET;
+			std::cout << std::setw(42) <<  RED << "KO" << RESET;
 
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout <<  std::endl;
@@ -405,15 +402,15 @@ std::cout << "==================================================================
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		if	((ft_it->first == std_it->first) && (ft_it->second == std_it->second))
-			std::cout << std::setw(48) <<  GREEN << "OK" << RESET;
+			std::cout << std::setw(47) <<  GREEN << "OK" << RESET;
 		else
-			std::cout << std::setw(48) <<  RED << "KO" << RESET;
+			std::cout << std::setw(47) <<  RED << "KO" << RESET;
 
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
 
-		print_map(std_copy_map);
+		//print_map(std_copy_map);
 
 	std::cout << "Count:"  << std::setw(40);
 		size_type	ft, std;
@@ -427,11 +424,53 @@ std::cout << "==================================================================
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		if	(ft == std)
-			std::cout << std::setw(48) <<  GREEN << "OK" << RESET;
+			std::cout << std::setw(46) <<  GREEN << "OK" << RESET;
 		else
-			std::cout << std::setw(48) <<  RED << "KO" << RESET;
+			std::cout << std::setw(46) <<  RED << "KO" << RESET;
 
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;
+
+		std::cout << "Lower_bound and upper_bound:"  << std::setw(14);
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::map<char, int>::iterator	ft_it_low, ft_it_up;
+		ft_it_low = ft_copy_map.lower_bound('c'); // points to c
+		ft_it_up = ft_copy_map.upper_bound('d');	//points to e (not d!)
+		ft_copy_map.erase(ft_it_low, ft_it_up); //erases [it_low,it_up)
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::map<char, int>::iterator	std_it_low, std_it_up;
+		std_it_low = std_copy_map.lower_bound('c');
+		std_it_up = std_copy_map.upper_bound('d');
+		std_copy_map.erase(std_it_low, std_it_up);
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		map_is_identic(std_copy_map, ft_copy_map);
+		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
+		std::cout <<  std::endl;
+		std::cout <<  std::endl;
+
+		std::cout << "Equal range:"  << std::setw(14);
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ft_ret;
+		ft_ret = ft_copy_map.equal_range('b');
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::pair<std::map<char,int>::iterator, std::map<char,int>::iterator> std_ret;
+		std_ret = std_copy_map.equal_range('b');
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+	//	map_is_identic(std_copy_map, ft_copy_map);
+		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
+		std::cout <<  std::endl;
+		std::cout <<  std::endl;
+
+		print_map(std_copy_map);
+		print_map(ft_copy_map);
+
 }

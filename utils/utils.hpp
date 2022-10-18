@@ -94,7 +94,7 @@ namespace ft
 		}; 
 
 	template <class T1, class T2>
-		bool operator==(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator==(ft::pair<T1,T2> x, ft::pair<T1,T2> y)
 		{return (x.first == y.first && x.second == y.second);}
 
 	template <class T1, class T2>
