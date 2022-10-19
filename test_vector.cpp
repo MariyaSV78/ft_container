@@ -14,11 +14,8 @@
 #include "vector.hpp"
 #include "tester.hpp"
 #include <ctime>
+#include "./utils/colors.hpp"
 
-
-#define RESET "\033[0m"
-#define RED "\033[31m"
-#define GREEN "\033[32m"
 
 void	is_time(double std_time, double ft_time)
 {
@@ -56,7 +53,7 @@ std::cout.fill(' ');
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		vector_is_identic(std_def_vector, ft_def_vector);
-		is_time(std_time, ft_time); std::cout << std_time << "  " << ft_time ; 
+		is_time(std_time, ft_time);
 		std::cout << std::endl;
 		std::cout << std::endl;
 	
@@ -94,16 +91,25 @@ std::cout.fill(' ');
 
  	std::cout << "Fill constructor sized"<< std::setw(20);
  		clock_gettime(CLOCK_MONOTONIC, &start);
-        ft::vector<int> ft_fill_vector_sized(9);
+        ft::vector<int> ft_int_vector_sized(9);
+	//	ft::vector<float> ft_float_vector_sized(2.4);
 		clock_gettime(CLOCK_MONOTONIC, &end);
         ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 		clock_gettime(CLOCK_MONOTONIC, &start);
-        std::vector<int> stl_fill_vector_sized(9);
+        std::vector<int> stl_int_vector_sized(9);
+	//	std::vector<float> std_float_vector_sized(2.4);
 		clock_gettime(CLOCK_MONOTONIC, &end);
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
-		vector_is_identic (stl_fill_vector_sized, ft_fill_vector_sized);
+		vector_is_identic (stl_int_vector_sized, ft_int_vector_sized);
+		std::cout << std::setw(21) << "vector<int>" ;
+		std::cout << std::endl  << std::setw(42);
+	//	vector_is_identic (std_float_vector_sized, ft_float_vector_sized);
+		
+
+
 		is_time(std_time, ft_time);
+		std::cout << std::setw(14) << "vector<float>" ;
 		std::cout << std::endl;	
 		std::cout << std::endl;
 
@@ -173,6 +179,28 @@ std::cout.fill(' ');
 	ft::vector<int> ft_vector = ft_iter_vector;
 	std::vector<int> std_vector = std_iter_vector;
 
+	std::cout << "max_size" << std::setw(29);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft_vector.max_size();
+		ft_copy_vector.max_size();
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std_vector.max_size();
+		std_copy_vector.max_size();
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		if	(ft_vector.max_size() == std_vector.max_size() && ft_copy_vector.max_size() == std_copy_vector.max_size())
+			std::cout << std::setw(54) <<  GREEN << "OK" << RESET;
+		else
+			std::cout << std::setw(54) <<  RED << "KO" << RESET;
+
+		is_time(std_time, ft_time); 
+		
+        std::cout << std::endl;	
+		std::cout << std::endl;
+	
 	std::cout << "resize(15,42)" << std::setw(29);
 	  	clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_vector.resize(15, 42);

@@ -16,7 +16,6 @@
 # include "utils/reverseIterator.hpp"
 # include "utils/iteratorTraits.hpp"
 # include "utils/binary_search_tree.hpp"
-//# include "utils/binary_search_tree_iter.hpp"
 # include "utils/utils.hpp"
 # include "utils/enable_if.hpp"
 
@@ -134,7 +133,15 @@ namespace ft
 		{ return (_bst._last_node->parent == _bst._last_node); }
 
 		size_type size() const
-		{ return _bst._last_node->value.first; }
+		{	
+			size_type n = 0;
+			const_iterator begin = this->begin();
+			const_iterator end = this->end();
+			while(begin != end){
+				begin++; n++;
+			} 
+			return n; }
+//		{ return _bst._last_node->value.first; }
 
 		size_type 	max_size() const
 		{ return _bst.max_size(); }		

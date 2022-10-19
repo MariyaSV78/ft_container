@@ -1,0 +1,45 @@
+NAME_ft = ft_containers
+NAME_std = std_containers
+
+FLAGS_ft = -g -Wall -Werror -Wextra --std=c++98 -D NAMESPACE=ft
+FLAGS_std = -g -Wall -Werror -Wextra --std=c++98 -D NAMESPACE=std
+
+
+#CXX = c++
+CXX = clang++
+
+SRCS = ../main.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
+
+OBJS_FOLDER_ft = objs/ft/
+OBJS_FOLDER_std = objs/std/
+
+OBJ =  $(SRCS:.cpp=.o)
+OBJS_ft = $(addprefix $(OBJS_FOLDER_ft), $(OBJ))
+OBJS_std = $(addprefix $(OBJS_FOLDER_std), $(OBJ))
+
+
+all: $(NAME_ft) $(NAME_std)
+
+$(OBJS_FOLDER_ft)%.o: %.cpp
+	$(CXX) $(FLAGS_ft) -c $< -o $@
+$(OBJS_FOLDER_std)%.o: %.cpp
+	$(CXX) $(FLAGS_std) -c $< -o $@
+
+
+$(NAME_ft): $(OBJS_ft)
+	$(CXX) $(FLAGS_ft)  $(OBJS_ft) -o $(NAME_ft)
+$(NAME_std): $(OBJS_std)
+	$(CXX) $(FLAGS_std)  $(OBJS_std) -o $(NAME_std)
+
+
+clean:
+	rm -f $(OBJS_ft)
+	rm -f $(OBJS_std)
+
+fclean: clean
+	rm -f $(NAME_ft)
+	rm -f $(NAME_std)
+
+re: fclean all
+
+.PHONY: all clean fclean re                        

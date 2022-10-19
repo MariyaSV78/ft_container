@@ -98,27 +98,27 @@ namespace ft
 		{return (x.first == y.first && x.second == y.second);}
 
 	template <class T1, class T2>
-		bool operator!=(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator!=( ft::pair<T1,T2> x,  ft::pair<T1,T2> y)
 		{return !(x == y);}
 
 	template <class T1, class T2>
-		bool operator<(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator<( ft::pair<T1,T2> x,  ft::pair<T1,T2> y)
 		{return (x.first < y.first || (!(y.first < x.first) && x.second < y.second));}
 	
 	template <class T1, class T2>
-		bool operator>(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator>( ft::pair<T1,T2> x,  ft::pair<T1,T2> y)
 		{return (y < x);}
 
 	template <class T1, class T2>
-		bool operator>=(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator>=( ft::pair<T1,T2> x,  ft::pair<T1,T2> y)
 		{return !(x < y);}
 
 	template <class T1, class T2>
-		bool operator<=(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		bool operator<=( ft::pair<T1,T2> x,  ft::pair<T1,T2> y)
 		{return !(y < x);}
 
 	template <class T1, class T2>	
-		void swap(const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y)
+		void swap( ft::pair<T1,T2> x,  ft::pair<T1,T2>&y)
 		{ 
 			ft::pair<T1,T2>		tmp;
 

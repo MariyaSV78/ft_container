@@ -43,6 +43,19 @@ void	print_map(const T& map)
 	}
 }
 
+template<typename T>
+void	print_stack(T stack)
+{
+	size_t		size;
+
+	size = stack.size();
+	for(size_t i = 0; i < size; i++)
+	{
+		std::cout <<  stack.top() << ", ";
+		stack.pop();
+	}
+	std::cout <<  "size = "<< size << std::endl; 
+}
 
 template<typename T1, typename T2>
 void	vector_is_identic(const T1& std_vector, const T2& ft_vector)
@@ -125,7 +138,6 @@ void	map_is_identic(const T1& std_map, const T2& ft_map)
 }
 
 void	is_time(double std_time, double ft_time);
-
 void 	test_stack(void);
 void 	test_vector(void);
 void	test_map(void);

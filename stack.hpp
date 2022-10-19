@@ -24,7 +24,7 @@ namespace ft
     class stack
     {
         protected:
-            Container _c;
+            Container c;
         public:
             /*
                 value_type	    -The first template parameter (T)	            -Type of the elements
@@ -32,27 +32,28 @@ namespace ft
                 size_type	    -an unsigned integral type	                    -usually the same as size_t
             */
 
-            typedef typename Container::value_type value_type; // The behavior is undefined if T is not the same type as Container::value_type
+            typedef T   value_type; // The behavior is undefined if T is not the same type as Container::value_type
 
-            typedef typename Container::size_type size_type; //typedef Container container_type;
+            typedef Container   container_type;
+            typedef size_t      size_type;
 
             
         //constructor
-            explicit stack(const Container& c = Container()): _c(c) {} 
+            explicit stack(const Container& cont = Container()): c(cont) {} 
 
 
             
-            bool empty() const { return _c.empty(); }
+            bool empty() const { return c.empty(); }
             
-            size_type size() const { return _c.size(); }
+            size_type size() const { return c.size(); }
             
-            value_type& top() { return _c.back(); }
+            value_type& top() { return c.back(); }
             
-            const value_type& top() const { return _c.back(); }
+            const value_type& top() const { return c.back(); }
             
-            void push(const value_type& x) { _c.push_back(x); }
+            void push(const value_type& x) { c.push_back(x); }
             
-            void pop() { _c.pop_back(); }
+            void pop() { c.pop_back(); }
 
         
             template <class T_, class Container_>
@@ -77,26 +78,26 @@ namespace ft
    
             template <class T, class Container>
                 bool operator==(const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return  x._c == y._c; }
+                { return  x.c == y.c; }
             
             template <class T, class Container>
                 bool operator< (const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return  x._c < y._c;}
+                { return  x.c < y.c;}
             
             template <class T, class Container>
                 bool operator!=(const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return x._c != y._c;}
+                { return x.c != y.c;}
             
             template <class T, class Container>
                 bool operator>(const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return  x._c > y._c; }
+                { return  x.c > y.c; }
             
             template <class T, class Container>
                 bool operator>=(const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return x._c >= y._c;}
+                { return x.c >= y.c;}
 
             template <class T, class Container>
                 bool operator<=(const ft::stack<T, Container>& x, const ft::stack<T, Container>& y)
-                { return (x._c <= y._c);}
+                { return (x.c <= y.c);}
 }
 #endif

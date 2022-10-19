@@ -35,6 +35,10 @@ namespace ft
 			typedef ft::BST_const_iterator<Node, Compare> 	const_iterator;
 			typedef size_t 									size_type;
 
+	// last_node parent = root of tree, last_node right = last node, last_node left = first node
+			node_pointer    _last_node;
+			node_alloc      _node_alloc;
+
 // constructors
 			Binary_search_tree (const node_alloc& node_alloc_init = node_alloc()): 
 				_node_alloc(node_alloc_init)
@@ -53,7 +57,6 @@ namespace ft
 // Insert a new node that contain "to_insert".
 			ft::pair<iterator, bool> insertPair(value_type to_insert)
 			{
-				Node*	new_node = _node_alloc.allocate(1);
 				Node*	prev_node = _last_node;
 				Node*	start_node = _last_node->parent;
 
@@ -62,11 +65,10 @@ namespace ft
 
 				while (start_node != _last_node)
 				{
-					int curkey = start_node->value.first;
-					if (curkey == to_insert.first)
+					if (start_node->value.first == to_insert.first)
 						return (ft::make_pair(iterator(start_node, _last_node), false));
 					prev_node = start_node;
-					if (to_insert.first > curkey)
+					if (to_insert.first > start_node->value.first)
 					{
 						side = true;
 						start_node = start_node->right;
@@ -77,18 +79,19 @@ namespace ft
 						start_node = start_node->left;
 					}
 				}
+				Node*	new_node = _node_alloc.allocate(1);
 				_node_alloc.construct(new_node, Node(to_insert, prev_node, _last_node, _last_node));
 				
 				if (prev_node == _last_node)
 					_last_node->parent = new_node;
 				else if (side == true)
-					prev_node->right = new_node;
-				else
-					prev_node->left = new_node;
-				
+						prev_node->right = new_node;
+					else
+						prev_node->left = new_node;
+					
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-				_last_node->value.first += 1;
+//				_last_node->value.first += 1;
 				return (ft::make_pair(iterator(new_node, _last_node), true));
 			}
 
@@ -127,10 +130,6 @@ namespace ft
 			size_type max_size() const
 				{ return (node_alloc().max_size()); }
 
-	// last_node parent = root of tree, last_node right = last node, last_node left = first node
-			node_pointer    _last_node;
-			node_alloc      _node_alloc;
-
 		private :
 			node_pointer _BST_get_lower_node(node_pointer root)
 			{
@@ -163,7 +162,7 @@ namespace ft
 
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-				_last_node->value.first -= 1;
+				//_last_node->value.first -= 1;
 				
 				new_node->parent = node->parent;
 				
@@ -210,7 +209,7 @@ namespace ft
 
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-				_last_node->value.first -= 1;
+				//_last_node->value.first -= 1;
 
 				_node_alloc.destroy(to_remove);
 				_node_alloc.deallocate(to_remove, 1);
