@@ -15,75 +15,16 @@
 
 namespace ft
 {
-    template <bool Cond, class T = void> //NOTE - Main template struct
+    template <bool Cond, class T = void> // Main template struct
 	struct enable_if
 	{
 	};
 
-	template <class T> //NOTE - Specialized template struct
-	struct enable_if<true, T> //ANCHOR - in case of true
+	template <class T> // template struct
+	struct enable_if<true, T> //in case of true
 	{
 		typedef T type;
 	};
-
-
-
-	// template <typename T>
-    //     struct is_integral : public is_integral_type<T> { };
-	
-	// template <> //NOTE - Specialized template struct for int type
-	// struct is_integral<int>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// template <> //NOTE - Specialized template struct for bool type
-	// struct is_integral<bool>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// template <> //NOTE - Specialized template struct for char type
-	// struct is_integral<char>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// // template <> //NOTE - Specialized template struct ...
-	// // struct is_integral<char16_t>
-	// // {
-	// // 	static const bool value = true;
-	// // };
-	
-	// // template <> //NOTE - Specialized template struct ...
-	// // struct is_integral<char32_t>
-	// // {
-	// // 	static const bool value = true;
-	// // };
-	
-	// template <> //NOTE - Specialized template struct ...
-	// struct is_integral<wchar_t>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// template <> //NOTE - Specialized template struct ...
-	// struct is_integral<short>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// template <> //NOTE - Specialized template struct ...
-	// struct is_integral<long>
-	// {
-	// 	static const bool value = true;
-	// };
-	
-	// template <> //NOTE - Specialized template struct ...
-	// struct is_integral<long long>
-	// {
-	// 	static const bool value = true;
-	// };
 
 	template <bool is_integral, typename T>
         struct is_integral_res 
@@ -131,8 +72,7 @@ namespace ft
     template <>
         struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
 
-    
-	template <typename T>
+    	template <typename T>
         struct is_integral : public is_integral_type<T> { };
 }
 #endif

@@ -1,19 +1,16 @@
 #ifndef TESTER_HPP
 # define TESTER_HPP
 
+# include <iostream>
+# include <string>
+# include <ctime>
+# include <iomanip>
+# include <stack>
+# include <vector>
+# include <map>
+# include <iterator>
+# include "./utils/colors.hpp"
 
-#define RESET "\033[0m"
-#define RED "\033[31m"
-#define GREEN "\033[32m"
-
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <iomanip>
-#include <stack>
-#include <vector>
-#include <map>
-#include <iterator>
 
 typedef struct 			timespec Time;
 typedef std::size_t		size_type;
@@ -91,7 +88,7 @@ void	vector_is_identic(const T1& std_vector, const T2& ft_vector)
 	if (i > 0)
 	{
 		std::cout << std::endl;
-		std::cout << " std.size = " << std_vector.size() << ", std.size = " << ft_vector.size() << std::endl;
+		std::cout << " std.size = " << std_vector.size() << ", ft.size = " << ft_vector.size() << std::endl;
 		std::cout << " std.capacity = " << std_vector.capacity() << ", ft.capacity = " << ft_vector.capacity() << std::endl;
 		print_vector(std_vector);
 		print_vector(ft_vector);

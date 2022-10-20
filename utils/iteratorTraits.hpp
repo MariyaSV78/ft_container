@@ -33,7 +33,7 @@ template <class Iterator>
 	};
 
 template <class T> 
-	struct iterator_traits<T*> //ANCHOR - Specialized for T pointer
+	struct iterator_traits<T*> // for T pointer
 	{
 		typedef 	ptrdiff_t							difference_type;
 		typedef		T									value_type;
@@ -43,7 +43,7 @@ template <class T>
 	};
 
 template <class T> 
-	class iterator_traits<const T*> //ANCHOR - Specialized for T const pointer
+	class iterator_traits<const T*> //for T const pointer
 	{
 		public:
 			typedef 	ptrdiff_t							difference_type;

@@ -35,7 +35,7 @@ namespace ft
 			typedef ft::BST_const_iterator<Node, Compare> 	const_iterator;
 			typedef size_t 									size_type;
 
-	// last_node parent = root of tree, last_node right = last node, last_node left = first node
+// last_node parent = root of tree, last_node right = last node, last_node left = first node
 			node_pointer    _last_node;
 			node_alloc      _node_alloc;
 
@@ -91,11 +91,10 @@ namespace ft
 					
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-//				_last_node->value.first += 1;
 				return (ft::make_pair(iterator(new_node, _last_node), true));
 			}
 
-	
+
 			void removeByKey(value_type to_remove)
 			{ _removeByKey(_last_node->parent, to_remove); }
 
@@ -130,6 +129,7 @@ namespace ft
 			size_type max_size() const
 				{ return (node_alloc().max_size()); }
 
+
 		private :
 			node_pointer _BST_get_lower_node(node_pointer root)
 			{
@@ -162,8 +162,7 @@ namespace ft
 
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-				//_last_node->value.first -= 1;
-				
+			
 				new_node->parent = node->parent;
 				
 				_node_alloc.destroy(node);
@@ -209,7 +208,6 @@ namespace ft
 
 				_last_node->left = _BST_get_lower_node(_last_node->parent);
 				_last_node->right = _BST_get_higher_node(_last_node->parent);
-				//_last_node->value.first -= 1;
 
 				_node_alloc.destroy(to_remove);
 				_node_alloc.deallocate(to_remove, 1);
@@ -245,6 +243,5 @@ namespace ft
 			}
 	};
 }
-
 
 #endif

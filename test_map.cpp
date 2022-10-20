@@ -10,7 +10,6 @@ void	test_map()
 	Time	start, end;
 	double	std_time, ft_time; 
 
-	std::cout.fill(' ');
 	std::cout << "==========================================================================" << std::endl; 
 	std::cout << GREEN << std::setw(40) << std::right << "map" << RESET << std::endl;
 	std::cout << "==========================================================================" << std::endl;
@@ -29,11 +28,11 @@ void	test_map()
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
 		map_is_identic(std_def_map, ft_def_map);
-		is_time(std_time, ft_time);
+		is_time(std_time, ft_time); //std::cout << " time " << std_time << "  " << ft_time ; 
 		std::cout << std::endl;
 		std::cout << std::endl;
 
-	std::cout << "Filling map <char, int>" << std::setw(31);
+	std::cout << "Filling map <char, int>" << std::setw(19);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_def_map['a'] = 97;
 		ft_def_map['b'] = 98;
@@ -56,18 +55,13 @@ void	test_map()
 		std::cout << std::endl;
 		std::cout << std::endl;
 
-	std::cout << "Filling map <string, int>" << std::setw(31);
-		// int range_int[] = {4, 5, 6, 7};
-		// std::string range_str[] = {"avril", "may", "june", "july"};		
+	std::cout << "Filling map <string, int>" << std::setw(17);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<std::string, int>  ft_map_string;
 		ft_map_string[std::string("avril")] = 4;
 		ft_map_string[std::string("may")] = 5;
 		ft_map_string[std::string("juin")] = 6;
 		ft_map_string[std::string("july")] = 7;
-
-		// for (int i = 0; i < 4; i++)
-		// 	ft_map_string.insert(ft::make_pair(range_int[i], range_str[i]));
 		clock_gettime(CLOCK_MONOTONIC, &end);
         ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -76,9 +70,6 @@ void	test_map()
 		std_map_string[std::string("may")] = 5;
 		std_map_string[std::string("juin")] = 6;
 		std_map_string[std::string("july")] = 7;
-	
-		// for (int i = 0; i < 4; i++)
-		// 	std_map_string.insert(std::make_pair(range_int[i], range_str[i]));
 		clock_gettime(CLOCK_MONOTONIC, &end);
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
@@ -136,6 +127,7 @@ std::cout << "Assignement operator"  << std::setw(22);
 		std::cout << std::endl;
 
 std::cout << "==========================================================================" << std::endl << std::endl;
+std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::setw(7) << "time" << std::endl;
 	
 	std::cout << "Max_size:"  << std::setw(39); //returns true if the first argument is considered to go before the second
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -364,7 +356,8 @@ std::cout << "==================================================================
 		is_time(std_time, ft_time);
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
-	
+
+
 	std::cout << "Key compare:"  << std::setw(39); //returns true if the first argument is considered to go before the second
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char,int>::key_compare  ft_compar = ft::map<char, int>().key_comp(); // ft_new_map.key_comp();
@@ -385,7 +378,8 @@ std::cout << "==================================================================
 		is_time(std_time, ft_time); //std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ; 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
-				
+
+
 	std::cout << "Key value:"  << std::setw(40); //Returns a comparison object that can be used to compare two elements to get whether the key of the first one goes before the second.
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char,int>::value_compare ft_key = ft::map<char, int>().value_comp();
@@ -406,6 +400,7 @@ std::cout << "==================================================================
 		is_time(std_time, ft_time); 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;
+
 
 	std::cout << "Find:"  << std::setw(40);
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -447,7 +442,8 @@ std::cout << "==================================================================
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;
 
-		std::cout << "Lower_bound and upper_bound:"  << std::setw(14);
+
+	std::cout << "Lower_bound and upper_bound:"  << std::setw(14);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char, int>::iterator	ft_it_low, ft_it_up;
 		ft_it_low = ft_copy_map.lower_bound('c'); // points to c
@@ -468,7 +464,8 @@ std::cout << "==================================================================
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;
 
-		std::cout << "Equal range:"  << std::setw(38); // The function returns a pair, whose member pair::first is the lower bound of the range (the same as lower_bound), and pair::second is the upper bound (the same as upper_bound).
+
+	std::cout << "Equal range:"  << std::setw(38); // The function returns a pair, whose member pair::first is the lower bound of the range (the same as lower_bound), and pair::second is the upper bound (the same as upper_bound).
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ft_ret;
 		ft_ret = ft_copy_map.equal_range('b');
@@ -487,10 +484,5 @@ std::cout << "==================================================================
 		is_time(std_time, ft_time); 
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;
-
-		// print_map(std_copy_map);
-		// print_map(ft_copy_map);
-
-		//std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ;
-
 }
+		//std::cout << "   std_time = " << std_time << " , ft_time = " << ft_time ;

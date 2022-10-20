@@ -2,7 +2,7 @@ NAME = ft_containers
 
 FLAGS = -g -Wall -Werror -Wextra --std=c++98
 
-#CXX = c++
+#CXX = g++
 CXX = clang++
 
 SRCS = main.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp

@@ -48,14 +48,14 @@ namespace ft
 			return *this;
 		}
 
-		virtual ~myIterator(){}						// Destructor;
+		virtual ~myIterator(){}						
 
     // Forward iterator requirements
 		reference operator*() const // a reference to the rvalue pointed by the random access iterator
 		{ return *_ptr;}
 
 		pointer operator->() const //return _ptr; pointer operator->() const 
-		{return &(this->operator*());}						//{return &(*_ptr);}
+		{return &(this->operator*());}						
 		
 		
 		myIterator& operator++() 	// preincrement the iterator to point to the next element in memory.
@@ -77,11 +77,12 @@ namespace ft
 			return *this;
 		}
 
-		myIterator operator--(int)
+		myIterator operator--(int)	//return myIterator(--_ptr);
 		{
 			myIterator	tmp(*this);
 			operator--();
-			return tmp;} //return myIterator(--_ptr);
+			return tmp;
+		} 							
  
 	// reference to the elements at an arbitrary offset position
 		reference operator[](difference_type n) const 
@@ -128,7 +129,6 @@ namespace ft
               const ft::myIterator<T_R> y)
     {return (x.base() == y.base());}
 
-
 // if the pointer of "lhs" is different than "rhs" in the memory.
 	template <typename T>
     typename ft::myIterator<T>::difference_type
@@ -143,8 +143,7 @@ namespace ft
               const ft::myIterator<T_R> y)
     {return (x.base() != y.base());}
  
- 
- // if the pointer of "x" is lower than "y" in the memory.
+  // if the pointer of "x" is lower than "y" in the memory.
 	template <typename T>
     typename ft::myIterator<T>::difference_type
     operator<(const ft::myIterator<T> x,
@@ -203,13 +202,11 @@ namespace ft
               const ft::myIterator<T_R> y)
     {return (x.base() >= y.base());}
  
-
 //iterator pointing to n element after x pointed element
 	template<typename T>
     ft::myIterator<T> operator+(typename ft::myIterator<T>::difference_type n,
         						typename ft::myIterator<T>& x)
 	{return (&(*x) + n);}
-	
 	
 // difference between the address of two iterators	
 	template <typename T>
@@ -223,9 +220,7 @@ namespace ft
     typename ft::myIterator<T_L>::difference_type
     operator-(const ft::myIterator<T_L> x,
               const ft::myIterator<T_R> y)
-    {return (x.base() - y.base());}
-        
-    
+    {return (x.base() - y.base());}  
 }
 
 #endif

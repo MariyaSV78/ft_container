@@ -23,7 +23,8 @@
 namespace ft 
 {
 	template <class T, class Allocator = std::allocator<T> >
-	class vector {
+	class vector 
+	{
 
 	// types:
 		public: 
@@ -37,7 +38,7 @@ namespace ft
 			typedef typename allocator_type::size_type					size_type; 
 			typedef typename allocator_type::difference_type			difference_type;
 			typedef ft::myIterator<value_type> 							iterator; 
-			typedef ft::myIterator<const_pointer>	 					const_iterator; 
+			typedef ft::myIterator<const value_type>	 				const_iterator; 
 			typedef ft::reveres_iterator<iterator> 						reverse_iterator;  // can read or modify any element in a reversed vector.
 			typedef ft::reveres_iterator<const_iterator> 				const_reverse_iterator; //can read any element in a reversed the vector. Can't be used to modify.
 		
@@ -48,7 +49,7 @@ namespace ft
 			size_type		_size;		
 			allocator_type	_allocator;
 
-	//constructor
+		//constructor
 		public:
 			explicit vector(const Allocator& allocator = Allocator()):	//default: Constructs an empty container, with no elements.
 				_array(my_nullptr),
@@ -75,7 +76,6 @@ namespace ft
 			{																			// with each element constructed from its corresponding element in that range, in the same order.
 				_allocator = allocator;
 				_capacity = last - first;
-				// _size = _capacity;
 				_array = _allocator.allocate(_capacity);
 				for (_size=0; first != last; first++, _size++)
 					_array[_size] = *first;
@@ -182,7 +182,6 @@ namespace ft
 				{
 					while (_size > n)
 						_allocator.destroy(&_array[(_size--) - 1]);
-					//_capacity = _size;
 				}
 				else if (n <= _capacity)
 				{

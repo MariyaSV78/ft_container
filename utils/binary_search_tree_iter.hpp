@@ -47,7 +47,7 @@ namespace ft
 
 			virtual ~BST_iterator() { }
 
-// Assignement operator.
+		// Assignement operator.
 			BST_iterator &operator=(const BST_iterator& bst_it)
 			{
 				if (*this == bst_it)
@@ -178,13 +178,6 @@ namespace ft
 				_comp(comp)
 			{}
 
-			/*
-			** @brief Copy constructor.
-			** Create a new Binary search tree iterator to be 
-			** a copy of another.
-			**
-			** @param bst_it the binary search tree to be inpired by.
-			*/
 			BST_const_iterator(const BST_const_iterator& bst_it)
 			:
 				_node(bst_it._node),
@@ -202,14 +195,6 @@ namespace ft
 			// Added for subject
 			virtual ~BST_const_iterator() { }
 
-			/*
-			** @brief Assignement operator.
-			** Create an iterator that will iterate the same than
-			** "bst_it".
-			**
-			** @param bst_it the binary search tree to be inpired by.
-			** @return a reference to this.
-			*/
 			BST_const_iterator &operator=(const BST_const_iterator& bst_it)
 			{
 				if (*this == bst_it)
@@ -220,56 +205,22 @@ namespace ft
 				return (*this);
 			}
 			
-			/*
-			** @brief Strictment equal operator.
-			** Return a boolean that contains : if this iterator
-			** and another one contains two equal binary search tree.
-			**
-			** @param bst_it the other binaray search tree iterator.
-			** @return true if the two iterator iterate on two equal
-			** tree, otherwise false.
-			*/
 			bool operator==(const BST_const_iterator& bst_it)
 			{ return (this->_node == bst_it._node); }
 
-			/*
-			** @brief Different operator.
-			** Return a boolean that contains : if this iterator
-			** and another one contains two different binary search tree.
-			**
-			** @param bst_it the other binaray search tree iterator.
-			** @return true if the two iterator iterate on two different
-			** tree, otherwise false.
-			*/
+			
 			bool operator!=(const BST_const_iterator& bst_it)
 			{ return (this->_node != bst_it._node); }
 
-			/*
-			** @brief Give a reference to the value that contains
-			** the binary search tree (value on a node) at the iterator
-			** position.
-			**
-			** @return the const reference.
-			*/
+
 			reference operator*() const
 			{ return (this->_node->value); }
 
-			/*
-			** @brief Give a pointer to the value that contain
-			** the binary search tree (value on a node) at the iterator
-			** position.
-			**
-			** @return the const pointer.
-			*/
+
 			pointer operator->() const
 			{ return (&this->_node->value); }
 
-			/*
-			** @brief Increment the iterator to the next value
-			** after the value in the tree at iterator position.
-			**
-			** @return a reference to this.
-			*/
+
 			BST_const_iterator& operator++(void)
 			{
 				T * cursor = _node;
@@ -300,12 +251,7 @@ namespace ft
 				return (*this);
 			}
 
-			/*
-			** @brief Post increment the iterator to the next value
-			** after the value in the tree at iterator position.
-			**
-			** @return this before the incrementation.
-			*/
+
 			BST_const_iterator operator++(int)
 			{
 				BST_const_iterator tmp(*this);
@@ -313,12 +259,7 @@ namespace ft
 				return (tmp);
 			}
 
-			/*
-			** @brief decrement the iterator to the previous value
-			** before the value in the tree at iterator position.
-			**
-			** @return a reference to this.
-			*/
+
 			BST_const_iterator& operator--(void)
 			{
 				T * cursor = _node;
@@ -349,12 +290,7 @@ namespace ft
 				return (*this);
 			}
 
-			/*
-			** @brief Post decrement the iterator to the previous value
-			** before the value in the tree at iterator position.
-			**
-			** @return this before the decrementation.
-			*/
+
 			BST_const_iterator operator--(int)
 			{
 				BST_const_iterator tmp(*this);

@@ -67,18 +67,18 @@ namespace ft
 		explicit map(const key_compare& compare = key_compare(), const allocator_type& alloc = allocator_type()):
 			_alloc(alloc),
 			_compare(compare),
-			_bst(){} //?  _tree(tree_type(comp, alloc))
+			_bst(){}
 
-	//Construct a list container, of size last-first containing value of [first, last).	
+	//Construct a container whis size of [first, last).	
 		template <class InputIterator>
-			map(InputIterator first, InputIterator last, 
-					const key_compare& compare = key_compare(), 
-					const allocator_type& alloc = allocator_type(),
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = my_nullptr):
-				_alloc(alloc),
-				_compare(compare),
-				_bst()
-				{insert(first,last);}
+		map(InputIterator first, InputIterator last, 
+				const key_compare& compare = key_compare(), 
+				const allocator_type& alloc = allocator_type(),
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = my_nullptr):
+			_alloc(alloc),
+			_compare(compare),
+			_bst()
+			{insert(first,last);}
 
 		map(const map& x):
 			_alloc(x._alloc),
@@ -104,7 +104,7 @@ namespace ft
 
 	// iterators:
 		iterator begin()
-		{ return iterator(_bst._last_node->left, _bst._last_node);} // ?? _bst.begin()?
+		{ return iterator(_bst._last_node->left, _bst._last_node);} 
 
 		const_iterator begin() const
 		{ return const_iterator(_bst._last_node->left, _bst._last_node);}
@@ -141,7 +141,6 @@ namespace ft
 				begin++; n++;
 			} 
 			return n; }
-//		{ return _bst._last_node->value.first; }
 
 		size_type 	max_size() const
 		{ return _bst.max_size(); }		
@@ -152,7 +151,7 @@ namespace ft
 			iterator tmp = find(key);
 
 			if (tmp == end())
-				insert(ft::make_pair(key, mapped_type())); //???? insert new element?
+				insert(ft::make_pair(key, mapped_type()));
 			tmp = find(key);
 			return (*tmp).second; //tmp->second
 		} 	
@@ -265,17 +264,6 @@ namespace ft
 		
 		ft::pair<const_iterator,const_iterator> equal_range(const key_type& key) const
 		{ return ft::make_pair(lower_bound(key), upper_bound(key)); }
-
-
-
-		// //template<class Key, class T, class Compare, class Alloc> 
-		// 	friend bool operator==(const map<Key, T, Compare, Alloc>& x,
-		// 							const map<Key, T, Compare, Alloc>& y);
-
-		// //template<class Key, class T, class Compare, class Alloc>
-		// 	friend bool operator<(const map<Key, T, Compare, Alloc> & x,
-		// 						  const map<Key, T, Compare, Alloc>& y);
-
 	};
 		
 		template <class Key, class T, class Compare, class Allocator>

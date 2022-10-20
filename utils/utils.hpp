@@ -18,7 +18,6 @@
 # include <sstream>
 # include <typeinfo>
 # include <iostream>
-
  
 
 const class my_nullptr_t
@@ -205,52 +204,6 @@ namespace ft
 
 
 
-    // template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-    //     class iterator
-    //     {
-    //         public:
-    //             /* Type of elements pointed. */
-    //             typedef T           value_type;
-
-    //             /* Type to represent the difference between two iterators. */
-    //             typedef Distance    difference_type;
-
-    //             /* Type to represent a pointer to an element pointed */
-    //             typedef Pointer     pointer;
-
-    //             /* Type to represent a reference to an element pointed */
-    //             typedef Reference   reference;
-
-    //             /* Category of the iterator. */
-    //             typedef Category    iterator_category;
-    //     };
-
-    // template <class T>
-    //     class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
-    //     {  
-    //         /* Category of the iterator. */
-    //         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
-            
-    //         /* Type of elements pointed. */
-    //         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
-            
-    //         /* Type to represent the difference between two iterators. */
-    //         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
-            
-    //         /* Type to represent a pointer to an element pointed */
-    //         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer               pointer;
-            
-    //         /* Type to represent a reference to an element pointed */
-    //         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference             reference;
-            
-    //         private:
-    //             /* Element pointed by the iterator. */
-    //             pointer _elem;
-    //     };
-
-
-//A base class for standard binary function objects. https://cplusplus.com/reference/functional/binary_function/?kw=binary_function
-
 	template <class InputIterator1, class InputIterator2>
 		bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
 										InputIterator2 first2, InputIterator2 last2)
@@ -298,7 +251,7 @@ namespace ft
             return (first2 != last2);
         }
     
-  
+ //Binary_search_tree: a node 
 	template <typename T>
 		struct BST_Node
 		{

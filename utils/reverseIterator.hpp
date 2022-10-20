@@ -40,14 +40,13 @@ namespace ft
 			
 			explicit reveres_iterator(iterator_type x) : _elem(x) {}
 			
-			// reveres_iterator (const reveres_iterator& x): _elem (x._elem){}
-			
 			template <class Iter>
-  				reveres_iterator (const reveres_iterator<Iter>& x) : _elem(x.base()) {} // _elem(x.base())
+  				reveres_iterator (const reveres_iterator<Iter>& x) : _elem(x.base()) {}
 			  
 			virtual ~reveres_iterator(){}
 			
-			iterator_type base() const{return _elem;}
+			iterator_type base() const
+			{return _elem;}
 
 			reference operator*() const
 			{
@@ -55,16 +54,17 @@ namespace ft
 				return *(--tmp);
 			}
 
-	/*!*/	pointer operator->() const
-			{
-				return  &(operator*());  //(&(*(--base())));
-			}
+			pointer operator->() const
+			{return  &(operator*());}
+			
 			
 			reveres_iterator& operator++()
 			{
 				--_elem;
 				return *this;
 			}
+			
+			
 			reveres_iterator operator++(int)
 			{
 				reveres_iterator tmp=*this;
@@ -77,6 +77,7 @@ namespace ft
 				++_elem;
 				return *this;
 			}
+			
 			reveres_iterator operator--(int)
 			{
 				reveres_iterator tmp=*this;
@@ -101,6 +102,7 @@ namespace ft
 				_elem += n;
 				return *this;
 			}
+			
 			reference operator[] (difference_type n) const 
 			{return (this->base()[-n - 1]);}
 	};
@@ -115,8 +117,7 @@ namespace ft
         bool operator== (const reveres_iterator<Iterator_L>& x,
                         const reveres_iterator<Iterator_R>& y) 
 		{ return (x.base() == y.base());}
-	
-		
+			
 	template <class Iterator>
 		bool operator!=(const reveres_iterator<Iterator>& x,
 					const reveres_iterator<Iterator>& y)
@@ -134,7 +135,6 @@ namespace ft
 		{
 			return (lhs.base() > rhs.base());
 		}
-
 
 	template <class Iterator>
 		bool operator<=(const reveres_iterator<Iterator>& x,
@@ -185,8 +185,7 @@ namespace ft
 	template <class Iterator_L, class Iterator_R>
         bool operator-(const reveres_iterator<Iterator_L>& x,
                         const reveres_iterator<Iterator_R>& y) 
-		{ return (x.base() - y.base()); } 
-	
+		{ return (x.base() - y.base()); } 	
 }
 
 #endif
