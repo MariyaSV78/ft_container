@@ -150,7 +150,7 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
 
-	std::cout << "Iterators: begin, end"  << std::setw(34);
+	std::cout << "begin, end"  << std::setw(34);
 		ft::map<char, int>::iterator begin_ft, end_ft;
 		std::map<char, int>::iterator begin_std, end_std;
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -174,7 +174,7 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 		std::cout << std::endl;
 		std::cout << std::endl;
 	
-	std::cout << "Iterators: rbegin, rend"  << std::setw(22);
+	std::cout << "rbegin, rend"  << std::setw(30);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_def_map.rbegin();
 		ft_def_map.rend();
@@ -192,6 +192,105 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 			std::cout << std::setw(29) <<  RED << "KO" << RESET;
 		is_time(std_time, ft_time);
 		std::cout << std::endl;
+		std::cout << std::endl;
+
+	 std::cout << "Iterator"<< std::setw(11);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::map<char, int> ft_iter_map(ft_def_map.begin(), ft_def_map.end());
+		for (ft::map<char, int>::iterator ft_it = ft_iter_map.begin(); ft_it != ft_iter_map.end(); ft_it++ )
+		{
+			ft_it->second = (ft_it->second)++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::map<char, int> std_iter_map(std_def_map.begin(), std_def_map.end());
+		for (std::map<char, int>::iterator std_it = std_iter_map.begin(); std_it != std_iter_map.end(); std_it++ )
+		{
+			std_it->second = (std_it->second)++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		map_is_identic(std_iter_map, ft_iter_map);
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
+		std::cout << std::endl;
+
+
+ 	std::cout << "Iterator (const)"<< std::setw(24);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::map<char, int> 	ft_const_iter(ft_def_map.begin(), ft_def_map.end());
+		ft::map<char, int>::iterator it = ft_const_iter.begin();
+		for (ft::map<char,int>::const_iterator ft_it = ft_const_iter.begin(); ft_it != ft_const_iter.end(); ft_it++, it++)
+		{
+			it->second = ft_it->first;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::map<char, int> 	std_const_iter(std_def_map.begin(), std_def_map.end());
+		std::map<char, int>::iterator it2 = std_const_iter.begin();
+		for (std::map<char,int>::const_iterator std_it = std_const_iter.begin(); std_it != std_const_iter.end(); std_it++, it2++ )
+		{
+			it2->second = std_it->first;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		map_is_identic(std_const_iter, ft_const_iter);
+
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
+		std::cout << std::endl;
+	
+
+	 std::cout << "Reverse Iterator"<< std::setw(26);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::map<char, int> ft_rev_iter_map(ft_def_map.rbegin(), ft_def_map.rend());
+		for (ft::map<char, int>::reverse_iterator ft_it = ft_rev_iter_map.rbegin(); ft_it != ft_rev_iter_map.rend(); ft_it++ )
+		{
+			ft_it->second = (ft_it->second)++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::map<char, int> std_rev_iter_map(std_def_map.rbegin(), std_def_map.rend());
+		for (std::map<char, int>::reverse_iterator std_it = std_rev_iter_map.rbegin(); std_it != std_rev_iter_map.rend(); std_it++ )
+		{
+			std_it->second = (std_it->second)++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+
+		map_is_identic(std_rev_iter_map, ft_rev_iter_map);
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
+		std::cout << std::endl;
+
+
+	std::cout << "Reverse Iterator (const)"<< std::setw(18);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::map<char, int> 	ft_rev_const_iter(ft_def_map.rbegin(), ft_def_map.rend());
+		ft::map<char, int>::iterator it3 = ft_rev_const_iter.begin();
+		for (ft::map<char,int>::const_reverse_iterator ft_it = ft_rev_const_iter.rbegin(); ft_it != ft_rev_const_iter.rend(); ft_it++, it3++)
+		{
+			it3->second = ft_it->first;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::map<char, int> 	std_rev_const_iter(std_def_map.rbegin(), std_def_map.rend());
+		std::map<char, int>::iterator it4 = std_rev_const_iter.begin();
+		for (std::map<char,int>::const_reverse_iterator std_it = std_rev_const_iter.rbegin(); std_it != std_rev_const_iter.rend(); std_it++, it4++ )
+		{
+			it4->second = std_it->first;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		map_is_identic(std_rev_const_iter, ft_rev_const_iter);
+
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
 		std::cout << std::endl;
 
 

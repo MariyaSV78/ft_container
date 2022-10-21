@@ -17,6 +17,8 @@
 
 int    main()
 {
+	size_t	i;
+	
 	std::cout << "==========================================================================" << std::endl; 
 	std::cout << GREEN << std::setw(40) << std::right << "vector" << RESET << std::endl;
 	std::cout << "==========================================================================" << std::endl;
@@ -61,7 +63,42 @@ int    main()
     std::cout << "Iterator constructor "<< std::endl;
 		NAMESPACE::vector<int>	iter_vector(fill_vector_size_value.begin(), fill_vector_size_value.end());
 		print_vector(iter_vector);
+		for (NAMESPACE::vector<int>::iterator it = iter_vector.begin(); it != iter_vector.end(); it++ )
+				*it = *it + 5;
+		print_vector(iter_vector);
 		std::cout << std::endl;
+
+ 	std::cout << "Iterator constructor (const)"<< std::endl;
+		NAMESPACE::vector<int> 	const_iter_v(fill_vector_size_value.size());
+		i = 0;
+		print_vector(const_iter_v);
+		for (NAMESPACE::vector<int>::const_iterator it = fill_vector_size_value.begin(); it != fill_vector_size_value.end(); it++ )
+		{
+			const_iter_v[i] = *it;
+			i++;
+		}
+		print_vector(const_iter_v);
+		std::cout << std::endl;
+
+	std::cout << "Reverse Iterator"<< std::endl;
+		NAMESPACE::vector<int> rev_iter_v(iter_vector.rbegin(), iter_vector.rend());
+		i = 0;
+		print_vector(rev_iter_v);
+
+		for (NAMESPACE::vector<int>::reverse_iterator it = rev_iter_v.rbegin(); it != rev_iter_v.rend(); it++)
+			*it = *it + i++;
+		print_vector(rev_iter_v);
+		std::cout << std::endl;
+
+	std::cout << "Reverse Iterator (const)"<< std::endl;
+		NAMESPACE::vector<int> rev_const_iter_v(rev_iter_v.rbegin(), rev_iter_v.rend());
+		i = 0;
+		print_vector(rev_const_iter_v);
+		for (NAMESPACE::vector<int>::const_reverse_iterator  it = rev_const_iter_v.rbegin(); it != rev_const_iter_v.rend(); it++)
+		{
+			rev_const_iter_v[i] = *it; i++;
+		}
+		print_vector(rev_const_iter_v);
 	
 	std::cout << "==========================================================================" << std::endl << std::endl;
 	NAMESPACE::vector<int>	vector = iter_vector;

@@ -8,19 +8,16 @@ namespace ft
 	template <typename T, class Compare >
 	class BST_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
-		private:
-			T *			_node;
-			T *			_last_node;
-			Compare     _comp;
-
 		public :
-
 			typedef typename T::value_type    																value_type;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category 	iterator_category;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type   	difference_type;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer  			pointer;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference 			reference;
-
+			
+			T*			_node;
+			T*			_last_node;
+			Compare     _comp;
 
 			BST_iterator(const Compare& comp = Compare())
 			:
@@ -29,7 +26,7 @@ namespace ft
 				_comp(comp)
 			{}
 
-			BST_iterator(T * node_p, T * last_node,
+			BST_iterator(T* node_p, T* last_node,
 						const Compare& comp = Compare())
 			:
 				_node(node_p),
@@ -162,6 +159,9 @@ namespace ft
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer   			pointer;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference 			reference;
 
+			T *         _node;
+			T *         _last_node;
+			Compare     _comp;
 
 			BST_const_iterator(const Compare& comp = Compare())
 			:
@@ -298,9 +298,6 @@ namespace ft
 				return (tmp);
 			}            
 
-			T *         _node;
-			T *         _last_node;
-			Compare     _comp;
 	};
 }
 #endif

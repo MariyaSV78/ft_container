@@ -27,7 +27,8 @@ void	is_time(double std_time, double ft_time)
 void    test_vector()
 {
 	Time	start, end;
-	double	std_time, ft_time; 
+	double	std_time, ft_time;
+	size_t	i, j; 
 
 	std::cout << "==========================================================================" << std::endl; 
 	std::cout << GREEN << std::setw(40) << std::right << "vector" << RESET << std::endl;
@@ -167,10 +168,18 @@ void    test_vector()
 	 std::cout << "Iterator constructor "<< std::setw(21);
 	  	clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::vector<int> ft_iter_vector(ft_fill_vector_size_value.begin(), ft_fill_vector_size_value.end());
+		for (ft::vector<int>::iterator ft_it = ft_iter_vector.begin(); ft_it != ft_iter_vector.end(); ft_it++ )
+		{
+			*ft_it = *ft_it + 5;
+		}
 		clock_gettime(CLOCK_MONOTONIC, &end);
         ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		std::vector<int> std_iter_vector(std_fill_vector_size_value.begin(), std_fill_vector_size_value.end());
+		for (std::vector<int>::iterator std_it = std_iter_vector.begin(); std_it != std_iter_vector.end(); std_it++ )
+		{
+			*std_it = *std_it + 5;
+		}
 		clock_gettime(CLOCK_MONOTONIC, &end);
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
@@ -179,57 +188,86 @@ void    test_vector()
 		std::cout << std::endl;	
 		std::cout << std::endl;
 
- 	// std::cout << "Iterator constructor (const)"<< std::setw(21);
-	//   	clock_gettime(CLOCK_MONOTONIC, &start);
-	// 	print_vector(ft_fill_vector_size_value);
-	// 	print_vector(std_fill_vector_size_value);
-	// 	ft::vector<int>::const_iterator ft_it;
-	// 	ft::vector<int> 	ft_const_iter_vector(ft_fill_vector_size_value.size());
-	// 	size_t j = 0;
-	// 	for (ft_it = ft_fill_vector_size_value.begin(); ft_it != ft_fill_vector_size_value.end(); ft_it++ )
-	// 	{
-	// 		ft_const_iter_vector[j] = j;
-	// 		j++;
-	// 	}
-	// 	clock_gettime(CLOCK_MONOTONIC, &end);
-    //     ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
-	// 	clock_gettime(CLOCK_MONOTONIC, &start);
-	// 	std::vector<int>::const_iterator std_it;
-	// 	std::vector<int> 	std_const_iter_vector(10);
-	// 	int i = 0;
-	// 	for (std_it = std_fill_vector_size_value.begin(); std_it != std_fill_vector_size_value.end(); std_it++ )
-	// 	{
-	// 		std_const_iter_vector[i] = i;
-	// 		i++;
-	// 	}
-	// 	clock_gettime(CLOCK_MONOTONIC, &end);
-    //     std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 
-	// 	vector_is_identic(std_const_iter_vector, ft_const_iter_vector);
-	// 	is_time(std_time, ft_time);
-	// 	std::cout << std::endl;	
-	// 	std::cout << std::endl;
-	
-	 std::cout << "Bidirect Iterator"<< std::setw(21);
+ 	std::cout << "Iterator constructor (const)"<< std::setw(14);
 	  	clock_gettime(CLOCK_MONOTONIC, &start);
-		ft::vector<int>::iterator ft_it;
-		ft::vector<int> ft_bidir_iter_v(ft_fill_vector_size_value.begin(), ft_fill_vector_size_value.end());
-		ft_bidir_iter_v.insert(ft_bidir_iter_v.begin(), ft_fill_vector_size_value.rend(), ft_fill_vector_size_value.rbegin());
+		ft::vector<int>::const_iterator ft_it;
+		ft::vector<int> 	ft_const_iter_v(ft_fill_vector_size_value.size());
+		j = 0;
+		for (ft_it = ft_fill_vector_size_value.begin(); ft_it != ft_fill_vector_size_value.end(); ft_it++ )
+		{
+			ft_const_iter_v[j] = *ft_it;
+			j++;
+		}
 		clock_gettime(CLOCK_MONOTONIC, &end);
         ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 		clock_gettime(CLOCK_MONOTONIC, &start);
-		std::vector<int>::iterator std_it;
-		std::vector<int> std_bidir_iter_v(std_fill_vector_size_value.begin(), std_fill_vector_size_value.end());
-		std_bidir_iter_v.insert(std_bidir_iter_v.begin(), std_fill_vector_size_value.rend(), std_fill_vector_size_value.rbegin());
+		std::vector<int>::const_iterator std_it;
+		std::vector<int> 	std_const_iter_v(std_fill_vector_size_value.size());
+		i = 0;
+		for (std_it = std_fill_vector_size_value.begin(); std_it != std_fill_vector_size_value.end(); std_it++ )
+		{
+			std_const_iter_v[i] = *std_it;
+			i++;
+		}
 		clock_gettime(CLOCK_MONOTONIC, &end);
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
-		std_it = std_fill_vector_size_value.begin();
 
-		vector_is_identic(std_bidir_iter_v, ft_bidir_iter_v);
+		vector_is_identic(std_const_iter_v, ft_const_iter_v);
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
+		std::cout << std::endl;
+	
+
+	 std::cout << "Reverse Iterator"<< std::setw(26);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::vector<int> ft_rev_iter_v(ft_iter_vector.rbegin(), ft_iter_vector.rend());
+		i = 0;
+		for (ft::vector<int>::reverse_iterator it = ft_rev_iter_v.rbegin(); it != ft_rev_iter_v.rend(); it++)
+		{
+			*it = *it+ i++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::vector<int> std_rev_iter_v(std_iter_vector.rbegin(), std_iter_vector.rend());
+		i = 0;
+		for (std::vector<int>::reverse_iterator it = std_rev_iter_v.rbegin(); it != std_rev_iter_v.rend(); it++)
+		{
+			*it = *it+ i++;
+		}	
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		vector_is_identic(std_rev_iter_v, ft_rev_iter_v);
 		is_time(std_time, ft_time);
 		std::cout << std::endl;	
 		std::cout << std::endl;
 
+
+	std::cout << "Reverse Iterator (const)"<< std::setw(18);
+	  	clock_gettime(CLOCK_MONOTONIC, &start);
+		ft::vector<int> ft_rev_const_iter_v(ft_rev_iter_v.rbegin(), ft_rev_iter_v.rend());
+		i = 0;
+		for (ft::vector<int>::const_reverse_iterator  it = ft_rev_const_iter_v.rbegin(); it != ft_rev_const_iter_v.rend(); it++)
+		{
+			ft_rev_const_iter_v[i] = *it; i++;
+		}
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        ft_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		std::vector<int> std_rev_const_iter_v(std_rev_iter_v.rbegin(), std_rev_iter_v.rend());
+		i = 0;
+		for (std::vector<int>::const_reverse_iterator  it = std_rev_const_iter_v.rbegin(); it != std_rev_const_iter_v.rend(); it++)
+		{
+			std_rev_const_iter_v[i] = *it; i++;
+		}
+	
+		clock_gettime(CLOCK_MONOTONIC, &end);
+        std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
+		vector_is_identic(std_rev_iter_v, ft_rev_iter_v);
+		is_time(std_time, ft_time);
+		std::cout << std::endl;	
+		std::cout << std::endl;
 	std::cout << "==========================================================================" << std::endl << std::endl;
 	std::cout << std::setw(40) << "size" << std::setw(11) << "capacity" << std::setw(11) << "elements" << std::setw(7) << "time" << std::endl;
 	

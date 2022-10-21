@@ -75,7 +75,7 @@ namespace ft
 						typename enable_if<!is_integral <InputIterator>::value, InputIterator>::type * = my_nullptr)  //range: Constructs a container with as many elements as the range [first,last),
 			{																			// with each element constructed from its corresponding element in that range, in the same order.
 				_allocator = allocator;
-				_capacity = last - first;
+				_capacity = ft::distance(first, last);
 				_array = _allocator.allocate(_capacity);
 				for (_size=0; first != last; first++, _size++)
 					_array[_size] = *first;

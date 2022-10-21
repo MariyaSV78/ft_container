@@ -48,14 +48,19 @@ namespace ft
 			iterator_type base() const
 			{return _elem;}
 
+
 			reference operator*() const
 			{
 				iterator_type tmp = _elem;
-				return *(--tmp);
+				return *--tmp;
 			}
 
 			pointer operator->() const
-			{return  &(operator*());}
+			{
+				iterator_type tmp = _elem;
+				--tmp;
+				return  &(*tmp);
+			}
 			
 			
 			reveres_iterator& operator++()
@@ -68,7 +73,7 @@ namespace ft
 			reveres_iterator operator++(int)
 			{
 				reveres_iterator tmp=*this;
-				++(*this);
+				--_elem;
 				return tmp;
 			}
 
@@ -81,7 +86,7 @@ namespace ft
 			reveres_iterator operator--(int)
 			{
 				reveres_iterator tmp=*this;
-				--(*this);
+				++_elem;
 				return tmp;
 			}
 			
@@ -104,7 +109,7 @@ namespace ft
 			}
 			
 			reference operator[] (difference_type n) const 
-			{return (this->base()[-n - 1]);}
+			{return *(*this + n);}
 	};
 	
 	//SECTION - NON MEMBER FUNCTION OVERLOADS
