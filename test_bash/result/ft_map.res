@@ -23,12 +23,27 @@ Max_size:
 max size for def_map = 230584300921369395
 max size for copy_map = 230584300921369395
 
-Iterators: begin, end: 
+Begin, end: 
 first element = a; last element = 101
 
-Iterators: rbegin, rend: 
+Rbegin, rend: 
 def_map.rend()-> first: first element key= a; def_map.rend()->second: first element value =97
 def_map.rbegin()->first(): last element key = e; def_map.rbegin()->second: last element value=101
+
+Iterator
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+
+Iterator (const)
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+
+Reverse Iterator
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+[a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+
+Reverse Iterator (const)                 [a: 97], [b: 98], [c: 99], [d: 100], [e: 101],  size = 5
+[a: 101], [b: 100], [c: 99], [d: 98], [e: 97],  size = 5
 
 Element accesse []: 
 copy_map['b'] is 1000

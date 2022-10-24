@@ -46,7 +46,7 @@ std::cout << "==================================================================
 		std::cout <<  std::endl;	
 
 	
-	std::cout << "Iterators: begin, end: "<< std::endl;
+	std::cout << "Begin, end: "<< std::endl;
 		NAMESPACE::map<char, int>::iterator begin, end;
 		begin = def_map.begin();
 		end = def_map.end();
@@ -54,10 +54,53 @@ std::cout << "==================================================================
 		std::cout << "first element = " << begin->first << "; last element = " << end->second << std::endl; 
 		std::cout << std::endl;
 	
-	std::cout << "Iterators: rbegin, rend: "<< std::endl;
+	std::cout << "Rbegin, rend: "<< std::endl;
 		std::cout << "def_map.rend()-> first: first element key= " << (--def_map.rend())->first << "; def_map.rend()->second: first element value =" << (--def_map.rend())->second << std::endl; 
 		std::cout << "def_map.rbegin()->first(): last element key = " << (def_map.rbegin())->first << "; def_map.rbegin()->second: last element value=" << (def_map.rbegin())->second << std::endl; 
 		std::cout << std::endl ;
+
+	std::cout << "Iterator"<< std::endl;
+		NAMESPACE::map<char, int> iter_map(def_map.begin(), def_map.end());
+		print_map(iter_map);
+		for (NAMESPACE::map<char, int>::iterator it = iter_map.begin(); it != iter_map.end(); it++ )
+		{
+			it->second = (it->second)++;
+		}
+		print_map(iter_map);
+		std::cout << std::endl;
+
+ 	std::cout << "Iterator (const)"<< std::endl;
+		NAMESPACE::map<char, int> 	const_iter_map(def_map.begin(), def_map.end());
+		NAMESPACE::map<char, int>::iterator it = const_iter_map.begin();
+		print_map(const_iter_map);
+		for (NAMESPACE::map<char,int>::const_iterator c_it = const_iter_map.begin(); c_it != const_iter_map.end(); c_it++, it++)
+		{
+			it->second = c_it->first;
+		}
+		print_map(const_iter_map);
+		std::cout << std::endl;
+	
+	 std::cout << "Reverse Iterator"<< std::endl;
+		NAMESPACE::map<char, int> rev_iter_map(def_map.rbegin(), def_map.rend());
+		print_map(rev_iter_map);
+		for (NAMESPACE::map<char, int>::reverse_iterator it = rev_iter_map.rbegin(); it != rev_iter_map.rend(); it++ )
+		{
+			it->second = (it->second)++;
+		}
+		print_map(rev_iter_map);
+		std::cout << std::endl;
+
+
+	std::cout << "Reverse Iterator (const)"<< std::setw(18);
+		NAMESPACE::map<char, int> 	rev_const_iter(def_map.rbegin(), def_map.rend());
+		NAMESPACE::map<char, int>::iterator it3 = rev_const_iter.begin();
+		print_map(rev_const_iter);
+		for (NAMESPACE::map<char,int>::const_reverse_iterator it = rev_const_iter.rbegin(); it != rev_const_iter.rend(); it++, it3++)
+		{
+			it3->second = it->first;
+		}
+		print_map(rev_const_iter);
+		std::cout << std::endl;
 
 	std::cout << "Element accesse []: "  << std::endl;
 		copy_map['b'] = 1000;
@@ -150,10 +193,10 @@ std::cout << "==================================================================
 		std::cout << std::endl << std::endl;
 
 	std::cout << "Find:"  << std::endl;
-		NAMESPACE::map<char, int>::iterator	it = copy_map.find('a');
-		std::cout << "[" << it->first << ":" << it->second << "]" << std::endl;
+		NAMESPACE::map<char, int>::iterator	it4 = copy_map.find('a');
+		std::cout << "[" << it4->first << ":" << it4->second << "]" << std::endl;
 		print_map (copy_map);
-		copy_map.erase(it);
+		copy_map.erase(it4);
 		print_map (copy_map);
 		std::cout <<  std::endl << std::endl;	
 
