@@ -14,13 +14,13 @@
 # define BINARY_SEARCH_TREE_HPP
 
 # include <iterator>
+# include <memory>
 # include "utils.hpp"
-//# include "pair.hpp"
 # include "binary_search_tree_iter.hpp"
 
 namespace ft
 {
-	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>, class Type_Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
+	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>, class Type_Alloc = std::allocator<T> /*class Node_Alloc = std::allocator<Node>*/ >
 	class Binary_search_tree
 	{
 		public :
@@ -30,10 +30,13 @@ namespace ft
 			typedef T  										value_type;
 			typedef Node 									node_type;
 			typedef Node*  									node_pointer;
-			typedef Node_Alloc  							node_alloc;
+			//typedef Node_Alloc  							node_alloc;
 			typedef ft::BST_iterator<Node, Compare> 		iterator;
 			typedef ft::BST_const_iterator<Node, Compare> 	const_iterator;
 			typedef size_t 									size_type;
+			typedef typename std::allocator<T>::template rebind<node_type>::other	node_alloc;    
+
+
 
 // last_node parent = root of tree, last_node right = last node, last_node left = first node
 			node_pointer    _last_node;

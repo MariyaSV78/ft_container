@@ -16,6 +16,8 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <deque>
+#include <list>
 #include "vector.hpp"
 
 namespace ft

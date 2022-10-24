@@ -150,7 +150,7 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 		std::cout <<  std::endl;
 		std::cout <<  std::endl;	
 
-	std::cout << "begin, end"  << std::setw(34);
+	std::cout << "begin, end" ;
 		ft::map<char, int>::iterator begin_ft, end_ft;
 		std::map<char, int>::iterator begin_std, end_std;
 		clock_gettime(CLOCK_MONOTONIC, &start);
@@ -167,14 +167,14 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 		end_ft--; end_std--;
 		if	(begin_ft->first == begin_std->first && end_ft->first == end_std->first && 
 			begin_ft->second == begin_std->second && end_ft->second == end_std->second){
-			std::cout << std::setw(31) <<  GREEN << "OK" << RESET;}
+			std::cout << std::setw(42) <<  GREEN << "OK" << RESET;}
 		else
-			std::cout << std::setw(31) <<  RED << "KO" << RESET;
+			std::cout << std::setw(42) <<  RED << "KO" << RESET;
 		is_time(std_time, ft_time);  
 		std::cout << std::endl;
 		std::cout << std::endl;
 	
-	std::cout << "rbegin, rend"  << std::setw(30);
+	std::cout << "rbegin, rend"  << std::setw(48);
 		clock_gettime(CLOCK_MONOTONIC, &start);
 		ft_def_map.rbegin();
 		ft_def_map.rend();
@@ -187,14 +187,14 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
         std_time = (end.tv_nsec - start.tv_nsec)* 1e-3;
 		if	(ft_def_map.rbegin()->first == std_def_map.rbegin()->first && (++ft_def_map.rend())->first == (++std_def_map.rend())->first && 
 			ft_def_map.rbegin()->second == std_def_map.rbegin()->second && (++ft_def_map.rend())->second == (++std_def_map.rend())->second)
-			std::cout << std::setw(29) <<  GREEN << "OK" << RESET;
+			std::cout << std::setw(40) <<  GREEN << "OK" << RESET;
 		else
-			std::cout << std::setw(29) <<  RED << "KO" << RESET;
+			std::cout << std::setw(40) <<  RED << "KO" << RESET;
 		is_time(std_time, ft_time);
 		std::cout << std::endl;
 		std::cout << std::endl;
 
-	 std::cout << "Iterator"<< std::setw(11);
+	 std::cout << "Iterator"<< std::setw(34);
 	  	clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char, int> ft_iter_map(ft_def_map.begin(), ft_def_map.end());
 		for (ft::map<char, int>::iterator ft_it = ft_iter_map.begin(); ft_it != ft_iter_map.end(); ft_it++ )
@@ -218,7 +218,7 @@ std::cout << std::setw(40) << "size"  << std::setw(12) << "elements" << std::set
 		std::cout << std::endl;
 
 
- 	std::cout << "Iterator (const)"<< std::setw(24);
+ 	std::cout << "Iterator (const)"<< std::setw(26);
 	  	clock_gettime(CLOCK_MONOTONIC, &start);
 		ft::map<char, int> 	ft_const_iter(ft_def_map.begin(), ft_def_map.end());
 		ft::map<char, int>::iterator it = ft_const_iter.begin();

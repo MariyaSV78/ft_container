@@ -1,4 +1,4 @@
-NAME = ft_containers42
+NAME = test
 
 FLAGS = -g -Wall -Werror -Wextra --std=c++98
 
