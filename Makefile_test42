@@ -5,7 +5,7 @@ FLAGS = -g -Wall -Werror -Wextra --std=c++98
 #CXX = c++
 CXX = clang++
 
-SRCS = main_test.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
+SRCS = main_test42.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
 
 OBJS_FOLDER = objs/
 OBJ =  $(SRCS:.cpp=.o)
