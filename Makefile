@@ -6,21 +6,23 @@ CXX = clang++
 
 SRCS = main.cpp  test_stack.cpp  test_vector.cpp  test_map.cpp
 
-OBJS_FOLDER = objs/
+OBJS_FOLDER = objs
 OBJ =  $(SRCS:.cpp=.o)
-OBJS = $(addprefix $(OBJS_FOLDER), $(OBJ))
+OBJS = $(addprefix $(OBJS_FOLDER)/, $(OBJ))
 
 
-all: $(NAME)
+all: 
+	mkdir -p $(OBJS_FOLDER)
+	make $(NAME)
 
-$(OBJS_FOLDER)%.o: %.cpp
+$(OBJS_FOLDER)/%.o: %.cpp
 	$(CXX) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CXX) $(FLAGS) $(OBJS) -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS_FOLDER)
 
 fclean: clean
 	rm -f $(NAME)
