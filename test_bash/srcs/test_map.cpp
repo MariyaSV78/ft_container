@@ -1,6 +1,7 @@
-#include "../incs/map.hpp"
-#include "../incs/tester.hpp"
-#include "../utils/colors.hpp"
+#include "../../incs/map.hpp"
+// #include "../tmp_rchalie/containers/map.hpp"
+#include "../../incs/tester.hpp"
+#include "../../utils/colors.hpp"
 
 int	main()
 {
@@ -45,62 +46,19 @@ std::cout << "==================================================================
 		std::cout << "max size for copy_map = " << copy_map.max_size()<< std::endl;
 		std::cout <<  std::endl;	
 
-	
-	std::cout << "Begin, end: "<< std::endl;
+
+	std::cout << "Iterators: begin, end: "<< std::endl;
 		NAMESPACE::map<char, int>::iterator begin, end;
 		begin = def_map.begin();
 		end = def_map.end();
 		end--;
 		std::cout << "first element = " << begin->first << "; last element = " << end->second << std::endl; 
 		std::cout << std::endl;
-	
-	std::cout << "Rbegin, rend: "<< std::endl;
+
+	std::cout << "Iterators: rbegin, rend: "<< std::endl;
 		std::cout << "def_map.rend()-> first: first element key= " << (--def_map.rend())->first << "; def_map.rend()->second: first element value =" << (--def_map.rend())->second << std::endl; 
 		std::cout << "def_map.rbegin()->first(): last element key = " << (def_map.rbegin())->first << "; def_map.rbegin()->second: last element value=" << (def_map.rbegin())->second << std::endl; 
 		std::cout << std::endl ;
-
-	std::cout << "Iterator"<< std::endl;
-		NAMESPACE::map<char, int> iter_map(def_map.begin(), def_map.end());
-		print_map(iter_map);
-		for (NAMESPACE::map<char, int>::iterator it = iter_map.begin(); it != iter_map.end(); it++ )
-		{
-			it->second = (it->second)++;
-		}
-		print_map(iter_map);
-		std::cout << std::endl;
-
- 	std::cout << "Iterator (const)"<< std::endl;
-		NAMESPACE::map<char, int> 	const_iter_map(def_map.begin(), def_map.end());
-		NAMESPACE::map<char, int>::iterator it = const_iter_map.begin();
-		print_map(const_iter_map);
-		for (NAMESPACE::map<char,int>::const_iterator c_it = const_iter_map.begin(); c_it != const_iter_map.end(); c_it++, it++)
-		{
-			it->second = c_it->first;
-		}
-		print_map(const_iter_map);
-		std::cout << std::endl;
-	
-	 std::cout << "Reverse Iterator"<< std::endl;
-		NAMESPACE::map<char, int> rev_iter_map(def_map.rbegin(), def_map.rend());
-		print_map(rev_iter_map);
-		for (NAMESPACE::map<char, int>::reverse_iterator it = rev_iter_map.rbegin(); it != rev_iter_map.rend(); it++ )
-		{
-			it->second = (it->second)++;
-		}
-		print_map(rev_iter_map);
-		std::cout << std::endl;
-
-
-	std::cout << "Reverse Iterator (const)"<< std::setw(18);
-		NAMESPACE::map<char, int> 	rev_const_iter(def_map.rbegin(), def_map.rend());
-		NAMESPACE::map<char, int>::iterator it3 = rev_const_iter.begin();
-		print_map(rev_const_iter);
-		for (NAMESPACE::map<char,int>::const_reverse_iterator it = rev_const_iter.rbegin(); it != rev_const_iter.rend(); it++, it3++)
-		{
-			it3->second = it->first;
-		}
-		print_map(rev_const_iter);
-		std::cout << std::endl;
 
 	std::cout << "Element accesse []: "  << std::endl;
 		copy_map['b'] = 1000;
@@ -152,7 +110,7 @@ std::cout << "==================================================================
 		new_map.erase(begin, new_map.end());
 		print_map (new_map);
 		std::cout << std::endl << std::endl;
-	
+
 
 	std::cout << "Swap:"  << std::endl;
 		std::cout << "map_1: "; 
@@ -173,7 +131,7 @@ std::cout << "==================================================================
 		new_map['B'] = 66;
 		print_map(new_map); 
 		std::cout << std::endl << std::endl;
-	
+
 	std::cout << "Key compare:"  << std::endl;
 		NAMESPACE::map<char,int>::key_compare  compar = NAMESPACE::map<char, int>().key_comp();
 		bool  res = compar(115, 116);
@@ -182,7 +140,7 @@ std::cout << "==================================================================
 			std::cout  << "the first argument is considered to go before the second" << std::endl << std::endl;
 		else
 			std::cout << "the second argument is considered to go before the first" << std::endl << std::endl;
-				
+
 	std::cout << "Key value:";
 		NAMESPACE::map<char,int>::value_compare		key = NAMESPACE::map<char, int>().value_comp();
 		bool res1 = key(NAMESPACE::make_pair('s', 115),NAMESPACE::make_pair('t', 116));
@@ -193,10 +151,10 @@ std::cout << "==================================================================
 		std::cout << std::endl << std::endl;
 
 	std::cout << "Find:"  << std::endl;
-		NAMESPACE::map<char, int>::iterator	it4 = copy_map.find('a');
-		std::cout << "[" << it4->first << ":" << it4->second << "]" << std::endl;
+		NAMESPACE::map<char, int>::iterator	it = copy_map.find('a');
+		std::cout << "[" << it->first << ":" << it->second << "]" << std::endl;
 		print_map (copy_map);
-		copy_map.erase(it4);
+		copy_map.erase(it);
 		print_map (copy_map);
 		std::cout <<  std::endl << std::endl;	
 
@@ -227,7 +185,7 @@ std::cout << "==================================================================
 		// std::cout << "The bounds of a range that includes all the elements in the container with the key = b: " << ret.firts->first<< ""=>"" ret.firts->second << std::endl;
 		// std::cout << "The bounds of a range that includes all the elements in the container with the key = a: " << ret.firts->first<< ""=>"" ret.firts->second << std::endl;
 		// std::cout <<  std::endl << std::endl;	
-	
+
 		// std::cout << "Lower bound points to: ";
   		// std::cout << ret.first->first << " => " << ret.first->second << std::endl;
 

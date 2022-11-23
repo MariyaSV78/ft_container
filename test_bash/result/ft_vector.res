@@ -24,19 +24,7 @@ Assign operator
 
 Iterator constructor 
 42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 9, size = 9
-47, 47, 47, 47, 47, 47, 47, 47, 47, capacity = 9, size = 9
 
-Iterator constructor (const)
-0, 0, 0, 0, 0, 0, 0, 0, 0, capacity = 9, size = 9
-42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 9, size = 9
-
-Reverse Iterator
-47, 47, 47, 47, 47, 47, 47, 47, 47, capacity = 9, size = 9
-55, 54, 53, 52, 51, 50, 49, 48, 47, capacity = 9, size = 9
-
-Reverse Iterator (const)
-47, 48, 49, 50, 51, 52, 53, 54, 55, capacity = 9, size = 9
-55, 54, 53, 52, 51, 52, 53, 54, 55, capacity = 9, size = 9
 ==========================================================================
 
 Max_size:
@@ -44,16 +32,16 @@ max size for def_vector = 2305843009213693951
 max size for copy_vector = 2305843009213693951
 
 resize(15,42)
-47, 47, 47, 47, 47, 47, 47, 47, 47, 42, 42, 42, 42, 42, 42, capacity = 18, size = 15
+42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 18, size = 15
 
 reserve(10)
-47, 47, 47, 47, 47, 47, 47, 47, 47, 42, 42, 42, 42, 42, 42, capacity = 18, size = 15
+42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 18, size = 15
 
 push_back(10)
-47, 47, 47, 47, 47, 47, 47, 47, 47, 42, 42, 42, 42, 42, 42, 10, 15, 20, 10, capacity = 36, size = 19
+42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 10, 15, 20, 10, capacity = 36, size = 19
 
 pop_back()
-47, 47, 47, 47, 47, 47, 47, 47, 47, 42, 42, 42, 42, 42, 42, 10, 15, capacity = 36, size = 17
+42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 10, 15, capacity = 36, size = 17
 
 assign(4, 10)
 10, 10, 10, capacity = 36, size = 3
@@ -75,10 +63,10 @@ erase(range)
 
 swap
 vector_1: 10, 42, 42, 42, 42, 10, capacity = 36, size = 6
-vector_2: 47, 47, 47, 47, 47, 47, 47, 47, 47, capacity = 9, size = 9
+vector_2: 42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 9, size = 9
 
 ===swap===
-map_1: 47, 47, 47, 47, 47, 47, 47, 47, 47, capacity = 9, size = 9
+map_1: 42, 42, 42, 42, 42, 42, 42, 42, 42, capacity = 9, size = 9
 map_2: 10, 42, 42, 42, 42, 10, capacity = 36, size = 6
 
 clear

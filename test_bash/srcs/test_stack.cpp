@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_stack.hpp                                     :+:      :+:    :+:   */
+/*   test_stack.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msosnova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,15 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../incs/stack.hpp"
-#include "../incs/tester.hpp"
-#include "../utils/colors.hpp"
+#include "../../incs/stack.hpp"
+#include "../../incs/tester.hpp"
+#include "../../utils/colors.hpp"
 
 
 int	main()
 {
-	
+
 	std::cout << "==========================================================================" << std::endl; 
 	std::cout << GREEN << std::setw(40) << std::right << "stack" << RESET << std::endl;
 	std::cout << "==========================================================================" << std::endl;
