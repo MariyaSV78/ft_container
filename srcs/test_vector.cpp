@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include "tester.hpp"
+#include "../incs/vector.hpp"
+#include "../incs/tester.hpp"
 #include <ctime>
-#include "./utils/colors.hpp"
+#include "../utils/colors.hpp"
 
 void	is_time(double std_time, double ft_time)
 {

@@ -14,24 +14,27 @@ CXX = clang++
 
 SRCS_m = test_map.cpp
 SRCS_v = test_vector.cpp
-SRCS_s= test_stack.cpp
+SRCS_s = test_stack.cpp
 
 
 OBJS_FOLDER_ft = objs/ft/
 OBJS_FOLDER_std = objs/std/
 
-OBJ_ft_v=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_v:.cpp=.o))
-OBJ_ft_m=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_m:.cpp=.o))
-OBJ_ft_s=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_s:.cpp=.o))
-OBJ_std_v=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_v:.cpp=.o))
-OBJ_std_m=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_m:.cpp=.o))
-OBJ_std_s=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_s:.cpp=.o))
+OBJ_ft_v=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_v:.cpp=.opp))
+OBJ_ft_m=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_m:.cpp=.opp))
+OBJ_ft_s=  $(addprefix $(OBJS_FOLDER_ft), $(SRCS_s:.cpp=.opp))
+OBJ_std_v=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_v:.cpp=.opp))
+OBJ_std_m=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_m:.cpp=.opp))
+OBJ_std_s=  $(addprefix $(OBJS_FOLDER_std), $(SRCS_s:.cpp=.opp))
 
-all: $(NAME_ft_v) $(NAME_ft_m) $(NAME_ft_s) $(NAME_std_v) $(NAME_std_m) $(NAME_std_s)
+all: 
+	mkdir -p $(OBJS_FOLDER_ft)
+	mkdir -p $(OBJS_FOLDER_std)
+	make $(NAME_ft_v) $(NAME_ft_m) $(NAME_ft_s) $(NAME_std_v) $(NAME_std_m) $(NAME_std_s)
 
-$(OBJS_FOLDER_ft)%.o: %.cpp
+$(OBJS_FOLDER_ft)%.opp: %.cpp
 	$(CXX) $(FLAGS_ft) -c $< -o $@
-$(OBJS_FOLDER_std)%.o: %.cpp
+$(OBJS_FOLDER_std)%.opp: %.cpp
 	$(CXX) $(FLAGS_std) -c $< -o $@
 
 
@@ -49,12 +52,7 @@ $(NAME_std_s): $(OBJ_std_s)
 	$(CXX) $(FLAGS_std)  $(OBJ_std_s) -o $(NAME_std_s)
 
 clean:
-	rm -f $(OBJ_ft_v)
-	rm -f $(OBJ_std_v)
-	rm -f $(OBJ_ft_m)
-	rm -f $(OBJ_std_m)	
-	rm -f $(OBJ_ft_s)
-	rm -f $(OBJ_std_s)
+	rm -rf objs/
 
 fclean: clean
 	rm -f $(NAME_ft_v)

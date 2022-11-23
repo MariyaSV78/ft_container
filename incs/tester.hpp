@@ -9,7 +9,7 @@
 # include <vector>
 # include <map>
 # include <iterator>
-# include "./utils/colors.hpp"
+# include "../utils/colors.hpp"
 
 
 typedef struct 			timespec Time;
@@ -57,7 +57,7 @@ void	print_stack(T stack)
 template<typename T1, typename T2>
 void	vector_is_identic(const T1& std_vector, const T2& ft_vector)
 {
-	int i = 0;
+	size_t i = 0;
 	
 	if (std_vector.size() == ft_vector.size())
 		std::cout <<  GREEN << "OK" << RESET;
@@ -75,7 +75,7 @@ void	vector_is_identic(const T1& std_vector, const T2& ft_vector)
 	}
 	if (std_vector.size() == ft_vector.size())
 	{
-		for(size_t i = 0; i < std_vector.size(); i++)
+		for(i = 0; i < std_vector.size(); i++)
 			if (std_vector[i] != ft_vector[i])
 			{
 				std::cout << std::setw(14) <<  RED << "KO" << RESET;

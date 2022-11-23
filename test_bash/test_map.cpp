@@ -1,5 +1,5 @@
-#include "../map.hpp"
-#include "../tester.hpp"
+#include "../incs/map.hpp"
+#include "../incs/tester.hpp"
 #include "../utils/colors.hpp"
 
 int	main()

@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 
-#include "../vector.hpp"
-#include "../tester.hpp"
+#include "../incs/vector.hpp"
+#include "../incs/tester.hpp"
 #include "../utils/colors.hpp"
 
 int    main()

@@ -1,9 +1,7 @@
-#include "map.hpp"
+#include "../incs/map.hpp"
 // #include "../tmp_rchalie/containers/map.hpp"
-#include "tester.hpp"
-
-
-#include "./utils/colors.hpp"
+#include "../incs/tester.hpp"
+#include "../utils/colors.hpp"
 
 void	test_map()
 {

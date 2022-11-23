@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 
-#include "../stack.hpp"
-#include "../tester.hpp"
+#include "../incs/stack.hpp"
+#include "../incs/tester.hpp"
 #include "../utils/colors.hpp"
 
 
