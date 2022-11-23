@@ -14,8 +14,8 @@ vpath %.cpp $(foreach dir, $(SRC_DIR), $(dir):)
 SRCS = $(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.cpp), $(notdir $(file))))
 
 # --  Redirection in OBJS  -- #
- OBJ = $(SRCS:%.cpp=%.opp)
- OBJS = $(addprefix $(OBJS_DIR), $(OBJ))
+OBJ = $(SRCS:%.cpp=%.opp)
+OBJS = $(addprefix $(OBJS_DIR), $(OBJ))
 
 
 
